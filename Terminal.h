@@ -1,7 +1,11 @@
 #ifndef TERMINAL_H
 #define TERMINAL_H
+#include <cstdlib>
 #include <iostream>
+#include <sstream>
+#include <stdlib.h>
 #include "Router.h"
+//#include "Router.cpp"
 #include "Pagina.h"
 #include "Lista.h"
 
@@ -15,7 +19,7 @@ private:
     Lista<Pagina>* paginasRecibidas = new Lista<Pagina>();
 
 public:
-    Terminal();
+    Terminal(){};
     void enviarPagina();
     void recibirPagina();
 

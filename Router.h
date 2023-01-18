@@ -1,6 +1,9 @@
 #ifndef ROUTER_H
 #define ROUTER_H
+#include <cstdlib>
 #include <iostream>
+#include <sstream>
+#include <stdlib.h>
 #include "Lista.h"
 #include "Terminal.h"
 #include "Paquete.h"
@@ -16,12 +19,13 @@ class Router{
 private:
     int id;
     int bw;
-    Lista<Terminal>* terminalesConectados = new Lista<Terminal>();
-    Lista<Router>* vecinos = new Lista<Router>();
-    Cola<Paquete>* colaDeEnvio = new Cola<Paquete>(); 
+    //Lista<Terminal>* terminalesConectados = new Lista<Terminal>();
+    //Lista<Router>* vecinos = new Lista<Router>();
+    //Cola<Paquete>* colaDeEnvio = new Cola<Paquete>(); 
 
     //listas de destino.
 public:
+    Router(){};
     void recibirPag();
     void enviarPag();
     void segmentarPag();

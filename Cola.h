@@ -1,6 +1,9 @@
 #ifndef COLA_H
 #define COLA_H
+#include <cstdlib>
 #include <iostream>
+#include <sstream>
+#include <stdlib.h>
 #include "Lista.h"
 #include "Nodo.h"
 

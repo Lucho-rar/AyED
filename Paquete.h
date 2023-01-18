@@ -1,6 +1,9 @@
 #ifndef PAQUETE_H
 #define PAQUETE_H
-#include <iostream> 
+#include <cstdlib>
+#include <iostream>
+#include <sstream>
+#include <stdlib.h>
 #include "Router.h"
 #include "Pagina.h"
 
@@ -8,10 +11,15 @@ using namespace std;
 class Paquete{
 private:
     int numeroDePaquete;
-    Pagina paginaMadre;
-    Router origen;
-    Router destino;
-
+    //Pagina paginaMadre;
+    //Router origen;
+    //Router destino;
+public:
+    Paquete(){};
+    int getNumeroDePaquete();
+    //Pagina getPaginaMadre();
+    //Router getOrigen();
+    //Router getDestino();
 };
 
 
