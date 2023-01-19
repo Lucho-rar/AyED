@@ -26,8 +26,6 @@ public:
     int getTamanioDePag(){return tamanioDePag;};
     Terminal* getOrigen(){return origen;};
     Terminal* getDestino(){return destino;};
-    //Terminal getOrigen();
-    //Terminal getDestino();
 };
 
 

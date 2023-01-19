@@ -28,8 +28,10 @@ private:
     //listas de destino.
 public:
     Router(int direccion , int ancho){
+        
         this->id = direccion;
         this->bw = ancho;
+        
     }
     int getID(){return this->id;};
     void recibirPag();

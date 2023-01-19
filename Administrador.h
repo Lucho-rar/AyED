@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include "Router.h"
 #include "Lista.h"
+#include "Nodo.h"
 #include "Terminal.h"
 
 using namespace std;
@@ -13,13 +14,17 @@ using namespace std;
 
 class Administrador{
 private:
-    //Lista<Router>* routersDisponibles = new Lista<Router>();
+    Lista<Router*>* liss = new Lista<Router*>();
+    Lista<Router*>* routersDisponibles = new Lista<Router*>();
     //Lista<Terminal>* terminalesConectados = new Lista<Terminal>();
     
 public:
     Administrador(){};
+    void generarRouters();
+    void imprimirListadoDeRouters();
     void RecalcularRutas();
     void informarCaminos();
+
 
 
 };

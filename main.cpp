@@ -14,6 +14,7 @@
 
 using namespace std;
 int main(){
+    /*
     Terminal* f = new Terminal(3);
     Terminal* x = new Terminal(4);
     Terminal* k = new Terminal(5);
@@ -30,6 +31,10 @@ int main(){
     cout<<"La pagina "<<page->getidentificadorDePag()<<" pesa "<< page->getTamanioDePag()<< "bytes y va desde el router "
     <<page->getOrigen()->getIP()<<" hacia el router "<< page->getDestino()->getIP()<<endl;
     //cout<<"\npagina "<<page->getidentificadorDePag()<<" tamanio "<<page->getTamanioDePag();
+    */
+    Administrador* admin = new Administrador();
+    admin->generarRouters();
+    admin->imprimirListadoDeRouters();
 
 
 
