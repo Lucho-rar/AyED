@@ -2,12 +2,6 @@
 
 /*          Metodos pagina      */
 
-int Pagina::getidentificadorDePag(){
-}
-
-int Pagina::getTamanioDePag(){
-
-}
 /*
 Terminal Pagina::getOrigen(){
 

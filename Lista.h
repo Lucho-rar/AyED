@@ -24,6 +24,8 @@ public:
                         //resto= lo que queda de la lista sin la cabeza
     string toPrint(string p);
     T suma(T i);
+    Nodo<T> *comienzo() { return czo; };
+
     int size();
     void borrar(void); //borra la cabeza
     void borrar_last();//borra el ultimo
