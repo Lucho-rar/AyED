@@ -6,25 +6,34 @@
 #include <stdlib.h>
 #include "Router.h"
 #include "Pagina.h"
+#include "Terminal.h"
 
 using namespace std;
+
+class Pagina;
+class Terminal;
 class Paquete{
 private:
     int numeroDePaquete;
+    int tamanioDePaquete;
     Pagina* paginaMadre;
-    Router* origen;
-    Router* destino;
+    Terminal* origen;
+    Terminal* destino;
 public:
     Paquete(){};
-    Paquete(int n , Pagina* pag){
+    Paquete(int n , Pagina* pag,Terminal* o, Terminal* d, int tam){
         this->numeroDePaquete = n;
-        this->paginaMadre = P
-
+        this->paginaMadre = pag;
+        this->origen = o;
+        this->destino =d;
+        this->tamanioDePaquete = tam;
     }
-    int getNumeroDePaquete();
-    //Pagina getPaginaMadre();
-    //Router getOrigen();
-    //Router getDestino();
+    int getNumeroDePaquete(){return numeroDePaquete;};
+    int getTamanioDePaquete(){return tamanioDePaquete;};
+    Pagina* getPaginaMadre(){return paginaMadre;};
+    Terminal* getOrigen(){return origen;};
+    Terminal* getDestino(){return destino;};
+    
 };
 
 

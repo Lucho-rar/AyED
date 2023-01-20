@@ -10,18 +10,13 @@ void Router::recibirPag(Pagina* p){
 
 
 void Router::segmentarPag(Pagina* p){
-  /*  double tamanioDePaquetes;
-    if(p->getTamanioDePag() == 0){
-        //descartar pagina
-    }else{
-        tamanioDePaquetes = p->getTamanioDePag()/10;
+    for (int i = 0;i <10;i++){
+        Paquete* package = new Paquete(i,p,p->getOrigen(),p->getDestino(),p->getTamanioDePag()/10);
+        colaDeEnvio->encolar(package);
     }
-    for (int i=0;i<10;i++){
-        Paquete* paquete 
-    }*/
 }
 
-void Router::enviarPag(){
+void Router::enviarPag(Pag){
 
 }
 

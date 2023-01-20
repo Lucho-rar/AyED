@@ -6,18 +6,21 @@
 #include <stdlib.h>
 #include "Lista.h"
 #include "Nodo.h"
-#include "Terminal.h"
-#include "Paquete.h"
+//#include "Terminal.h"
+//#include "Paquete.h"
 #include "Cola.h"
 #include "Router.h"
 #include "Pagina.h"
+
 
 using namespace std;
 
 
 
 /*                           CLASE ROUTER                              */
-
+class Terminal;
+class Paquete;
+class Pagina;
 class Router{
 private:
     int id;
