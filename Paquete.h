@@ -11,11 +11,16 @@ using namespace std;
 class Paquete{
 private:
     int numeroDePaquete;
-    //Pagina paginaMadre;
-    //Router origen;
-    //Router destino;
+    Pagina* paginaMadre;
+    Router* origen;
+    Router* destino;
 public:
     Paquete(){};
+    Paquete(int n , Pagina* pag){
+        this->numeroDePaquete = n;
+        this->paginaMadre = P
+
+    }
     int getNumeroDePaquete();
     //Pagina getPaginaMadre();
     //Router getOrigen();

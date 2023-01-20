@@ -7,7 +7,7 @@ Terminal::Terminal(int direccion){
 }
 
 void Terminal::conectarseAUnRouter(Router* conexion){
-    cout<<"Lo reconoci desde la PC"<<endl;
+    //cout<<"Lo reconoci desde la PC"<<endl;
 }
 
 int Terminal::getIP(){

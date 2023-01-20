@@ -34,7 +34,12 @@ int main(){
     */
     Administrador* admin = new Administrador();
     admin->generarRouters();
-    admin->imprimirListadoDeRouters();
+    admin->generarTerminales();
+    //admin->imprimirListadoDeRouters();
+    //admin->imprimirListadosDeTerminales();
+    admin->establecerConexiones();
+    admin->imprimirConexiones();
+
 
 
 

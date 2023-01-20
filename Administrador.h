@@ -14,7 +14,7 @@ using namespace std;
 
 class Administrador{
 private:
-    Lista<Router*>* liss = new Lista<Router*>();
+    Lista<Terminal*>* terminalesDisponibles = new Lista<Terminal*>();
     Lista<Router*>* routersDisponibles = new Lista<Router*>();
     //Lista<Terminal>* terminalesConectados = new Lista<Terminal>();
     
@@ -22,6 +22,11 @@ public:
     Administrador(){};
     void generarRouters();
     void imprimirListadoDeRouters();
+    void generarTerminales();
+    void imprimirListadosDeTerminales();
+    
+    void establecerConexiones();
+    void imprimirConexiones();
     void RecalcularRutas();
     void informarCaminos();
 

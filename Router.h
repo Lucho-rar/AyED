@@ -10,6 +10,7 @@
 #include "Paquete.h"
 #include "Cola.h"
 #include "Router.h"
+#include "Pagina.h"
 
 using namespace std;
 
@@ -23,7 +24,8 @@ private:
     int bw;
     Lista<Terminal*>* terminalesConectados = new Lista<Terminal*>();
     Lista<Router*>* listaDeVecinos = new Lista<Router*>();
-    //Cola<Paquete>* colaDeEnvio = new Cola<Paquete>(); 
+    Lista<Pagina*>* listaDePaginas = new Lista<Pagina*>();
+    Cola<Paquete*>* colaDeEnvio = new Cola<Paquete*>(); 
 
     //listas de destino.
 public:
@@ -34,7 +36,8 @@ public:
         
     }
     int getID(){return this->id;};
-    void recibirPag();
+    int getBW(){return this->bw;};
+    void recibirPag(Pagina*);
     void enviarPag();
     void segmentarPag(Pagina*);
     void agregarTerminal(Terminal*);    

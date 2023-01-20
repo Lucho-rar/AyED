@@ -4,21 +4,30 @@
 
 
 
-void Router::recibirPag(){
+void Router::recibirPag(Pagina* p){
+    this->listaDePaginas->add(p);
+}
 
+
+void Router::segmentarPag(Pagina* p){
+  /*  double tamanioDePaquetes;
+    if(p->getTamanioDePag() == 0){
+        //descartar pagina
+    }else{
+        tamanioDePaquetes = p->getTamanioDePag()/10;
+    }
+    for (int i=0;i<10;i++){
+        Paquete* paquete 
+    }*/
 }
 
 void Router::enviarPag(){
 
 }
 
-void Router::segmentarPag(Pagina* p){
-    
-    
-}
 
 void Router::agregarTerminal(Terminal* t){
-    cout<<"Reconocido desde el router"<<endl;
+   // cout<<"Reconocido desde el router"<<endl;
     t->conectarseAUnRouter(this);
     terminalesConectados->add(t);
 }

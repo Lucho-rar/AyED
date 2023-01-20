@@ -5,13 +5,14 @@
 #include <sstream>
 #include <stdlib.h> 
 //#include "Terminal.h"
+#include "Paquete.h"
 
 using namespace std;
 class Terminal;
 class Pagina{
 private:
     int identificadorDePag;
-    int tamanioDePag;
+    double tamanioDePag;
     Terminal* origen;
     Terminal* destino;
 public:

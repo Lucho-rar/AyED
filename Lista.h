@@ -32,7 +32,7 @@ public:
     void concat(Lista<T>* l1);// le transfiere los datos de l1 a this
     Lista<T>* copy(void);// hace una copia de la lista
     void tomar(int n);//deja "vivos" los n primeros nodos y borra el resto
-   
+    Nodo<T>* buscarPorIndice(int n);
 };
 template <class T>
 void Lista<T>::add(T d) //100
@@ -148,6 +148,20 @@ template <class T> void Lista<T>::tomar(int n)
         this->tomar(n);
     }
 }
+
+template<class T>
+Nodo<T> *Lista<T>::buscarPorIndice(int a) {
+    Nodo<T> *aux;
+    bool valido = (!this->esvacia()) && a >= 0 && this->size() > a;
+    if (valido) {
+        aux = this->czo;
+        for (int i = 0; i < a; i++) {
+            aux = aux->get_next();
+        }
+        return aux;
+    } else return NULL;
+}
+
 
 
 #endif
