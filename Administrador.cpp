@@ -3,10 +3,10 @@
 /*******                                    Metodos ADMINISTRADOR                           ********/
 
 
-void Administrador::generarRouters(){
+void Administrador::generarRouters(int c){
 
-    for (int i = 0; i < 10 ; i++){
-        Router*r = new Router(i,1+rand()%2);
+    for (int i = 0; i < c ; i++){
+        Router*r = new Router(i);
         //Router* r = new Router(rand()%10, 2);
         this->routersDisponibles->add(r);
     }
@@ -21,7 +21,7 @@ void Administrador::imprimirListadoDeRouters(){
     aux = routersDisponibles->comienzo();
     
     for (int i =0; i<routersDisponibles->size();i++){
-        cout<<"Id: "<<aux->get_dato()->getID()<<"  BW: "<<aux->get_dato()->getBW()<<endl;
+        cout<<"Id: "<<aux->get_dato()->getID()<<endl;
         aux= aux->get_next();
     }
 
@@ -35,12 +35,11 @@ void Administrador::generarTerminales(){
 }
 
 void Administrador::imprimirListadosDeTerminales(){
-    Nodo<Terminal*>* aux;
-    aux = terminalesDisponibles->comienzo();
-    cout<<"\nLista de terminales disponibles para conectar: "<<endl;
-    for(int i = 0 ; i < terminalesDisponibles->size();i++){
-        cout<<"IP: "<<aux->get_dato()->getIP()<<endl;
-        aux= aux->get_next();
+    Nodo<Router*>* aux;
+    aux = routersDisponibles->comienzo();
+    for (int i =0; i < routersDisponibles->size();i++){
+        aux->get_dato()->imprimirTerminales();
+        aux = aux->get_next();
     }
 
 }
@@ -67,12 +66,57 @@ void Administrador::imprimirConexiones(){
     }
 }
 
+void Administrador::conectarTerminales(int txr){
+    Nodo<Router*>* aux;
+    aux = routersDisponibles->comienzo();
+    for (int i =0;i<routersDisponibles->size();i++){
+        for (int j =0;j<txr;j++){
+            Terminal* t = new Terminal(j);
+            aux->get_dato()->agregarTerminal(t);
+        }
+
+        aux = aux->get_next();
+
+    }
+}
 
 
-void Administrador::RecalcularRutas(){
+
+void Administrador::establecerLazo(int o , int d, int a){
+    LazoDeConexion* lazo = new LazoDeConexion(o, d ,a );
+    cout<<"\nHe establecido una conexion entre los terminales"<<lazo->getTerminal1()<<
+    "y "<< lazo->getTerminal2()<<endl;
 
 }
 
-void Administrador::informarCaminos(){
-    
+void Administrador::leerFile(){
+    int cantidadRouters, terminalesPorRouter;
+    //system("cls");
+    ifstream f;
+    f.open("config.txt",ios::in);
+    string linea;
+    //getline(f,linea); /* obtiene routers */
+    f>>cantidadRouters;
+    f>>terminalesPorRouter; /*obtiene terminal x router*/
+    //cout <<cantidadRouters<<terminalesPorRouter<<endl;
+    generarRouters(cantidadRouters);
+    conectarTerminales(terminalesPorRouter);    
+    int origen, destino, ancho;
+    f>>origen;
+    while (!f.eof()) {
+        f>>destino;
+        f>>ancho;
+        //cout<<num<<" "<<nombre<<" "<<tipo<<" "<<rep<<" "<<endl;
+        //Reloj* r = ;
+        //Reloj r(num,nombre,tipo,rep);
+        //Reloj r(num,nombre,tipo,rep);
+        //cout<<origen <<" "<<destino<<" "<<ancho<<endl;
+        establecerLazo(origen, destino, ancho);
+        
+        f>>origen;
+
+    }
+    f.close();
+
 }
+

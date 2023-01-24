@@ -24,7 +24,7 @@ class Pagina;
 class Router{
 private:
     int id;
-    int bw;
+   // int bw;
     Lista<Terminal*>* terminalesConectados = new Lista<Terminal*>();
     Lista<Router*>* listaDeVecinos = new Lista<Router*>();
     Lista<Pagina*>* listaDePaginas = new Lista<Pagina*>();
@@ -32,14 +32,13 @@ private:
 
     //listas de destino.
 public:
-    Router(int direccion , int ancho){
+    Router(int direccion){
         
         this->id = direccion;
-        this->bw = ancho;
         
     }
     int getID(){return this->id;};
-    int getBW(){return this->bw;};
+    //int getBW(){return this->bw;};
     void recibirPag(Pagina*);
     void enviarPag();
     void segmentarPag(Pagina*);

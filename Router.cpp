@@ -16,9 +16,6 @@ void Router::segmentarPag(Pagina* p){
     }
 }
 
-void Router::enviarPag(Pag){
-
-}
 
 
 void Router::agregarTerminal(Terminal* t){

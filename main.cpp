@@ -33,13 +33,21 @@ int main(){
     //cout<<"\npagina "<<page->getidentificadorDePag()<<" tamanio "<<page->getTamanioDePag();
     */
     Administrador* admin = new Administrador();
+    /*
     admin->generarRouters();
     admin->generarTerminales();
     //admin->imprimirListadoDeRouters();
     //admin->imprimirListadosDeTerminales();
     admin->establecerConexiones();
     admin->imprimirConexiones();
+    */
+    Router* r = new Router(0);
+    Router* x = new Router(1);
+    admin->leerFile();
+    admin->imprimirListadoDeRouters();
+    admin->imprimirListadosDeTerminales();
 
+    //admin->establecerLazo();
 
 
 
