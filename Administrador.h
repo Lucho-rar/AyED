@@ -18,20 +18,24 @@ class Administrador{
 private:
     Lista<Terminal*>* terminalesDisponibles = new Lista<Terminal*>();
     Lista<Router*>* routersDisponibles = new Lista<Router*>();
+    Lista<LazoDeConexion*>* listaDeConexiones = new Lista<LazoDeConexion*>();
     //Lista<Terminal>* terminalesConectados = new Lista<Terminal>();
     
 public:
     Administrador(){};
     void generarRouters(int);
     void imprimirListadoDeRouters();
-    void generarTerminales();
     void imprimirListadosDeTerminales();
     void conectarTerminales(int);
     void establecerLazo(int, int ,int);
     void establecerConexiones();
     void imprimirConexiones();
-    void RecalcularRutas();
     void leerFile();
+    void examinarRouterPorID(int, int);
+    void imprex();
+    void imprimirLazos();
+    void crearPaginas();
+    void segmentarPaginas();
 
 
 

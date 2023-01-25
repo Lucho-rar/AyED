@@ -9,12 +9,28 @@ void Router::recibirPag(Pagina* p){
 }
 
 
-void Router::segmentarPag(Pagina* p){
-    for (int i = 0;i <10;i++){
-        Paquete* package = new Paquete(i,p,p->getOrigen(),p->getDestino(),p->getTamanioDePag()/10);
-        colaDeEnvio->encolar(package);
+void Router::agregarPagina(Pagina* p){
+    this->listaDePaginas->add(p);
+}
+
+void Router::segmentarPag(){
+    Nodo<Pagina*>* aux;
+    aux = listaDePaginas->comienzo();
+    int identificador;
+    for (int i = 0 ; i < listaDePaginas->size();i++){
+        int tamanioDePaquetes = (10 * aux->get_dato()->getTamanioDePag())/100;
+        int cantidadDePaquetes = aux->get_dato()->getTamanioDePag()/tamanioDePaquetes;    
+        for (int j = 0 ; j < cantidadDePaquetes;j++){
+            
+            Paquete* paq = new Paquete(j,aux->get_dato(), aux->get_dato()->getOrigen(),aux->get_dato()->getDestino(),tamanioDePaquetes );
+               
+            colaDeEnvio->add(paq);    
+            
+        }
+        aux = aux->get_next();
     }
 }
+
 
 
 
@@ -24,8 +40,9 @@ void Router::agregarTerminal(Terminal* t){
     terminalesConectados->add(t);
 }
 
-void Router::agregarVecino(Router* r){
-    cout<<"Tengo un vecino nuevo y es el router de id "<<r->getID()<<endl;
+void Router::agregarVecino(int id) {
+    Router* r = new Router(id);
+    //cout<<"Tengo un vecino nuevo y es el router de id "<<id<<endl;
     listaDeVecinos->add(r);
 }
 
@@ -49,4 +66,32 @@ void Router::imprimirVecinos(){
         aux = aux->get_next();
     }
 
+}
+
+void Router::imprimirPaginas(){
+    Nodo<Pagina*>* aux;
+    aux = listaDePaginas->comienzo();
+
+    for(int i = 0; i < listaDePaginas->size(); i++)
+    {
+        cout<<"\nDatos de pagina: "<<endl;
+        cout<<"identificador: "<<aux->get_dato()->getidentificadorDePag()<<endl;
+        cout<<"tamanio: "<<aux->get_dato()->getTamanioDePag()<<endl;
+        cout<<"origen: "<<aux->get_dato()->getOrigen()<<endl;
+        cout<<"destino: "<<aux->get_dato()->getDestino()<<endl;
+    }
+    
+}
+
+void Router::imprimirPaquetes(){
+    Nodo<Paquete*>* aux;
+    aux = colaDeEnvio->comienzo();
+    for (int i =0; i <colaDeEnvio->size();i++){
+        cout<<"\nDatos de paquete: "<<endl;
+        cout<<"identificador: "<<aux->get_dato()->getNumeroDePaquete()<<endl;
+        cout<<"tamanio: "<<aux->get_dato()->getTamanioDePaquete()<<endl;
+        cout<<"origen: "<<aux->get_dato()->getOrigen()<<endl;
+        cout<<"destino: "<<aux->get_dato()->getDestino()<<endl;
+        cout<<"id de pagina madre: "<<aux->get_dato()->getPaginaMadre()->getidentificadorDePag()<<endl;
+    }
 }

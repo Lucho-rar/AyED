@@ -13,11 +13,11 @@ class Pagina{
 private:
     int identificadorDePag;
     double tamanioDePag;
-    Terminal* origen;
-    Terminal* destino;
+    int origen;
+    int destino;
 public:
     Pagina(){};
-    Pagina(int identif, int tamanio, Terminal* o, Terminal* d){
+    Pagina(int identif, int tamanio, int o , int d){
         this->identificadorDePag = identif;
         this->tamanioDePag = tamanio;
         this->origen = o;
@@ -25,8 +25,8 @@ public:
     }
     int getidentificadorDePag(){return identificadorDePag;};
     int getTamanioDePag(){return tamanioDePag;};
-    Terminal* getOrigen(){return origen;};
-    Terminal* getDestino(){return destino;};
+    int getOrigen(){return origen;};
+    int getDestino(){return destino;};
 };
 
 

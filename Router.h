@@ -38,14 +38,20 @@ public:
         
     }
     int getID(){return this->id;};
+    Cola<Paquete*>* getcoladeenvio(){return colaDeEnvio;};
     //int getBW(){return this->bw;};
     void recibirPag(Pagina*);
     void enviarPag();
-    void segmentarPag(Pagina*);
+    void enviarPaquete();
+    void agregarPagina(Pagina* p);
+    void segmentarPag();
     void agregarTerminal(Terminal*);    
-    void agregarVecino(Router*);
+    void agregarVecino(int);
     void imprimirTerminales();
     void imprimirVecinos();
+    void imprimirPaginas();
+    void imprimirPaquetes();
+
     
 
 };
