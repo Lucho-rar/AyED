@@ -8,7 +8,7 @@ void Administrador::generarRouters(int c){
     for (int i = 0; i < c ; i++){
         Router*r = new Router(i);
         //Router* r = new Router(rand()%10, 2);
-        this->routersDisponibles->add(r);
+        this->routersDisponibles->addFinal(r);
     }
 }
 
@@ -90,8 +90,10 @@ void Administrador::establecerLazo(int o , int d, int a){
     LazoDeConexion* vuelta = new LazoDeConexion(d, o ,a );
     cout<<"\n ida "<<ida->getTerminal1()<<" a "<< ida->getTerminal2()<<endl;
     cout<<"vuelta "<<vuelta->getTerminal1()<<" a "<<vuelta->getTerminal2()<<endl;
-    listaDeConexiones->add(ida);
-    listaDeConexiones->add(vuelta);
+    routersDisponibles->buscarPorIndice(o)->agregarLazoIda(ida);
+    routersDisponibles->buscarPorIndice(d)->agregarLazoIda(vuelta);
+    listaDeConexiones->addFinal(ida);
+    listaDeConexiones->addFinal(vuelta);
    // routersDisponibles->buscarPorIndice(o+size()-1);
 
     examinarRouterPorID(o,d);

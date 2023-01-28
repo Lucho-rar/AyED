@@ -36,13 +36,13 @@ void Router::segmentarPag(){
 void Router::agregarTerminal(Terminal* t){
    // cout<<"Reconocido desde el router"<<endl;
     t->conectarseAUnRouter(this);
-    terminalesConectados->add(t);
+    terminalesConectados->addFinal(t);
 }
 
 void Router::agregarVecino(int id) {
     Router* r = new Router(id);
     //cout<<"Tengo un vecino nuevo y es el router de id "<<id<<endl;
-    listaDeVecinos->add(r);
+    listaDeVecinos->addFinal(r);
 }
 
 void Router::imprimirTerminales(){
