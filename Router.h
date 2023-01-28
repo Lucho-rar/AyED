@@ -56,8 +56,8 @@ public:
     void imprimirVecinos();
     void imprimirPaginas();
     void imprimirPaquetes();
-    void agregarLazoIda(LazoDeConexion* f){this->ida->add(f);};
-    void agregarLazoVuelta(LazoDeConexion* f){this->vuelta->add(f);};
+    void agregarLazoIda(LazoDeConexion* f){this->ida->addFinal(f);};
+    void agregarLazoVuelta(LazoDeConexion* f){this->vuelta->addFinal(f);};
     void imprimirLazosConectados();
    // Lista<LazoDeConexion*>* getLazos(){return lazos;};
 

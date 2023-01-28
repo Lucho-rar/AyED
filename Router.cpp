@@ -12,7 +12,7 @@ void Router::recibirPag(Pagina* p){
 
 
 void Router::agregarPagina(Pagina* p){
-    this->listaDePaginas->add(p);
+    this->listaDePaginas->addFinal(p);
 }
 
 void Router::segmentarPag(){
@@ -26,7 +26,7 @@ void Router::segmentarPag(){
             
             Paquete* paq = new Paquete(j,aux->get_dato(), aux->get_dato()->getOrigen(),aux->get_dato()->getDestino(),tamanioDePaquetes );
                
-            colaDeEnvio->add(paq);    
+            colaDeEnvio->addFinal(paq);    
             
         }
         aux = aux->get_next();
@@ -107,5 +107,9 @@ void Router::imprimirLazosConectados(){
     }
     aux = this->vuelta->comienzo();
     cout<<"de veulta"<<endl;
+    for (int i =0;i<vuelta->size();i++){
+        cout<<aux->get_dato()->getTerminal1()<<" ----> "<<aux->get_dato()->getTerminal2()<<endl;
+        aux=aux->get_next();
+    }
 
 }

@@ -86,14 +86,17 @@ void Administrador::conectarTerminales(int txr){
 }
 
 void Administrador::establecerLazo(int o , int d, int a){
-    LazoDeConexion* ida = new LazoDeConexion(o, d ,a );
-    LazoDeConexion* vuelta = new LazoDeConexion(d, o ,a );
-    cout<<"\n ida "<<ida->getTerminal1()<<" a "<< ida->getTerminal2()<<endl;
-    cout<<"vuelta "<<vuelta->getTerminal1()<<" a "<<vuelta->getTerminal2()<<endl;
-    routersDisponibles->buscarPorIndice(o)->agregarLazoIda(ida);
-    routersDisponibles->buscarPorIndice(d)->agregarLazoIda(vuelta);
-    listaDeConexiones->addFinal(ida);
-    listaDeConexiones->addFinal(vuelta);
+    LazoDeConexion* lazo = new LazoDeConexion(o, d ,a );
+    //LazoDeConexion* vuelta = new LazoDeConexion(d, o ,a );
+    //cout<<"\n ida "<<ida->getTerminal1()<<" a "<< ida->getTerminal2()<<endl;
+    //cout<<"vuelta "<<vuelta->getTerminal1()<<" a "<<vuelta->getTerminal2()<<endl;
+    cout<<"Estoy estableciendo lazo" <<routersDisponibles->buscarPorIndice(o)->getID()<<"y "<<
+    routersDisponibles->buscarPorIndice(d)->getID()<<endl;
+    
+    routersDisponibles->buscarPorIndice(o)->agregarLazoIda(lazo);
+    routersDisponibles->buscarPorIndice(d)->agregarLazoVuelta(lazo);
+    listaDeConexiones->addFinal(lazo);
+    //listaDeConexiones->addFinal(vuelta);
    // routersDisponibles->buscarPorIndice(o+size()-1);
 
     examinarRouterPorID(o,d);

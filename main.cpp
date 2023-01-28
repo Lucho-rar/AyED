@@ -52,7 +52,7 @@ int main(){
     //admin->establecerLazo();
     admin->imprimirLazos();
     admin->crearPaginas();
-   // admin->segmentarPaginas();
+    admin->segmentarPaginas();
    // admin->insertarPaquetesEnLosLazos();
 
 
