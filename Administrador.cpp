@@ -5,6 +5,7 @@
 
 void Administrador::generarRouters(int c){
 
+    this->cantidadDeRouters = c;
     for (int i = 0; i < c ; i++){
         Router*r = new Router(i);
         //Router* r = new Router(rand()%10, 2);
@@ -72,11 +73,13 @@ void Administrador::imprimirConexiones(){
 }
 
 void Administrador::conectarTerminales(int txr){
+    this->terminalesPorRouter = txr;
     Nodo<Router*>* aux;
     aux = routersDisponibles->comienzo();
     for (int i =0;i<routersDisponibles->size();i++){
         for (int j =0;j<txr;j++){
-            Terminal* t = new Terminal(j);
+            int v[2]={i,j};
+            Terminal* t = new Terminal(v);
             aux->get_dato()->agregarTerminal(t);
         }
 
@@ -193,12 +196,28 @@ void Administrador::leerFile(){
 void Administrador::crearPaginas(){
     Nodo<Router*>* aux;
     aux = routersDisponibles->comienzo();
-
-    for (int i =0; i <routersDisponibles->size();i++){
+    int NumeroRandomOR = rand() % cantidadDeRouters;
+    int NumeroRandomOT = rand() % terminalesPorRouter;
+    cout<<"origen "<<NumeroRandomOR<<" "<<NumeroRandomOT<<endl;
+    int ipOrigen[2]={NumeroRandomOR,NumeroRandomOT};
+    int NumeroRandomDR = rand() % cantidadDeRouters;
+    int NumeroRandomDT = rand() % terminalesPorRouter;
+    cout<<"destino "<<NumeroRandomDR<<" "<<NumeroRandomDT<<endl;
+    int ipDestino[2]={NumeroRandomDR,NumeroRandomDT};
         //int origen = aux->get_dato()->getID();
-        Pagina* p = new Pagina(i,20, 0, 1);
-        aux->get_dato()->agregarPagina(p);
-        aux= aux->get_next();
+    Pagina* p = new Pagina(simPag,10, ipOrigen, ipDestino);
+    simPag++;
+    routersDisponibles->buscarPorIndice(ipOrigen[0])->recibirPag(p);
+    cout << "\033[1;31mCREE LA PAGINA "<<p->getidentificadorDePag()<<"\033[0m\n";
+    
+}
+
+void Administrador::imprimirPaginasPorRouter(){
+    Nodo<Router*>* aux;
+    aux = routersDisponibles->comienzo();
+    for ( int i = 0 ; i < routersDisponibles->size(); i++){
+        aux->get_dato()->imprimirPaginas();
+        aux = aux -> get_next();
     }
 }
 

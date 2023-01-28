@@ -13,15 +13,15 @@ using namespace std;
 class Router;
 class Terminal{
 private: 
-    int ip;
+    int ip[2];
     Router* routerConectado;
     //Lista<Pagina>* paginasAEnviar = new Lista<Pagina>();
     //Lista<Pagina>* paginasRecibidas = new Lista<Pagina>();
 
 public:
     Terminal(){};
-    Terminal(int);
-    int getIP();
+    Terminal(int[2]);
+    int * getIP();
     void conectarseAUnRouter(Router* );
     void enviarPagina();
     void recibirPagina();

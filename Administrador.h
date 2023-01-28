@@ -18,6 +18,9 @@ private:
     Lista<Terminal*>* terminalesDisponibles = new Lista<Terminal*>();
     Lista<Router*>* routersDisponibles = new Lista<Router*>();
     Lista<LazoDeConexion*>* listaDeConexiones = new Lista<LazoDeConexion*>();
+    int terminalesPorRouter;
+    int cantidadDeRouters;
+    int simPag=0;
     //Lista<Terminal>* terminalesConectados = new Lista<Terminal>();
     
 public:
@@ -40,7 +43,7 @@ public:
     void insertarPaquetesEnLosLazos();
     void pruebaIndice();
 
-
+    void imprimirPaginasPorRouter();
 
 };
 

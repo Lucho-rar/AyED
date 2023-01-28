@@ -7,13 +7,14 @@ void Router::enviarPaquete(){
 }
 
 void Router::recibirPag(Pagina* p){
-    this->listaDePaginas->add(p);
+    this->listaDePaginas->addFinal(p);
 }
 
 
 void Router::agregarPagina(Pagina* p){
     this->listaDePaginas->addFinal(p);
 }
+
 
 void Router::segmentarPag(){
     Nodo<Pagina*>* aux;
@@ -24,9 +25,9 @@ void Router::segmentarPag(){
         int cantidadDePaquetes = aux->get_dato()->getTamanioDePag()/tamanioDePaquetes;    
         for (int j = 0 ; j < cantidadDePaquetes;j++){
             
-            Paquete* paq = new Paquete(j,aux->get_dato(), aux->get_dato()->getOrigen(),aux->get_dato()->getDestino(),tamanioDePaquetes );
+          //  Paquete* paq = new Paquete(j,aux->get_dato(), aux->get_dato()->getOrigen(),aux->get_dato()->getDestino(),tamanioDePaquetes );
                
-            colaDeEnvio->addFinal(paq);    
+          //  colaDeEnvio->addFinal(paq);    
             
         }
         aux = aux->get_next();
@@ -76,8 +77,8 @@ void Router::imprimirPaginas(){
         cout<<"\nDatos de pagina: "<<endl;
         cout<<"identificador: "<<aux->get_dato()->getidentificadorDePag()<<endl;
         cout<<"tamanio: "<<aux->get_dato()->getTamanioDePag()<<endl;
-        cout<<"origen: "<<aux->get_dato()->getOrigen()<<endl;
-        cout<<"destino: "<<aux->get_dato()->getDestino()<<endl;
+        cout<<"origen: "<<aux->get_dato()->getOrigen()[1]<<endl;
+        cout<<"destino: "<<aux->get_dato()->getDestino()[1]<<endl;
     }
     
 }

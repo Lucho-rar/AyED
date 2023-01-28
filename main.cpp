@@ -12,6 +12,7 @@
 #include "Administrador.h"
 
 
+
 using namespace std;
 int main(){
     /*
@@ -52,7 +53,8 @@ int main(){
     //admin->establecerLazo();
     admin->imprimirLazos();
     admin->crearPaginas();
-    admin->segmentarPaginas();
+    admin->imprimirPaginasPorRouter();
+   // admin->segmentarPaginas();
    // admin->insertarPaquetesEnLosLazos();
 
 
