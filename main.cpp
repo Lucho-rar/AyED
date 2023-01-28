@@ -44,16 +44,16 @@ int main(){
     Router* r = new Router(0);
     Router* x = new Router(1);
     admin->leerFile();
-    //admin->imprimirListadoDeRouters();
-    //admin->imprimirListadosDeTerminales();
+   // admin->imprimirListadoDeRouters();
+    //admin->imprimirsListadosDeTerminales();
     
-    
-    admin->imprex();
+    admin->pruebaIndice();
+   // admin->imprex();
     //admin->establecerLazo();
-    admin->imprimirLazos();
-    admin->crearPaginas();
-    admin->segmentarPaginas();
-    
+  //  admin->imprimirLazos();
+   // admin->crearPaginas();
+   // admin->segmentarPaginas();
+   // admin->insertarPaquetesEnLosLazos();
 
 
 

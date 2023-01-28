@@ -2,7 +2,9 @@
 
 /*          Metodos Router      */
 
+void Router::enviarPaquete(){
 
+}
 
 void Router::recibirPag(Pagina* p){
     this->listaDePaginas->add(p);
@@ -30,9 +32,6 @@ void Router::segmentarPag(){
         aux = aux->get_next();
     }
 }
-
-
-
 
 void Router::agregarTerminal(Terminal* t){
    // cout<<"Reconocido desde el router"<<endl;
@@ -93,5 +92,20 @@ void Router::imprimirPaquetes(){
         cout<<"origen: "<<aux->get_dato()->getOrigen()<<endl;
         cout<<"destino: "<<aux->get_dato()->getDestino()<<endl;
         cout<<"id de pagina madre: "<<aux->get_dato()->getPaginaMadre()->getidentificadorDePag()<<endl;
+        aux = aux->get_next();
     }
+}
+
+void Router::imprimirLazosConectados(){
+    Nodo<LazoDeConexion*>* aux;
+    aux = this->ida->comienzo();
+    cout<<"\nSoy el router "<<this->getID()<<" y estos son los lazos:"<<endl;
+    cout<<"de ida: "<<endl;
+    for (int i =0;i<ida->size();i++){
+        cout<<aux->get_dato()->getTerminal1()<<" ----> "<<aux->get_dato()->getTerminal2()<<endl;
+        aux = aux->get_next();
+    }
+    aux = this->vuelta->comienzo();
+    cout<<"de veulta"<<endl;
+
 }

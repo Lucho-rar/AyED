@@ -1,65 +1,91 @@
 #ifndef LISTA_H
 #define LISTA_H
-
-#include <cstdlib>
+#include <assert.h>
 #include <iostream>
-#include <sstream>
-#include <stdlib.h>
 #include "Nodo.h"
-
-using namespace std;
 
 
 template <class T> class Lista {
-private: Nodo<T>* czo;
+private: Nodo<T>* czo; Nodo<T>* final; int cantidaddenodos;
      
 public:
-    Lista() { czo = new Nodo<T>(); };
-    Lista(Nodo<T>* n) { czo = n; };
+    Lista() { czo = new Nodo<T>(); final = new Nodo<T>(); cantidaddenodos=0;};
+    Lista(Nodo<T>* n,Nodo<T>* f) {czo = n ; final =f;cantidaddenodos=0;};
     //~Lista(void);
     void add(T d); //sumar nodos a la lista
+    void addFinal(T d);
     bool esvacia(void);
     T cabeza(void); //retorna el dato del primer nodo
+    T ultimo(void);
     Lista* resto(void); //retorna el puntero al "resto" de la lista
-                        //resto= lo que queda de la lista sin la cabeza
+    Nodo<T>* comienzo(){return czo;};
     string toPrint(string p);
     T suma(T i);
-    Nodo<T> *comienzo() { return czo; };
-
     int size();
     void borrar(void); //borra la cabeza
     void borrar_last();//borra el ultimo
     void concat(Lista<T>* l1);// le transfiere los datos de l1 a this
     Lista<T>* copy(void);// hace una copia de la lista
     void tomar(int n);//deja "vivos" los n primeros nodos y borra el resto
-    Nodo<T>* buscarPorIndice(int n);
+    T buscarPorIndice(int);
+   
 };
+
+
 template <class T>
 void Lista<T>::add(T d) //100
 {
     Nodo<T>* nuevo = new Nodo<T>(d);
-    nuevo->set_next(czo);
-    czo = nuevo;
+    if(this->esvacia()){
+        czo = nuevo; final = nuevo;
+    }else{
+        nuevo->set_next(czo);
+        czo = nuevo;
+    }
+    cantidaddenodos++;
+
+}
+
+template <class T>
+void Lista<T>::addFinal(T d){
+    Nodo<T>* nuevo = new Nodo<T>(d);
+    if (this->esvacia()){
+        czo = nuevo;
+        final = nuevo;
+    }else{
+        final->set_next(nuevo);
+    }
+    final = nuevo;
+    cantidaddenodos++;
+
 }
 template <class T>
 bool Lista<T>::esvacia(void)
 {
-    return czo->es_vacio();
+    return cantidaddenodos==0;
 }
 template <class T>
 T Lista<T>::cabeza(void)
 {
     if (this->esvacia()) {
         cout << " Error, Cabeza de lista vacia";
-        //return NULL;
+       
     }
     return czo->get_dato();
 }
+template <class T>
+T Lista<T>::ultimo(void){
+    if (this->esvacia()){
+        cout<<"error lista vacia";
+    }
+    return final->get_dato();
+}
+
 
 template <class T>
 Lista<T>* Lista<T>::resto(void)
 {
-    Lista* l = new Lista(czo->get_next());
+    Lista* l = new Lista(czo->get_next(),final);
     return (l);
 }
 
@@ -100,8 +126,7 @@ void borrarDato(T d)// borra el nodo que contiene a d
 
 template <class T> int Lista<T>::size()
 {
-    if (this->esvacia()) return 0;
-    return 1 + this->resto()->size();
+    return cantidaddenodos;
 }
 
 
@@ -149,19 +174,21 @@ template <class T> void Lista<T>::tomar(int n)
     }
 }
 
-template<class T>
-Nodo<T> *Lista<T>::buscarPorIndice(int a) {
-    Nodo<T> *aux;
-    bool valido = (!this->esvacia()) && a >= 0 && this->size() > a;
-    if (valido) {
-        aux = this->czo;
-        for (int i = 0; i < a; i++) {
-            aux = aux->get_next();
-        }
-        return aux;
-    } else return NULL;
+template <class T> T Lista<T> :: buscarPorIndice(int indice){
+    if(czo==NULL){
+        cout<<"Lista vacia"<<endl;
+    }else if(indice>cantidaddenodos){
+        cout<<"no existe el nodo"<<endl;
+    }
+    Nodo<T>* aux = czo;
+    int pos=0;
+
+    while(pos!=indice){
+        aux = aux->get_next();
+        pos++;
+    }
+
+    return aux->get_dato();
 }
-
-
 
 #endif

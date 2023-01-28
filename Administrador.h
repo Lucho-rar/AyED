@@ -13,7 +13,6 @@
 
 using namespace std;
 
-
 class Administrador{
 private:
     Lista<Terminal*>* terminalesDisponibles = new Lista<Terminal*>();
@@ -24,10 +23,12 @@ private:
 public:
     Administrador(){};
     void generarRouters(int);
+    void matchDeLazos();
     void imprimirListadoDeRouters();
     void imprimirListadosDeTerminales();
     void conectarTerminales(int);
     void establecerLazo(int, int ,int);
+    
     void establecerConexiones();
     void imprimirConexiones();
     void leerFile();
@@ -36,6 +37,8 @@ public:
     void imprimirLazos();
     void crearPaginas();
     void segmentarPaginas();
+    void insertarPaquetesEnLosLazos();
+    void pruebaIndice();
 
 
 

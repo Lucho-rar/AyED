@@ -27,6 +27,17 @@ void Administrador::imprimirListadoDeRouters(){
 
 }
 
+void Administrador::pruebaIndice(){
+
+    Lista<int>* l = new Lista<int>();
+    l->add(3);
+    
+    l->add(5);
+    l->addFinal(9);
+    Nodo<int>* aux ;
+    aux = l->comienzo();
+    cout<<l->buscarPorIndice(2)<<endl;
+}
 
 void Administrador::imprimirListadosDeTerminales(){
     Nodo<Router*>* aux;
@@ -43,7 +54,7 @@ void Administrador::establecerConexiones(){
     auxRout = routersDisponibles->comienzo();
     for (int i = 0; i< routersDisponibles->size();i++){
         for (int j = 0; j< terminalesDisponibles->size();j++){
-            routersDisponibles->buscarPorIndice(i)->get_dato()->agregarTerminal(terminalesDisponibles->buscarPorIndice(j)->get_dato());
+            routersDisponibles->buscarPorIndice(i)->agregarTerminal(terminalesDisponibles->buscarPorIndice(j));
         }
     }
 }
@@ -74,8 +85,6 @@ void Administrador::conectarTerminales(int txr){
     }
 }
 
-
-
 void Administrador::establecerLazo(int o , int d, int a){
     LazoDeConexion* ida = new LazoDeConexion(o, d ,a );
     LazoDeConexion* vuelta = new LazoDeConexion(d, o ,a );
@@ -83,11 +92,10 @@ void Administrador::establecerLazo(int o , int d, int a){
     cout<<"vuelta "<<vuelta->getTerminal1()<<" a "<<vuelta->getTerminal2()<<endl;
     listaDeConexiones->add(ida);
     listaDeConexiones->add(vuelta);
+   // routersDisponibles->buscarPorIndice(o+size()-1);
+
     examinarRouterPorID(o,d);
 }
-
-
-
 
 void Administrador::examinarRouterPorID(int o, int d){
     Nodo<Router*>* aux;
@@ -96,6 +104,7 @@ void Administrador::examinarRouterPorID(int o, int d){
     for (int i =0 ; i<routersDisponibles->size();i++){
         if(aux->get_dato()->getID() == o){
             aux->get_dato()->agregarVecino(d);
+            
         }else if(aux->get_dato()->getID() ==d){
             aux->get_dato()->agregarVecino(o); 
         }
@@ -110,13 +119,18 @@ void Administrador::examinarRouterPorID(int o, int d){
     }*/
 
 }
+
+void Administrador::matchDeLazos(){
+
+}
+
+
 void Administrador::imprex(){
     Nodo<Router*>* aux;
     aux = routersDisponibles->comienzo();
     for (int i =0 ; i<routersDisponibles->size();i++){
         aux->get_dato()->imprimirVecinos();
-        aux = aux ->get_next();
-    }
+        aux = aux ->get_next();    }
 }
 
 void Administrador::imprimirLazos(){
@@ -126,6 +140,13 @@ void Administrador::imprimirLazos(){
         cout<<"Conexion entre "<<aux->get_dato()->getTerminal1()<<" y "<<aux->get_dato()->getTerminal2()
         <<" con un ancho de banda "<<aux->get_dato()->getBW()<<endl;
         aux= aux->get_next();
+    }
+    Nodo<Router*>* s;
+    s = routersDisponibles->comienzo();
+
+    for( int i = 0; i <routersDisponibles->size();i++){
+        s->get_dato()->imprimirLazosConectados();
+        s = s -> get_next();
     }
 }
 
@@ -151,7 +172,11 @@ void Administrador::leerFile(){
         //Reloj r(num,nombre,tipo,rep);
         //Reloj r(num,nombre,tipo,rep);
         //cout<<origen <<" "<<destino<<" "<<ancho<<endl;
+        //LazoDeConexion* ida = new LazoDeConexion(origen, destino ,ancho );
+        //LazoDeConexion* vuelta = new LazoDeConexion(destino,origen,ancho);
+       // cout<<routersDisponibles->buscarPorIndice(origen)->get_dato()->getID()<<"ssss"<<endl;
         establecerLazo(origen, destino, ancho);
+        
         
         f>>origen;
 
@@ -194,4 +219,7 @@ void Administrador::segmentarPaginas(){
         aux->get_dato()->imprimirPaquetes();
         aux= aux->get_next();
     }
+}
+
+void Administrador::insertarPaquetesEnLosLazos(){
 }

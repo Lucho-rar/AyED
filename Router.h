@@ -6,11 +6,12 @@
 #include <stdlib.h>
 #include "Lista.h"
 #include "Nodo.h"
-//#include "Terminal.h"
+
 //#include "Paquete.h"
 #include "Cola.h"
 #include "Router.h"
 #include "Pagina.h"
+#include "LazoDeConexion.h"
 
 
 using namespace std;
@@ -21,7 +22,8 @@ using namespace std;
 class Terminal;
 class Paquete;
 class Pagina;
-class Router{
+class LazoDeConexion;
+class Router {
 private:
     int id;
    // int bw;
@@ -29,6 +31,8 @@ private:
     Lista<Router*>* listaDeVecinos = new Lista<Router*>();
     Lista<Pagina*>* listaDePaginas = new Lista<Pagina*>();
     Cola<Paquete*>* colaDeEnvio = new Cola<Paquete*>(); 
+    Lista<LazoDeConexion*>* ida = new Lista<LazoDeConexion*>();
+    Lista<LazoDeConexion*>* vuelta = new Lista<LazoDeConexion*>();
 
     //listas de destino.
 public:
@@ -43,6 +47,7 @@ public:
     void recibirPag(Pagina*);
     void enviarPag();
     void enviarPaquete();
+    void enlazarVecinos();
     void agregarPagina(Pagina* p);
     void segmentarPag();
     void agregarTerminal(Terminal*);    
@@ -51,6 +56,10 @@ public:
     void imprimirVecinos();
     void imprimirPaginas();
     void imprimirPaquetes();
+    void agregarLazoIda(LazoDeConexion* f){this->ida->add(f);};
+    void agregarLazoVuelta(LazoDeConexion* f){this->vuelta->add(f);};
+    void imprimirLazosConectados();
+   // Lista<LazoDeConexion*>* getLazos(){return lazos;};
 
     
 
