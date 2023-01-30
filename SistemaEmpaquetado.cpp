@@ -1,6 +1,5 @@
 #include "SistemaEmpaquetado.h"
 
-
 void SistemaEmpaquetado::addPaquete(Paquete *p){
     listadepaquetes->addFinal(p);
     //paquetes->addFinal(p);

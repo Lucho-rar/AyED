@@ -7,18 +7,19 @@ void Router::enviarPaquete(){
 }
 
 void Router::recibirPag(Pagina* p){
-  //  SistemaEmpaquetado * empaquetador = new SistemaEmpaquetado();
-    this->empaquetador = new SistemaEmpaquetado();
+
+    
     //this->listaDePaginas->addFinal(p);
     for (int i = 0 ; i < p->getTamanioDePag();i++){
         Paquete* pkg = new Paquete (i,p->getidentificadorDePag(),p->getOrigen(),p->getDestino(), p->getTamanioDePag());
         cout<<"\n Paquete"<<endl;
         cout<<i << p->getidentificadorDePag()<<" "<<p->getOrigen()[0]<<":"<<p->getOrigen()[1]<<endl;
-        empaquetador->addPaquete(pkg);
+        //this->addPaquete(pkg);
+        this->paquetes->addFinal(pkg);
     }
-    
-   //s empaquetador -> imprimir();
 
+    // empaque -> imprimir();
+    //this->empaquetador = empaque;
 
 }
 
@@ -96,10 +97,16 @@ void Router::imprimirPaginas(){
 }
 
 void Router::imprimirPaquetes(){
-    empaquetador = new SistemaEmpaquetado();
+   // empaquetador = new SistemaEmpaquetado();
     cout<<"\nSoy el router "<<this->getID()<<endl;
     cout<<"Paquetes que tengo :"<<endl;
-    this->empaquetador->imprimir();
+    Nodo<Paquete*>* aux;
+    aux = paquetes->comienzo();
+    for (int i = 0 ; i < paquetes->size();i++){
+        cout<<aux->get_dato()->getNumeroDePaquete()<<" paquete de " <<aux->get_dato()->getPaginaMadre()<<endl;
+        aux = aux ->get_next();
+    }
+   // this->empaquetador.imprimir();
 }
 
 void Router::imprimirLazosConectados(){

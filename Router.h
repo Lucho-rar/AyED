@@ -6,42 +6,46 @@
 #include <stdlib.h>
 #include "Lista.h"
 #include "Nodo.h"
+#include "SistemaEmpaquetado.h"
 
 //#include "Paquete.h"
 #include "Cola.h"
-#include "Router.h"
 #include "Pagina.h"
 #include "LazoDeConexion.h"
-#include "SistemaEmpaquetado.h"
+
 
 using namespace std;
 
 
 
 /*                           CLASE ROUTER                              */
-class SistemaEmpaquetado;
+
 class Terminal;
 class Paquete;
 class Pagina;
 class LazoDeConexion;
-
-class Router {
+class SistemaEmpaquetado;
+class Router{
 private:
     int id;
    // int bw;
+
+
     Lista<Terminal*>* terminalesConectados = new Lista<Terminal*>();
     Lista<Router*>* listaDeVecinos = new Lista<Router*>();
     Lista<Pagina*>* listaDePaginas = new Lista<Pagina*>();
     Cola<Paquete*>* colaDeEnvio = new Cola<Paquete*>(); 
     Lista<LazoDeConexion*>* ida = new Lista<LazoDeConexion*>();
     Lista<LazoDeConexion*>* vuelta = new Lista<LazoDeConexion*>();
-    SistemaEmpaquetado * empaquetador;
+    Lista<Paquete*>* paquetes = new Lista<Paquete*>();
+   // SistemaEmpaquetado * empaquetador = NULL;
 
     //listas de destino.
 public:
     Router(int direccion){
         
         this->id = direccion;
+       // empaquetador = new SistemaEmpaquetado();
         
     }
     int getID(){return this->id;};

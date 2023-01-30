@@ -10,14 +10,16 @@
 #include "Nodo.h"
 #include "Terminal.h"
 #include "LazoDeConexion.h"
+#include "SistemaEmpaquetado.h"
 
 using namespace std;
-
+class SistemaDeEmpaquetado;
 class Administrador{
 private:
     Lista<Terminal*>* terminalesDisponibles = new Lista<Terminal*>();
     Lista<Router*>* routersDisponibles = new Lista<Router*>();
     Lista<LazoDeConexion*>* listaDeConexiones = new Lista<LazoDeConexion*>();
+
     int terminalesPorRouter;
     int cantidadDeRouters;
     int simPag=0;

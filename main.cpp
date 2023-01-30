@@ -10,7 +10,7 @@
 #include "Cola.h"
 #include "Paquete.h"
 #include "Administrador.h"
-
+#include "SistemaEmpaquetado.h"
 
 
 using namespace std;
