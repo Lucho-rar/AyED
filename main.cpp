@@ -47,13 +47,13 @@ int main(){
     admin->leerFile();
    // admin->imprimirListadoDeRouters();
     //admin->imprimirsListadosDeTerminales();
-    
+    admin->crearPaginas();
     //admin->pruebaIndice();
     //admin->imprex();
     //admin->establecerLazo();
-    admin->imprimirLazos();
-    admin->crearPaginas();
-    admin->imprimirPaginasPorRouter();
+  //  admin->imprimirLazos();
+   // admin->crearPaginas();
+   // admin->imprimirPaginasPorRouter();
    // admin->segmentarPaginas();
    // admin->insertarPaquetesEnLosLazos();
 

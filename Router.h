@@ -12,7 +12,7 @@
 #include "Router.h"
 #include "Pagina.h"
 #include "LazoDeConexion.h"
-
+#include "SistemaEmpaquetado.h"
 
 using namespace std;
 
@@ -23,6 +23,7 @@ class Terminal;
 class Paquete;
 class Pagina;
 class LazoDeConexion;
+class SistemaEmpaquetado;
 class Router {
 private:
     int id;
@@ -33,6 +34,7 @@ private:
     Cola<Paquete*>* colaDeEnvio = new Cola<Paquete*>(); 
     Lista<LazoDeConexion*>* ida = new Lista<LazoDeConexion*>();
     Lista<LazoDeConexion*>* vuelta = new Lista<LazoDeConexion*>();
+    SistemaEmpaquetado* empaquetador;
 
     //listas de destino.
 public:

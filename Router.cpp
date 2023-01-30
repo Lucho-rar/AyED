@@ -8,6 +8,12 @@ void Router::enviarPaquete(){
 
 void Router::recibirPag(Pagina* p){
     this->listaDePaginas->addFinal(p);
+    for (int i = 0 ; i < p->getTamanioDePag();i++){
+        Paquete* pkg = new Paquete (i,p->getidentificadorDePag(),p->getOrigen(),p->getDestino(), p->getTamanioDePag());
+        this->empaquetador->addPaquete(pkg);
+    }
+
+
 }
 
 
@@ -82,7 +88,7 @@ void Router::imprimirPaginas(){
     }
     
 }
-
+/*
 void Router::imprimirPaquetes(){
     Nodo<Paquete*>* aux;
     aux = colaDeEnvio->comienzo();
@@ -92,10 +98,10 @@ void Router::imprimirPaquetes(){
         cout<<"tamanio: "<<aux->get_dato()->getTamanioDePaquete()<<endl;
         cout<<"origen: "<<aux->get_dato()->getOrigen()<<endl;
         cout<<"destino: "<<aux->get_dato()->getDestino()<<endl;
-        cout<<"id de pagina madre: "<<aux->get_dato()->getPaginaMadre()->getidentificadorDePag()<<endl;
+        cout<<"id de pagina madre: "<<aux->get_dato()->getPaginaMadre()<<endl;
         aux = aux->get_next();
     }
-}
+}*/
 
 void Router::imprimirLazosConectados(){
     Nodo<LazoDeConexion*>* aux;
