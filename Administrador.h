@@ -44,6 +44,7 @@ public:
     void pruebaIndice();
 
     void imprimirPaginasPorRouter();
+    void paquetes();
 
 };
 

@@ -209,6 +209,7 @@ void Administrador::crearPaginas(){
     simPag++;
     //routersDisponibles->buscarPorIndice(ipOrigen[0])->recibirPag(p);
     cout << "\033[1;31mCREE LA PAGINA "<<p->getidentificadorDePag()<<"\033[0m\n";
+    //cout<<routersDisponibles->buscarPorIndice(NumeroRandomOR)->getID()<<endl;
     routersDisponibles->buscarPorIndice(NumeroRandomOR)->recibirPag(p);
     
 }
@@ -241,4 +242,13 @@ void Administrador::segmentarPaginas(){
 }
 
 void Administrador::insertarPaquetesEnLosLazos(){
+}
+
+void Administrador::paquetes(){
+    Nodo<Router*>* aux;
+    aux = routersDisponibles->comienzo();
+    for (int i = 0 ; i<routersDisponibles->size();i++){
+        aux->get_dato()->imprimirPaquetes();
+        aux = aux->get_next();
+    }
 }

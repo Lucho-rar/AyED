@@ -48,6 +48,8 @@ int main(){
    // admin->imprimirListadoDeRouters();
     //admin->imprimirsListadosDeTerminales();
     admin->crearPaginas();
+    admin->crearPaginas();
+    admin->paquetes();
     //admin->pruebaIndice();
     //admin->imprex();
     //admin->establecerLazo();
