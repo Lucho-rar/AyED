@@ -12,7 +12,6 @@
 #include "Administrador.h"
 #include "SistemaEmpaquetado.h"
 
-
 using namespace std;
 int main(){
     /*
@@ -52,8 +51,11 @@ int main(){
     admin->paquetes();
     //admin->pruebaIndice();
     //admin->imprex();
-    //admin->establecerLazo();
-  //  admin->imprimirLazos();
+    //admin->calcularTablaDeEnrutamiento();
+   /// admin->paseAlg();
+    admin->imprimirLazos();
+    admin->enviarPaquetes();
+  //  admin->recibirPaquetes();
    // admin->crearPaginas();
    // admin->imprimirPaginasPorRouter();
    // admin->segmentarPaginas();

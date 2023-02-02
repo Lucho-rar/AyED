@@ -184,8 +184,8 @@ void Administrador::leerFile(){
         //LazoDeConexion* vuelta = new LazoDeConexion(destino,origen,ancho);
        // cout<<routersDisponibles->buscarPorIndice(origen)->get_dato()->getID()<<"ssss"<<endl;
         establecerLazo(origen, destino, ancho);
-        
-        
+       // Peso* p = new Peso(origen,destino,0);
+       // pesos->addFinal(p);
         f>>origen;
 
     }
@@ -250,5 +250,70 @@ void Administrador::paquetes(){
     for (int i = 0 ; i<routersDisponibles->size();i++){
         aux->get_dato()->imprimirPaquetes();
         aux = aux->get_next();
+    }
+}
+
+void Administrador::calcularTablaDeEnrutamiento(){
+    Nodo<Router*>* aux;
+    aux = routersDisponibles->comienzo();
+    for (int i = 0 ; i < routersDisponibles->size();i++){
+        Nodo<LazoDeConexion*>* aux1;
+        aux1=aux->get_dato()->getIda()->comienzo();
+        cout<<"Soy el router "<<aux->get_dato()->getID()<<
+        " y puedo enviar datos a "<<endl;
+        for (int j =0; j < aux->get_dato()->getIda()->size();j++){
+            cout<<aux1->get_dato()->getTerminal2()<<endl;
+            aux1= aux1->get_next();
+        }
+
+        aux = aux->get_next();
+    }
+}
+void Administrador::enviarPaquetes(){
+    Nodo<Router*>* aux;
+    aux = routersDisponibles -> comienzo();
+    for (int i = 0 ; i < routersDisponibles->size();i++){
+        aux->get_dato()->enviarPaquetes();
+        aux = aux -> get_next();
+    }   
+}
+void Administrador::recibirPaquetes(){
+    Nodo<Router*>* aux;
+    aux = routersDisponibles -> comienzo();
+    for (int i = 0 ; i < routersDisponibles->size();i++){
+        aux->get_dato()->recibirPaquetes();
+        aux = aux -> get_next();
+    }   
+}
+
+void Administrador::simular(){
+    
+}
+        /* voy a declarar dijsktra en base a lo de clase para abrir ideas y en base
+        a ello redefinir metodos que tengo */
+
+void Administrador::AlgDis(int ini){
+    Lista<int>* D = new Lista<int>();
+    Lista<Direccion*>* direcciones = new Lista<Direccion*>();
+    Lista<LazoDeConexion*>* lazos = new Lista<LazoDeConexion*>();
+
+    /* ini*/
+    for (int i = 0 ; i <  routersDisponibles->size(); i++){
+        if(i == ini){
+            Direccion* direccion = new Direccion (i,0,0);
+            direcciones->addFinal(direccion);
+        }else{
+            Direccion* direccion = new Direccion (i,-1,INFI);
+            direcciones->addFinal(direccion);
+        }
+        D->addFinal(i);
+    }
+
+}
+
+void Administrador::paseAlg(){
+
+    for (int i = 0 ; i < routersDisponibles->size();i++){
+        this->AlgDis(i);
     }
 }

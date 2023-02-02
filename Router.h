@@ -12,7 +12,7 @@
 #include "Cola.h"
 #include "Pagina.h"
 #include "LazoDeConexion.h"
-
+#include "Direccion.h"
 
 using namespace std;
 
@@ -25,6 +25,7 @@ class Paquete;
 class Pagina;
 class LazoDeConexion;
 class SistemaEmpaquetado;
+
 class Router{
 private:
     int id;
@@ -38,6 +39,7 @@ private:
     Lista<LazoDeConexion*>* ida = new Lista<LazoDeConexion*>();
     Lista<LazoDeConexion*>* vuelta = new Lista<LazoDeConexion*>();
     Lista<Paquete*>* paquetes = new Lista<Paquete*>();
+    Lista<Direccion*>* tabla = new Lista<Direccion*>();
    // SistemaEmpaquetado * empaquetador = NULL;
 
     //listas de destino.
@@ -65,7 +67,13 @@ public:
     void imprimirPaquetes();
     void agregarLazoIda(LazoDeConexion* f){this->ida->addFinal(f);};
     void agregarLazoVuelta(LazoDeConexion* f){this->vuelta->addFinal(f);};
+    Lista<LazoDeConexion*>* getIda(){return this->ida;};
+    Lista<LazoDeConexion*>* getVuelta(){return this->vuelta;}
     void imprimirLazosConectados();
+    void crearTabla();
+    void enviarPaquetes();
+    void recibirPaquetes();
+    void buscarEnTabla(int);
    // Lista<LazoDeConexion*>* getLazos(){return lazos;};
 
     

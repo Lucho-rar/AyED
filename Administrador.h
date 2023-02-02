@@ -11,7 +11,9 @@
 #include "Terminal.h"
 #include "LazoDeConexion.h"
 #include "SistemaEmpaquetado.h"
-
+#include "Direccion.h"
+#include "Peso.h"
+#define INFI  999
 using namespace std;
 class SistemaDeEmpaquetado;
 class Administrador{
@@ -19,7 +21,7 @@ private:
     Lista<Terminal*>* terminalesDisponibles = new Lista<Terminal*>();
     Lista<Router*>* routersDisponibles = new Lista<Router*>();
     Lista<LazoDeConexion*>* listaDeConexiones = new Lista<LazoDeConexion*>();
-
+    Lista<Peso*>* pesos = new Lista<Peso*>();
     int terminalesPorRouter;
     int cantidadDeRouters;
     int simPag=0;
@@ -46,8 +48,13 @@ public:
     void pruebaIndice();
 
     void imprimirPaginasPorRouter();
+    void calcularTablaDeEnrutamiento();
+    void enviarPaquetes();
     void paquetes();
-
+    void recibirPaquetes();
+    void simular();
+    void paseAlg();
+    void AlgDis(int);
 };
 
 

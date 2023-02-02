@@ -13,7 +13,7 @@ void Router::recibirPag(Pagina* p){
     for (int i = 0 ; i < p->getTamanioDePag();i++){
         Paquete* pkg = new Paquete (i,p->getidentificadorDePag(),p->getOrigen(),p->getDestino(), p->getTamanioDePag());
         cout<<"\n Paquete"<<endl;
-        cout<<i << p->getidentificadorDePag()<<" "<<p->getOrigen()[0]<<":"<<p->getOrigen()[1]<<endl;
+        cout<<i << p->getidentificadorDePag()<<" "<<p->getOrigen()[0]<<"=>"<<p->getDestino()[0]<<endl;
         //this->addPaquete(pkg);
         this->paquetes->addFinal(pkg);
     }
@@ -126,3 +126,39 @@ void Router::imprimirLazosConectados(){
     }
 
 }
+
+
+
+void Router::enviarPaquetes(){
+    if (paquetes->esvacia()){
+        cout<<"no hay paquetes para este router"<<endl;
+    }else{
+        
+        for (int i = 0; i<ida->size();i++){
+            for(int j = 0 ; j< paquetes->size();j++){
+                if(ida->buscarPorIndice(i)->getTerminal2() == paquetes->buscarPorIndice(j)->getDestino()[0] ){
+                    cout<<"tengo match de direcciones"<<endl;
+                }else{
+                    cout<<"no tengo math man "<<endl;
+                }
+            }
+
+        }
+    }
+
+}
+
+
+
+void Router::recibirPaquetes(){
+    cout<<"Soy el router " <<this->getID()<<" y voy a mostrar las conexiones de recibo "<<vuelta->size()<<endl;
+    for (int i = 0 ; i < vuelta->size() ; i++){
+        cout<<vuelta->buscarPorIndice(i)->getTerminal1()<<" "<<
+        vuelta->buscarPorIndice(i)->getTerminal2()<<endl;
+    }
+}
+
+void Router::crearTabla(){
+
+}
+
