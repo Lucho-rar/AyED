@@ -71,6 +71,7 @@ public:
     Lista<LazoDeConexion*>* getVuelta(){return this->vuelta;}
     void imprimirLazosConectados();
     void crearTabla();
+    void cargarPaquete(int, Paquete*);
     void enviarPaquetes();
     void recibirPaquetes();
     void buscarEnTabla(int);

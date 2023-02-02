@@ -16,7 +16,7 @@ private:
     int terminal2;  // con los tipos "router" "terminal"
     int peso;
     int anchoDeBanda;
-    Cola<Paquete*>* colaConectora = new Cola<Paquete*>();
+    Lista<Paquete*>* colaConectora = new Cola<Paquete*>();
 
 public:
     LazoDeConexion(){};
@@ -30,7 +30,10 @@ public:
     int getTerminal2(){return terminal2;};
     int getPeso(){return peso;};
     int getBW() { return anchoDeBanda;};
-    Cola<Paquete*>* getcolaconectora(){return colaConectora;};
+    bool vacia();
+    Lista<Paquete*>* getcolaconectora(){return colaConectora;};
+    void cargarPkg(Paquete* p);
+    Paquete* leerPkg();
     
 
 

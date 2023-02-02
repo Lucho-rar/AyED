@@ -138,6 +138,9 @@ void Router::enviarPaquetes(){
             for(int j = 0 ; j< paquetes->size();j++){
                 if(ida->buscarPorIndice(i)->getTerminal2() == paquetes->buscarPorIndice(j)->getDestino()[0] ){
                     cout<<"tengo match de direcciones"<<endl;
+                    ida->buscarPorIndice(i)->cargarPkg(paquetes->buscarPorIndice(j));
+               
+
                 }else{
                     cout<<"no tengo math man "<<endl;
                 }
@@ -151,10 +154,23 @@ void Router::enviarPaquetes(){
 
 
 void Router::recibirPaquetes(){
-    cout<<"Soy el router " <<this->getID()<<" y voy a mostrar las conexiones de recibo "<<vuelta->size()<<endl;
-    for (int i = 0 ; i < vuelta->size() ; i++){
-        cout<<vuelta->buscarPorIndice(i)->getTerminal1()<<" "<<
-        vuelta->buscarPorIndice(i)->getTerminal2()<<endl;
+    if (!vuelta->esvacia()){
+       // cout<<this->id<<" puedo recibir"<<endl;
+        for (int i =0 ; i < vuelta->size();i++){
+        //    while(vuelta->buscarPorIndice(i)->vacia() == false){
+                Paquete* pkg = vuelta->buscarPorIndice(i)->leerPkg();
+                if (pkg!=NULL){
+                cout<<"soy "<<this->id<<"y lei"<<pkg->getNumeroDePaquete()<<endl;
+                }
+                Paquete* pkk = vuelta->buscarPorIndice(i)->leerPkg();
+                if (pkk!=NULL){
+                cout<<"soy "<<this->id<<"y lei"<<pkk->getNumeroDePaquete()<<endl;
+                }
+          //  }
+
+            
+
+        }
     }
 }
 

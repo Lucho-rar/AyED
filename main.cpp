@@ -55,7 +55,7 @@ int main(){
    /// admin->paseAlg();
     admin->imprimirLazos();
     admin->enviarPaquetes();
-  //  admin->recibirPaquetes();
+    admin->recibirPaquetes();
    // admin->crearPaginas();
    // admin->imprimirPaginasPorRouter();
    // admin->segmentarPaginas();
