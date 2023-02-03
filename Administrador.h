@@ -13,6 +13,7 @@
 #include "SistemaEmpaquetado.h"
 #include "Direccion.h"
 #include "Peso.h"
+#include "Paquete.h"
 #define INFI  999
 using namespace std;
 class SistemaDeEmpaquetado;

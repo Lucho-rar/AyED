@@ -1,5 +1,5 @@
 #include "Router.h"
-
+#include "hash.h"
 /*          Metodos Router      */
 
 void Router::enviarPaquete(){
@@ -165,7 +165,10 @@ void Router::recibirPaquetes(){
                 int cont = vuelta->buscarPorIndice(i)->getcolaconectora()->size()-1;
                 while(cont>=0/*vuelta->buscarPorIndice(i)->vacia()!=true*/){
                     Paquete* pkg0 = vuelta->buscarPorIndice(i)->leerPkg();
+                    
                     if (pkg0!=NULL){
+                        this->vincularConKey(pkg0);
+                        //this->hash->agregarH(pkg0);
                         cout<<"soy "<<this->id<<"y lei"<<pkg0->getNumeroDePaquete()<<" "<<pkg0->getPaginaMadre()<<endl;
                     }         
                     cont--;
@@ -173,6 +176,15 @@ void Router::recibirPaquetes(){
             }
         }
     }
+}
+
+void Router::vincularConKey(Paquete* p){
+    int i = p->getPaginaMadre();
+    D[i].addFinal(p);
+    if(D[i].size()==10){
+        cout<<"completaste la pagina";
+    }
+
 }
 
 void Router::crearTabla(){

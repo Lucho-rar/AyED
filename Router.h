@@ -14,7 +14,7 @@
 #include "LazoDeConexion.h"
 #include "SistemaEmpaquetado.h"
 #include "Direccion.h"
-
+#define MAX 5
 using namespace std;
 
 
@@ -26,6 +26,8 @@ class Paquete;
 class Pagina;
 class LazoDeConexion;
 class SistemaEmpaquetado;
+
+
 
 class Router{
 private:
@@ -41,7 +43,7 @@ private:
     Lista<LazoDeConexion*>* vuelta = new Lista<LazoDeConexion*>();
     Lista<Paquete*>* paquetes = new Lista<Paquete*>();
     Lista<Direccion*>* tabla = new Lista<Direccion*>();
-    SistemaEmpaquetado* empaquetador;
+    Lista<Paquete*> D[MAX];
     //listas de destino.
 public:
     Router(int direccion){
@@ -76,6 +78,7 @@ public:
     void enviarPaquetes();
     void recibirPaquetes();
     void buscarEnTabla(int);
+    void vincularConKey(Paquete *);
    // Lista<LazoDeConexion*>* getLazos(){return lazos;};
 
     
