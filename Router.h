@@ -6,12 +6,13 @@
 #include <stdlib.h>
 #include "Lista.h"
 #include "Nodo.h"
-#include "SistemaEmpaquetado.h"
+
 
 //#include "Paquete.h"
 #include "Cola.h"
 #include "Pagina.h"
 #include "LazoDeConexion.h"
+#include "SistemaEmpaquetado.h"
 #include "Direccion.h"
 
 using namespace std;
@@ -40,16 +41,16 @@ private:
     Lista<LazoDeConexion*>* vuelta = new Lista<LazoDeConexion*>();
     Lista<Paquete*>* paquetes = new Lista<Paquete*>();
     Lista<Direccion*>* tabla = new Lista<Direccion*>();
-   // SistemaEmpaquetado * empaquetador = NULL;
-
+    SistemaEmpaquetado* empaquetador;
     //listas de destino.
 public:
     Router(int direccion){
         
         this->id = direccion;
        // empaquetador = new SistemaEmpaquetado();
-        
+
     }
+   
     int getID(){return this->id;};
     Cola<Paquete*>* getcoladeenvio(){return colaDeEnvio;};
     //int getBW(){return this->bw;};

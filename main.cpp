@@ -11,7 +11,7 @@
 #include "Paquete.h"
 #include "Administrador.h"
 #include "SistemaEmpaquetado.h"
-
+#include "hash.h"
 using namespace std;
 int main(){
     /*
@@ -61,6 +61,8 @@ int main(){
    // admin->segmentarPaginas();
    // admin->insertarPaquetesEnLosLazos();
 
+    
+  
 
 
 }

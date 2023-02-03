@@ -2,13 +2,8 @@
 
 
 bool LazoDeConexion::vacia(){
-    if(colaConectora->esvacia()){
-        cout<<"estoy vacia"<<endl;
-        return true;
-    }else{
-        cout<<"segui"<<endl;
-        return false;
-    }
+    if(colaConectora->esvacia()) return true;
+    return false;
 }
 
 
@@ -26,7 +21,6 @@ Paquete* LazoDeConexion::leerPkg(){
     }else{
         Paquete* pkg = colaConectora->comienzo()->get_dato();
         this->colaConectora->borrar();
-        cout<<colaConectora->comienzo()->get_dato()->getNumeroDePaquete()<<" com "<<endl;
         return pkg;
         }
 

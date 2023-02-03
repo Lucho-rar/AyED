@@ -154,22 +154,23 @@ void Router::enviarPaquetes(){
 
 
 void Router::recibirPaquetes(){
+
+    cout<<this->id<<endl;
     if (!vuelta->esvacia()){
        // cout<<this->id<<" puedo recibir"<<endl;
         for (int i =0 ; i < vuelta->size();i++){
-        //    while(vuelta->buscarPorIndice(i)->vacia() == false){
-                Paquete* pkg = vuelta->buscarPorIndice(i)->leerPkg();
-                if (pkg!=NULL){
-                cout<<"soy "<<this->id<<"y lei"<<pkg->getNumeroDePaquete()<<endl;
+            if(vuelta->buscarPorIndice(i)->vacia()==true){
+                cout<<"Vacia"<<endl;
+            }else{
+                int cont = vuelta->buscarPorIndice(i)->getcolaconectora()->size()-1;
+                while(cont>=0/*vuelta->buscarPorIndice(i)->vacia()!=true*/){
+                    Paquete* pkg0 = vuelta->buscarPorIndice(i)->leerPkg();
+                    if (pkg0!=NULL){
+                        cout<<"soy "<<this->id<<"y lei"<<pkg0->getNumeroDePaquete()<<" "<<pkg0->getPaginaMadre()<<endl;
+                    }         
+                    cont--;
                 }
-                Paquete* pkk = vuelta->buscarPorIndice(i)->leerPkg();
-                if (pkk!=NULL){
-                cout<<"soy "<<this->id<<"y lei"<<pkk->getNumeroDePaquete()<<endl;
-                }
-          //  }
-
-            
-
+            }
         }
     }
 }
