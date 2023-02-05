@@ -24,11 +24,13 @@ public:
         this->terminal1=p;
         this->terminal2=d;
         this->anchoDeBanda=a;
+        //peso = this->getPeso();
 
     }
     int getTerminal1(){return terminal1;}; 
     int getTerminal2(){return terminal2;};
     int getPeso(){return peso;};
+    void calcularPeso(){peso = this->colaConectora->size()/anchoDeBanda;};
     int getBW() { return anchoDeBanda;};
     bool vacia();
     Lista<Paquete*>* getcolaconectora(){return colaConectora;};

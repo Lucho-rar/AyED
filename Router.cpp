@@ -11,7 +11,7 @@ void Router::recibirPag(Pagina* p){
     
     //this->listaDePaginas->addFinal(p);
     for (int i = 0 ; i < p->getTamanioDePag();i++){
-        Paquete* pkg = new Paquete (i,p->getidentificadorDePag(),p->getOrigen(),p->getDestino(), p->getTamanioDePag());
+        Paquete* pkg = new Paquete (i,p,p->getOrigen(),p->getDestino(), p->getTamanioDePag());
         cout<<"\n Paquete"<<endl;
         cout<<i << p->getidentificadorDePag()<<" "<<p->getOrigen()[0]<<"=>"<<p->getDestino()[0]<<endl;
         //this->addPaquete(pkg);
@@ -169,7 +169,7 @@ void Router::recibirPaquetes(){
                     if (pkg0!=NULL){
                         this->vincularConKey(pkg0);
                         //this->hash->agregarH(pkg0);
-                        cout<<"soy "<<this->id<<"y lei"<<pkg0->getNumeroDePaquete()<<" "<<pkg0->getPaginaMadre()<<endl;
+                        cout<<"soy "<<this->id<<"y lei"<<pkg0->getNumeroDePaquete()<<" "<<pkg0->getPaginaMadre()->getidentificadorDePag()<<endl;
                     }         
                     cont--;
                 }
@@ -179,7 +179,7 @@ void Router::recibirPaquetes(){
 }
 
 void Router::vincularConKey(Paquete* p){
-    int i = p->getPaginaMadre();
+    int i = p->getPaginaMadre()->getidentificadorDePag();
     D[i].addFinal(p);
     if(D[i].size()==10){
         cout<<"completaste la pagina";
@@ -187,7 +187,19 @@ void Router::vincularConKey(Paquete* p){
 
 }
 
-void Router::crearTabla(){
+bool Router::esVecino(int id){
+    bool respuesta = false;
+    Nodo<Router*>* aux;
+    aux = listaDeVecinos->comienzo();
+    for (int i =0 ; i < listaDeVecinos->size();i++){
+        if(aux->get_dato()->getID()==id){
+            respuesta= true;
+            return respuesta;
+        }
+        aux = aux->get_next();
+
+    }
+    return respuesta;
 
 }
 

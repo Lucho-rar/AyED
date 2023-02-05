@@ -66,7 +66,7 @@ void Administrador::imprimirConexiones(){
     cout<<"\nTerminales por routers: "<<endl;
     for (int i =0; i<routersDisponibles->size() ; i++){
         if(aux!=NULL){
-            aux->get_dato()->imprimirTerminales();
+            aux->get_dato()->imprimirTerminales(); 
         }
         aux = aux -> get_next();
     }
@@ -293,27 +293,70 @@ void Administrador::simular(){
         a ello redefinir metodos que tengo */
 
 void Administrador::AlgDis(int ini){
-    Lista<int>* D = new Lista<int>();
+    Lista<int> Q;
     Lista<Direccion*>* direcciones = new Lista<Direccion*>();
-    Lista<LazoDeConexion*>* lazos = new Lista<LazoDeConexion*>();
-
-    /* ini*/
-    for (int i = 0 ; i <  routersDisponibles->size(); i++){
-        if(i == ini){
-            Direccion* direccion = new Direccion (i,0,0);
-            direcciones->addFinal(direccion);
-        }else{
-            Direccion* direccion = new Direccion (i,-1,INFI);
-            direcciones->addFinal(direccion);
-        }
-        D->addFinal(i);
+    Lista<int> conocidos;
+    int pre[cantidadDeRouters];
+    for (int i = 0 ; i < listaDeConexiones->size() ;i++){
+        listaDeConexiones->buscarPorIndice(i)->calcularPeso();
     }
+
+    for (int i = 0; i<routersDisponibles->size();i++){
+        if(i == ini){
+            Direccion* direccion = new Direccion(i,0,0);
+            direcciones->addFinal(direccion);
+            pre[i]=ini;
+        }else{
+            Direccion* direccion = new Direccion(i,-1,INFI);
+            direcciones->addFinal(direccion);
+            pre[i]=-1;
+        }
+        Q.addFinal(i);
+    }
+    
+
+
+    
 
 }
 
 void Administrador::paseAlg(){
 
     for (int i = 0 ; i < routersDisponibles->size();i++){
-        this->AlgDis(i);
+        this->AlgAlt(i);
     }
+}
+
+void Administrador::AlgAlt(int ini){
+    Lista<int> Q;
+    int C[cantidadDeRouters];
+    
+    for (int i = 0 ; i <listaDeConexiones->size();i++){
+       // cout<<listaDeConexiones->buscarPorIndice(i)->getTerminal1()<<"|"<<listaDeConexiones->buscarPorIndice(i)->getTerminal2()<<"|";
+        //cout<<listaDeConexiones->buscarPorIndice(i)->getcolaconectora()->size()<<endl;
+        listaDeConexiones->buscarPorIndice(i)->calcularPeso();
+    }
+    
+    for (int i = 0; i < routersDisponibles->size();i++){
+        Router* routerAnalisis= routersDisponibles->buscarPorIndice(i);
+        if(i == ini){
+            C[ini]=0;
+        }else if(routersDisponibles->buscarPorIndice(ini)->esVecino(i)){
+           // cout<<"lo contiene"<<endl;
+            int aux = 0;
+            for(int j = 0 ; j < listaDeConexiones->size(); j ++){
+                if((listaDeConexiones->buscarPorIndice(j)->getTerminal1()==ini && listaDeConexiones->buscarPorIndice(j)->getTerminal2()==i)
+                || (listaDeConexiones->buscarPorIndice(j)->getTerminal1()==i && listaDeConexiones->buscarPorIndice(j)->getTerminal2()==ini)){
+                    aux = listaDeConexiones->buscarPorIndice(j)->getPeso();
+                }
+            }
+            C[i]=aux;
+        }else{
+            C[i]=INFI;
+        }
+    }
+    for (int i =0; i<cantidadDeRouters;i++){
+        cout<<C[i]<<" ";
+    }
+    cout<<endl;
 }

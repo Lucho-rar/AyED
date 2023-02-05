@@ -15,6 +15,8 @@
 #include "Peso.h"
 #include "Paquete.h"
 #define INFI  999
+#define MIEMBRO 1
+#define NOMIEMBRO 0
 using namespace std;
 class SistemaDeEmpaquetado;
 class Administrador{
@@ -26,6 +28,7 @@ private:
     int terminalesPorRouter;
     int cantidadDeRouters;
     int simPag=0;
+    
     //Lista<Terminal>* terminalesConectados = new Lista<Terminal>();
     
 public:
@@ -50,12 +53,15 @@ public:
 
     void imprimirPaginasPorRouter();
     void calcularTablaDeEnrutamiento();
+    void AlgDis(int);
+    void AlgAlt(int);
     void enviarPaquetes();
     void paquetes();
     void recibirPaquetes();
     void simular();
     void paseAlg();
-    void AlgDis(int);
+
+    
 };
 
 

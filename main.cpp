@@ -14,6 +14,22 @@
 #include "hash.h"
 using namespace std;
 int main(){
+    Lista<int>* l  = new Lista<int>();
+    l->addFinal(0);
+    l->addFinal(2);
+    l->addFinal(5);
+    for (int i = 0 ; i <l->size();i++){
+        cout<<l->buscarPorIndice(i)<<endl;
+    }
+    l->borrarNodo(0);
+    for (int i = 0 ; i <l->size();i++){
+        cout<<l->buscarPorIndice(i)<<endl;
+    }
+    if(l->contiene(3)){
+        cout<<"si!"<<endl;
+    }else{
+        cout<<"no"<<endl;
+    }
     /*
     Terminal* f = new Terminal(3);
     Terminal* x = new Terminal(4);
@@ -49,12 +65,14 @@ int main(){
     admin->crearPaginas();
     admin->crearPaginas();
     admin->paquetes();
+   // admin->paseAlg();
     //admin->pruebaIndice();
     //admin->imprex();
     //admin->calcularTablaDeEnrutamiento();
-   /// admin->paseAlg();
+    
     admin->imprimirLazos();
     admin->enviarPaquetes();
+    admin->paseAlg();
     admin->recibirPaquetes();
    // admin->crearPaginas();
    // admin->imprimirPaginasPorRouter();

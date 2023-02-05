@@ -28,6 +28,8 @@ public:
     Lista<T>* copy(void);// hace una copia de la lista
     void tomar(int n);//deja "vivos" los n primeros nodos y borra el resto
     T buscarPorIndice(int);
+    void borrarNodo(int);
+    bool contiene(T d);
    
 };
 
@@ -136,6 +138,7 @@ template <class T> void Lista<T>::borrar(void)
     if (!this->esvacia()) {
         Nodo<T>* tmp = czo;
         czo = czo->get_next();
+        cantidaddenodos--;
         delete tmp;
     }
 }
@@ -189,6 +192,43 @@ template <class T> T Lista<T> :: buscarPorIndice(int indice){
     }
 
     return aux->get_dato();
+}
+
+template <class T> void Lista<T> :: borrarNodo(int nodo){
+
+
+    if(this->buscarPorIndice(nodo)==NULL){
+        cout<<"no se puede borrar";
+    }
+    if (nodo ==0){
+        this->borrar();
+    }else{
+        Nodo<T>* actual = czo;
+        Nodo<T>* anterior;
+        int act = 0;
+        while(act<nodo){
+            anterior= actual;
+            actual =  actual -> get_next();
+            act++;
+        }
+        anterior->set_next(actual->get_next());
+        this->cantidaddenodos--;
+        delete actual;
+    }
+}
+
+template <class T> bool Lista<T> :: contiene(T d){
+    bool contiene =false;
+    Nodo<T>* actual = czo;
+    while(actual!=NULL){
+        if(actual->get_dato()==d){
+            contiene = true;
+            return contiene;
+        }
+        actual = actual->get_next();
+    }
+    return contiene;
+
 }
 
 #endif

@@ -29,4 +29,3 @@ Paquete* LazoDeConexion::leerPkg(){
     //this->colaConectora->desencolar();
 
 }
-

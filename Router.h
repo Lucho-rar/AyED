@@ -79,6 +79,8 @@ public:
     void recibirPaquetes();
     void buscarEnTabla(int);
     void vincularConKey(Paquete *);
+    Lista<Router*>* getvecinos(){return listaDeVecinos;};
+    bool esVecino(int);
    // Lista<LazoDeConexion*>* getLazos(){return lazos;};
 
     

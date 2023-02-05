@@ -16,12 +16,12 @@ class Paquete{
 private:
     int numeroDePaquete;
     int tamanioDePaquete;
-    int paginaMadre;
+    Pagina* paginaMadre;
     int origen[2];
     int destino[2];
 public:
     Paquete(){};
-    Paquete(int n , int pag,int o[2], int d[2], int tam){
+    Paquete(int n , Pagina* pag,int o[2], int d[2], int tam){
         this->numeroDePaquete = n;
         this->paginaMadre = pag;
         this->origen[0]= o[0];
@@ -32,7 +32,7 @@ public:
     }
     int getNumeroDePaquete(){return numeroDePaquete;};
     int getTamanioDePaquete(){return tamanioDePaquete;};
-    int getPaginaMadre(){return paginaMadre;};
+    Pagina* getPaginaMadre(){return paginaMadre;};
     int * getOrigen(){return origen;};
     int * getDestino(){return destino;};
     
