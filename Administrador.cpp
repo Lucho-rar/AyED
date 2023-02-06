@@ -292,44 +292,44 @@ void Administrador::simular(){
         /* voy a declarar dijsktra en base a lo de clase para abrir ideas y en base
         a ello redefinir metodos que tengo */
 
-void Administrador::AlgDis(int ini){
-    Lista<int> Q;
-    Lista<Direccion*>* direcciones = new Lista<Direccion*>();
-    Lista<int> conocidos;
-    int pre[cantidadDeRouters];
-    for (int i = 0 ; i < listaDeConexiones->size() ;i++){
-        listaDeConexiones->buscarPorIndice(i)->calcularPeso();
-    }
-
-    for (int i = 0; i<routersDisponibles->size();i++){
-        if(i == ini){
-            Direccion* direccion = new Direccion(i,0,0);
-            direcciones->addFinal(direccion);
-            pre[i]=ini;
-        }else{
-            Direccion* direccion = new Direccion(i,-1,INFI);
-            direcciones->addFinal(direccion);
-            pre[i]=-1;
-        }
-        Q.addFinal(i);
-    }
-    
-
-
-    
-
-}
 
 void Administrador::paseAlg(){
-
+    int *pdist, i, j, P[MAXNODOS],s,t;
+    
     for (int i = 0 ; i < routersDisponibles->size();i++){
         this->AlgAlt(i);
     }
+
+    this->imprimirtabla();
+   
+    
+   // s=0;  // vertice de inicio
+   // t=1;  // vertice final
+    for(s = 0; s<MAXNODOS;s++){
+        for ( t = 0; t<MAXNODOS;t++){
+   
+    pdist=dijkstra(T,s,t,P);
+    if (pdist[t]!=INFI){
+        cout<<"\n\n distancia minima del nodo "<<s
+            <<" al nodo "<<t<<" es= "<<pdist[t];
+   
+        cout<<"\n\n CAMINO= ";
+        camino(P,s,t);
+       
+    }                
+    else cout<<"\n NO HAY CAMINO";
+    
+    cout<<endl<<endl<<endl;
+    //system("PAUSE");
+    }
+    }
+
 }
 
 void Administrador::AlgAlt(int ini){
     Lista<int> Q;
     int C[cantidadDeRouters];
+    
     
     for (int i = 0 ; i <listaDeConexiones->size();i++){
        // cout<<listaDeConexiones->buscarPorIndice(i)->getTerminal1()<<"|"<<listaDeConexiones->buscarPorIndice(i)->getTerminal2()<<"|";
@@ -355,8 +355,84 @@ void Administrador::AlgAlt(int ini){
             C[i]=INFI;
         }
     }
+    for (int i = 0 ; i < cantidadDeRouters;i++){
+        this->T[ini][i]=C[i];
+    }
+    /*
     for (int i =0; i<cantidadDeRouters;i++){
         cout<<C[i]<<" ";
-    }
+           
+    }*/
+
+ 
     cout<<endl;
+}
+
+void Administrador::imprimirtabla(){
+    for (int i = 0; i < cantidadDeRouters;i++){
+        for (int j = 0 ; j < cantidadDeRouters;j++){
+            cout<<T[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+int * Administrador::dijkstra(int C[][MAXNODOS],int s, int t, int Pre[]){
+ static int D[MAXNODOS];
+ int S[MAXNODOS];
+ int actual, i, k, b;
+ int menordist, nuevadist;
+// inicializaci�n
+ for(i=0;i<MAXNODOS;i++){
+                         S[i]=NO_MIEMBRO;
+                         D[i]=INFI;
+                         Pre[i]= -1;
+ }//fin for
+ S[s]=MIEMBRO; D[s]=0; actual=s; b=1; k=0;
+ while((actual!=t)&&(b==1)){
+                  b=0;
+                  menordist=INFI;
+                  //printf("\n\n   D[%i]=%3i ",actual,D[actual]);
+                  for(i=0;i<MAXNODOS;i++){
+                          //cout<<"\n  i= "<<i;                
+                          if(S[i]==NO_MIEMBRO){
+                                 nuevadist=D[actual]+C[actual][i];
+                                 //printf("\n nuevadist=%3i D[%2i]=%3i ",nuevadist,i,D[i]);
+                                 if(nuevadist<D[i]){
+                                        D[i]=nuevadist;//actual es menor que la anterior
+                                        Pre[i]=actual; b=1;
+                                 }//fin if
+                                 //printf("\n menordist=%3i D[%2i]=%3i ",menordist,i,D[i]);
+                                 if(D[i]<menordist){
+                                        menordist=D[i];
+                                        k=i;  b=1;//guardo el nodo de la menor distancia
+                                 }//fin if
+                          }//fin if
+                  }//fin for
+                               
+                  actual=k; // actual se ubica en el nodo de menor distancia
+                  S[actual]=MIEMBRO;
+                  printf("\n\n         D     S     Pre");
+                  for(i=0;i<MAXNODOS;i++){
+                           printf("\n[%2i] %5i %5i %5i     ",i,D[i], S[i],Pre[i]);
+                   } 
+      
+                  //printf("\n\n   D[%i]=%3i ",actual,D[actual]);
+                  
+                   system("PAUSE");
+ }//fin while
+
+return D;
+
+}
+
+
+void Administrador::camino(int P[], int s, int t)
+{  if (t==s) cout<< s<<"  ";
+   else{
+        camino(P,s,P[t]);
+        cout<<t<<"  ";
+   }
+ 
+     
 }

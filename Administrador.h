@@ -16,7 +16,8 @@
 #include "Paquete.h"
 #define INFI  999
 #define MIEMBRO 1
-#define NOMIEMBRO 0
+#define NO_MIEMBRO 0
+#define MAXNODOS 10
 using namespace std;
 class SistemaDeEmpaquetado;
 class Administrador{
@@ -25,10 +26,11 @@ private:
     Lista<Router*>* routersDisponibles = new Lista<Router*>();
     Lista<LazoDeConexion*>* listaDeConexiones = new Lista<LazoDeConexion*>();
     Lista<Peso*>* pesos = new Lista<Peso*>();
+    int T[10][10];
     int terminalesPorRouter;
     int cantidadDeRouters;
     int simPag=0;
-    
+   // int T[cantidadDeRouters][cantidadDeRouters];
     //Lista<Terminal>* terminalesConectados = new Lista<Terminal>();
     
 public:
@@ -60,8 +62,9 @@ public:
     void recibirPaquetes();
     void simular();
     void paseAlg();
-
-    
+    void imprimirtabla();
+    int * dijkstra(int C[][MAXNODOS], int, int, int Pre[]);
+    void camino(int P[], int s, int t);
 };
 
 
