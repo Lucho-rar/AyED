@@ -326,11 +326,12 @@ void Administrador::paseAlg(){
 
 }
 
+
 void Administrador::AlgAlt(int ini){
     Lista<int> Q;
     int C[cantidadDeRouters];
     
-    
+    int aux = 4;
     for (int i = 0 ; i <listaDeConexiones->size();i++){
        // cout<<listaDeConexiones->buscarPorIndice(i)->getTerminal1()<<"|"<<listaDeConexiones->buscarPorIndice(i)->getTerminal2()<<"|";
         //cout<<listaDeConexiones->buscarPorIndice(i)->getcolaconectora()->size()<<endl;
@@ -343,11 +344,13 @@ void Administrador::AlgAlt(int ini){
             C[ini]=0;
         }else if(routersDisponibles->buscarPorIndice(ini)->esVecino(i)){
            // cout<<"lo contiene"<<endl;
-            int aux = 0;
+            
             for(int j = 0 ; j < listaDeConexiones->size(); j ++){
-                if((listaDeConexiones->buscarPorIndice(j)->getTerminal1()==ini && listaDeConexiones->buscarPorIndice(j)->getTerminal2()==i)
-                || (listaDeConexiones->buscarPorIndice(j)->getTerminal1()==i && listaDeConexiones->buscarPorIndice(j)->getTerminal2()==ini)){
+                if((listaDeConexiones->buscarPorIndice(j)->getTerminal1()==ini && listaDeConexiones->buscarPorIndice(j)->getTerminal2()==i)){
+                    cout<<ini<<" "<<i<<endl;
                     aux = listaDeConexiones->buscarPorIndice(j)->getPeso();
+                }else if(listaDeConexiones->buscarPorIndice(j)->getTerminal1()==i && listaDeConexiones->buscarPorIndice(j)->getTerminal2()==ini){
+                    aux = 67;
                 }
             }
             C[i]=aux;
@@ -367,7 +370,6 @@ void Administrador::AlgAlt(int ini){
  
     cout<<endl;
 }
-
 void Administrador::imprimirtabla(){
     for (int i = 0; i < cantidadDeRouters;i++){
         for (int j = 0 ; j < cantidadDeRouters;j++){
@@ -428,10 +430,14 @@ return D;
 
 
 void Administrador::camino(int P[], int s, int t)
-{  if (t==s) cout<< s<<"  ";
+{  if (t==s) cout/*<< s*/<<"  ";
    else{
-        camino(P,s,P[t]);
-        cout<<t<<"  ";
+        //camino(P,s,P[t]);
+        if(P[t]==s){
+        }else{
+            cout<<P[t]<<"  ";
+        }
+        
    }
  
      
