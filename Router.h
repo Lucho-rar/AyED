@@ -77,12 +77,14 @@ public:
     void cargarPaquete(int, Paquete*);
     void enviarPaquetes();
     void recibirPaquetes();
-    void buscarEnTabla(int);
+    int buscarEnTabla(int);
     void vincularConKey(Paquete *);
     Lista<Router*>* getvecinos(){return listaDeVecinos;};
     bool esVecino(int);
     void setTabla(Lista<Direccion*>*);
     void imprimirTabla();
+    int comprobarDestino(int);
+    void sacarPkg(Paquete *);
    // Lista<LazoDeConexion*>* getLazos(){return lazos;};
     
     

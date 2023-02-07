@@ -103,7 +103,8 @@ void Router::imprimirPaquetes(){
     Nodo<Paquete*>* aux;
     aux = paquetes->comienzo();
     for (int i = 0 ; i < paquetes->size();i++){
-        cout<<aux->get_dato()->getNumeroDePaquete()<<" paquete de " <<aux->get_dato()->getPaginaMadre()<<endl;
+        cout<<aux->get_dato()->getNumeroDePaquete()<<" paquete de " <<aux->get_dato()->getPaginaMadre()->getOrigen()[0]<<
+        aux->get_dato()->getDestino()[0]<<aux->get_dato()->getEstado()<<endl;
         aux = aux ->get_next();
     }
    // this->empaquetador.imprimir();
@@ -127,24 +128,62 @@ void Router::imprimirLazosConectados(){
 
 }
 
+int Router::comprobarDestino(int dir){
+    
+    for (int i = 0 ; i < ida ->size() ; i ++){
+        //cout<<f;
+        if ( ida->buscarPorIndice(i)->getTerminal2() == dir){
+           return i;
+        }
+    }
+    return 9999;
+
+}
+
+void Router::sacarPkg(Paquete * r){
+
+        
+    for(int i = 0 ; i < paquetes->size();i++){
+        if(r == paquetes->buscarPorIndice(i)){
+            paquetes->borrar();
+        }
+    }
+    
+
+}
 
 
 void Router::enviarPaquetes(){
+
+    bool aux;
+    int x ;
     if (paquetes->esvacia()){
         cout<<"no hay paquetes para este router"<<endl;
     }else{
         
-        for (int i = 0; i<ida->size();i++){
-            for(int j = 0 ; j< paquetes->size();j++){
-                if(ida->buscarPorIndice(i)->getTerminal2() == paquetes->buscarPorIndice(j)->getDestino()[0] ){
-                    cout<<"tengo match de direcciones"<<endl;
-                    ida->buscarPorIndice(i)->cargarPkg(paquetes->buscarPorIndice(j));
-                }
-                else{
-                    cout<<"no tengo math man "<<endl;
-                }
-            }
+        for(int i = 0 ; i < paquetes->size() ; i ++){
+            int x =comprobarDestino(paquetes->buscarPorIndice(i)->getDestino()[0]);
+            
+            if (x!=9999){
+                int l = paquetes->buscarPorIndice(i)->getNumeroDePaquete();
+                cout<<"Envio directo a porque es vecino "<< /* paquetes->buscarPorIndice(i)->getDestino()[0]<<x<*/endl;
+                ida->buscarPorIndice(x)->cargarPkg(paquetes->buscarPorIndice(i));
+                paquetes->buscarPorIndice(i)->setEstado();
+                //sacarPkg(paquetes->buscarPorIndice(i));
+               // cout<<"borre "<<l<<endl;
+                
 
+            }else if(int y = buscarEnTabla(paquetes->buscarPorIndice(i)->getDestino()[0])!=9999){
+                int l = paquetes->buscarPorIndice(i)->getNumeroDePaquete();
+                cout<<"no tengo camino directo pero tengo ruta"<<endl;
+                ida->buscarPorIndice(y)->cargarPkg(paquetes->buscarPorIndice(i));
+                paquetes->buscarPorIndice(i)->setEstado();
+               // sacarPkg(paquetes->buscarPorIndice(i));
+                //paquetes->borrar();
+               
+            }else{
+                cout<<"no hay ruta para este paquete :( "<<endl;
+            }
         }
     }
 
@@ -178,12 +217,21 @@ void Router::recibirPaquetes(){
 }
 
 void Router::vincularConKey(Paquete* p){
-    int i = p->getPaginaMadre()->getidentificadorDePag();
-    D[i].addFinal(p);
-    if(D[i].size()==10){
+    if(p->getDestino()[0]!=this->id){
+        cout<<"el paquete no es parami"<<endl;
+        p->setEstado1();
+        paquetes->addFinal(p);
+        
+    }else{
+        int i = p->getPaginaMadre()->getidentificadorDePag();
+        D[i].addFinal(p);
+        if(D[i].size()==10){
         cout<<"completaste la pagina";
         
     }
+
+    }
+    
 
 }
 
@@ -203,6 +251,7 @@ bool Router::esVecino(int id){
 
 }
 
+
 void Router::setTabla(Lista<Direccion*>* nuevaTabla){
     this->tabla = nuevaTabla;
 
@@ -216,4 +265,18 @@ void Router::imprimirTabla(){
         cout<<"["<<aux->get_dato()->getDestino_D()<<"] enrutar a ->"<<aux->get_dato()->getCamino_D()<<endl;
         aux = aux->get_next();
     }
+}
+
+int Router::buscarEnTabla(int destinoDePkgABuscar){
+    int r =9999;
+    //cout<<tabla->size()<<endl;
+    for (int i = 0 ; i< tabla->size() ; i++){
+        if(tabla->buscarPorIndice(i)->getDestino_D() == destinoDePkgABuscar){   //tengo en la ruta
+           // cout<<"paquete de "<<tabla->buscarPorIndice(i)->getDestino_D()<<" tiene que tomar la ruta de "<<tabla->buscarPorIndice(i)->getCamino_D()<<endl;
+            r= tabla->buscarPorIndice(i)->getCamino_D();
+        }
+    }
+    return r;
+
+
 }

@@ -19,6 +19,7 @@ private:
     Pagina* paginaMadre;
     int origen[2];
     int destino[2];
+    bool estado = false;
 public:
     Paquete(){};
     Paquete(int n , Pagina* pag,int o[2], int d[2], int tam){
@@ -35,6 +36,9 @@ public:
     Pagina* getPaginaMadre(){return paginaMadre;};
     int * getOrigen(){return origen;};
     int * getDestino(){return destino;};
+    void setEstado(){estado=true;};
+    void setEstado1(){estado = false;};
+    bool getEstado(){return estado;};
     
 };
 

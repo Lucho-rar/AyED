@@ -11,6 +11,7 @@ bool LazoDeConexion::vacia(){
 void LazoDeConexion::cargarPkg(Paquete* p ){
     colaConectora->addFinal(p);
 
+
 }
 
 Paquete* LazoDeConexion::leerPkg(){
