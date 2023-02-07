@@ -9,7 +9,7 @@ private:
     int destino, camino, peso;
 public:
     Direccion(){};
-    Direccion(int, int, int);
+    Direccion(int, int);
     int getDestino_D(){return destino;};
     int getCamino_D(){return camino;};
     int peso_D(){return peso;};

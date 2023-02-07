@@ -64,7 +64,8 @@ public:
     void paseAlg();
     void imprimirtabla();
     int * dijkstra(int C[][MAXNODOS], int, int, int Pre[]);
-    void camino(int P[], int s, int t);
+    void camino(int P[], int s, int t,Lista<Direccion*>*);
+    void mostrarTablas();
 };
 
 

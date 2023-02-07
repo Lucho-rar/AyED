@@ -139,9 +139,8 @@ void Router::enviarPaquetes(){
                 if(ida->buscarPorIndice(i)->getTerminal2() == paquetes->buscarPorIndice(j)->getDestino()[0] ){
                     cout<<"tengo match de direcciones"<<endl;
                     ida->buscarPorIndice(i)->cargarPkg(paquetes->buscarPorIndice(j));
-               
-
-                }else{
+                }
+                else{
                     cout<<"no tengo math man "<<endl;
                 }
             }
@@ -183,6 +182,7 @@ void Router::vincularConKey(Paquete* p){
     D[i].addFinal(p);
     if(D[i].size()==10){
         cout<<"completaste la pagina";
+        
     }
 
 }
@@ -203,3 +203,17 @@ bool Router::esVecino(int id){
 
 }
 
+void Router::setTabla(Lista<Direccion*>* nuevaTabla){
+    this->tabla = nuevaTabla;
+
+}
+
+void Router::imprimirTabla(){
+    Nodo<Direccion*>* aux;
+    aux = tabla->comienzo();
+    cout<<"Soy "<<this->id<<" y esta es mi tabla para los que no conozco: "<<endl;
+    for (int i = 0 ; i < tabla->size();i++){
+        cout<<"["<<aux->get_dato()->getDestino_D()<<"] enrutar a ->"<<aux->get_dato()->getCamino_D()<<endl;
+        aux = aux->get_next();
+    }
+}

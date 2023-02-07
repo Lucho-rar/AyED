@@ -81,6 +81,8 @@ public:
     void vincularConKey(Paquete *);
     Lista<Router*>* getvecinos(){return listaDeVecinos;};
     bool esVecino(int);
+    void setTabla(Lista<Direccion*>*);
+    void imprimirTabla();
    // Lista<LazoDeConexion*>* getLazos(){return lazos;};
     
     

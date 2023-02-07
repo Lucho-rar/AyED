@@ -306,15 +306,16 @@ void Administrador::paseAlg(){
    // s=0;  // vertice de inicio
    // t=1;  // vertice final
     for(s = 0; s<MAXNODOS;s++){
+         Lista<Direccion*>* etiquetas = new Lista<Direccion*>();
         for ( t = 0; t<MAXNODOS;t++){
-   
+    
     pdist=dijkstra(T,s,t,P);
     if (pdist[t]!=INFI){
         cout<<"\n\n distancia minima del nodo "<<s
             <<" al nodo "<<t<<" es= "<<pdist[t];
    
         cout<<"\n\n CAMINO= ";
-        camino(P,s,t);
+        camino(P,s,t,etiquetas);
        
     }                
     else cout<<"\n NO HAY CAMINO";
@@ -322,6 +323,8 @@ void Administrador::paseAlg(){
     cout<<endl<<endl<<endl;
     //system("PAUSE");
     }
+    routersDisponibles->buscarPorIndice(s)->setTabla(etiquetas);
+ //   delete etiquetas;
     }
 
 }
@@ -331,6 +334,7 @@ void Administrador::AlgAlt(int ini){
     Lista<int> Q;
     int C[cantidadDeRouters];
     
+    
     int aux = 4;
     for (int i = 0 ; i <listaDeConexiones->size();i++){
        // cout<<listaDeConexiones->buscarPorIndice(i)->getTerminal1()<<"|"<<listaDeConexiones->buscarPorIndice(i)->getTerminal2()<<"|";
@@ -339,6 +343,7 @@ void Administrador::AlgAlt(int ini){
     }
     
     for (int i = 0; i < routersDisponibles->size();i++){
+        
         Router* routerAnalisis= routersDisponibles->buscarPorIndice(i);
         if(i == ini){
             C[ini]=0;
@@ -350,7 +355,7 @@ void Administrador::AlgAlt(int ini){
                     cout<<ini<<" "<<i<<endl;
                     aux = listaDeConexiones->buscarPorIndice(j)->getPeso();
                 }else if(listaDeConexiones->buscarPorIndice(j)->getTerminal1()==i && listaDeConexiones->buscarPorIndice(j)->getTerminal2()==ini){
-                    aux = 67;
+                    aux = INFI;
                 }
             }
             C[i]=aux;
@@ -429,16 +434,37 @@ return D;
 }
 
 
-void Administrador::camino(int P[], int s, int t)
-{  if (t==s) cout/*<< s*/<<"  ";
+void Administrador::camino(int P[], int s, int t , Lista<Direccion*>* etiquetas)
+{  
+   
+   if (t==s) cout/*<< s*/<<"  ";
    else{
         //camino(P,s,P[t]);
         if(P[t]==s){
         }else{
+            Direccion* d = new Direccion(t,P[t]);
+            etiquetas->addFinal(d);
             cout<<P[t]<<"  ";
+
         }
         
    }
- 
+
+   Nodo<Direccion*>* aux;
+  
+    aux=etiquetas->comienzo();
+    for (int i =0;i<etiquetas->size();i++){
+    cout << aux->get_dato()->getDestino_D()<<"'"<<aux->get_dato()->getCamino_D()<<endl;
+    aux = aux->get_next();
+   }
      
+}
+
+void Administrador::mostrarTablas(){
+    Nodo<Router*>* aux;
+    aux = routersDisponibles->comienzo();
+    for (int i = 0 ; i < routersDisponibles->size();i++){
+        aux->get_dato()->imprimirTabla();
+        aux = aux->get_next();
+    }
 }

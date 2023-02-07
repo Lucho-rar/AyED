@@ -74,6 +74,7 @@ int main(){
     admin->enviarPaquetes();
     admin->paseAlg();
     admin->recibirPaquetes();
+    admin->mostrarTablas();
    // admin->crearPaginas();
    // admin->imprimirPaginasPorRouter();
    // admin->segmentarPaginas();
