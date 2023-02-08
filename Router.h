@@ -85,6 +85,8 @@ public:
     void imprimirTabla();
     int comprobarDestino(int);
     void sacarPkg(Paquete *);
+    void limpiarCache();
+    int buscarlazo(int);
    // Lista<LazoDeConexion*>* getLazos(){return lazos;};
     
     

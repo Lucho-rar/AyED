@@ -10,7 +10,7 @@ bool LazoDeConexion::vacia(){
 
 void LazoDeConexion::cargarPkg(Paquete* p ){
     colaConectora->addFinal(p);
-
+    //cout<<this->getTerminal2()<<"^^^^^^^^^^^^^"<<endl;
 
 }
 

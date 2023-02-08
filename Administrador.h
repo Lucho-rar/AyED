@@ -67,6 +67,7 @@ public:
     int * dijkstra(int C[][MAXNODOS], int, int, int Pre[]);
     void camino(int P[], int s, int t,Lista<Direccion*>*);
     void mostrarTablas();
+    void cleaner();
 };
 
 

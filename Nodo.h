@@ -10,7 +10,7 @@ using namespace std;
 template <class T> class Nodo {
 private:
     T dato;
-    Nodo* next;
+    Nodo* next ;
 public:
     Nodo() { next = NULL; };
     Nodo(T a) { dato = a; next = NULL; };

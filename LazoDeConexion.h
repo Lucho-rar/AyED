@@ -14,7 +14,7 @@ class LazoDeConexion{
 private:
     int terminal1;  // Defino los nodos como enteros para trabajar con los ID  y no  
     int terminal2;  // con los tipos "router" "terminal"
-    int peso;
+    int peso ;
     int anchoDeBanda;
     Lista<Paquete*>* colaConectora = new Cola<Paquete*>();
 
@@ -36,6 +36,7 @@ public:
     Lista<Paquete*>* getcolaconectora(){return colaConectora;};
     void cargarPkg(Paquete* p);
     Paquete* leerPkg();
+    
     
 
 

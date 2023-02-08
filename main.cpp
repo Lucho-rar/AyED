@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <stdlib.h>
+
 #include "Nodo.h"
 #include "Lista.h"
 #include "Router.h"
@@ -12,13 +13,15 @@
 #include "Administrador.h"
 #include "SistemaEmpaquetado.h"
 #include "hash.h"
+
 using namespace std;
-int main(){
+int main (int argc, char **argv){
+
    
     
 
 
-
+    system("read -p 'Press Enter to continue...' var");
 
 
 
