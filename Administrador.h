@@ -30,6 +30,7 @@ private:
     int terminalesPorRouter;
     int cantidadDeRouters;
     int simPag=0;
+    int cantSimulaciones=0;
    // int T[cantidadDeRouters][cantidadDeRouters];
     //Lista<Terminal>* terminalesConectados = new Lista<Terminal>();
     

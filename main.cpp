@@ -15,7 +15,24 @@
 using namespace std;
 int main(){
    
+    
+
+
+
+
+
+
+    
+    
+    
+    
     /*
+    
+    
+    
+    
+    
+    
     Terminal* f = new Terminal(3);
     Terminal* x = new Terminal(4);
     Terminal* k = new Terminal(5);
@@ -34,6 +51,7 @@ int main(){
     //cout<<"\npagina "<<page->getidentificadorDePag()<<" tamanio "<<page->getTamanioDePag();
     */
     Administrador* admin = new Administrador();
+    admin->simular();
     /*
     admin->generarRouters();
     admin->generarTerminales();
@@ -42,30 +60,30 @@ int main(){
     admin->establecerConexiones();
     admin->imprimirConexiones();
     */
-    Router* r = new Router(0);
-    Router* x = new Router(1);
-    admin->leerFile();
-    admin->paseAlg();
+                        //Router* r = new Router(0);
+                            //Router* x = new Router(1);
+                        ///admin->leerFile();
+                            ///admin->paseAlg();
    // admin->imprimirListadoDeRouters();
     //admin->imprimirsListadosDeTerminales();
-    admin->crearPaginas();
-    admin->crearPaginas();
+                            //admin->crearPaginas();
+                    /// admin->crearPaginas();
     //admin->crearPaginas();
     //admin->crearPaginas();
     //admin->crearPaginas();
     //admin->crearPaginas();
-    admin->paquetes();
+                            /// admin->paquetes();
    // admin->paseAlg();
     //admin->pruebaIndice();
     //admin->imprex();
     //admin->calcularTablaDeEnrutamiento();
     
-    admin->imprimirLazos();
-    admin->enviarPaquetes();
+                        ///    admin->imprimirLazos();
+                    /// admin->enviarPaquetes();
     
-    admin->recibirPaquetes();
-    admin->mostrarTablas();
-    admin->paquetes();
+                                ///admin->recibirPaquetes();
+                            ///  admin->mostrarTablas();
+                ////  admin->paquetes();
    // admin->crearPaginas();
    // admin->imprimirPaginasPorRouter();
    // admin->segmentarPaginas();
@@ -74,6 +92,6 @@ int main(){
 
     
   
-
+    
 
 }

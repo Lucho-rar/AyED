@@ -30,6 +30,7 @@ public:
     T buscarPorIndice(int);
     void borrarNodo(int);
     bool contiene(T d);
+    void borrarUltimo();
    
 };
 
@@ -202,9 +203,9 @@ template <class T> void Lista<T> :: borrarNodo(int nodo){
     }
     if (nodo ==0){
         this->borrar();
-    }else{
+    }else if(nodo>0 && nodo<cantidaddenodos-1){
         Nodo<T>* actual = czo;
-        Nodo<T>* anterior;
+        Nodo<T>* anterior = NULL;
         int act = 0;
         while(act<nodo){
             anterior= actual;
@@ -212,8 +213,9 @@ template <class T> void Lista<T> :: borrarNodo(int nodo){
             act++;
         }
         anterior->set_next(actual->get_next());
-        this->cantidaddenodos--;
         delete actual;
+        this->cantidaddenodos--;
+        
     }
 }
 
@@ -228,6 +230,25 @@ template <class T> bool Lista<T> :: contiene(T d){
         actual = actual->get_next();
     }
     return contiene;
+
+}
+
+template <class T> void Lista<T> :: borrarUltimo(){
+    assert(final != NULL);
+    Nodo<T>* final_anterior = final;
+    if (this->size() == 1) {
+        czo = NULL;
+        final = NULL;
+    }else{
+        Nodo<T>* ptr_nodo_actual = czo;
+        while (ptr_nodo_actual->get_next()!= final) {
+            ptr_nodo_actual = ptr_nodo_actual->get_next();
+        }
+        ptr_nodo_actual->set_next(NULL);
+        final = ptr_nodo_actual;
+    }
+    delete final_anterior;
+    cantidaddenodos--;
 
 }
 

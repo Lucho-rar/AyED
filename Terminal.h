@@ -11,12 +11,13 @@
 
 using namespace std;
 class Router;
+class Pagina;
 class Terminal{
 private: 
     int ip[2];
     Router* routerConectado;
     //Lista<Pagina>* paginasAEnviar = new Lista<Pagina>();
-    //Lista<Pagina>* paginasRecibidas = new Lista<Pagina>();
+    Lista<Pagina*>* paginasRecibidas = new Lista<Pagina*>();
 
 public:
     Terminal(){};
@@ -24,7 +25,7 @@ public:
     int * getIP();
     void conectarseAUnRouter(Router* );
     void enviarPagina();
-    void recibirPagina();
+    void recibirPagina(Pagina*);
     
 
 };

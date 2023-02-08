@@ -8,12 +8,12 @@ void Router::enviarPaquete(){
 
 void Router::recibirPag(Pagina* p){
 
-    
+    //cout<<p->getDestino()[0]<<"////"<<endl;
     //this->listaDePaginas->addFinal(p);
     for (int i = 0 ; i < p->getTamanioDePag();i++){
         Paquete* pkg = new Paquete (i,p,p->getOrigen(),p->getDestino(), p->getTamanioDePag());
-        cout<<"\n Paquete"<<endl;
-        cout<<i << p->getidentificadorDePag()<<" "<<p->getOrigen()[0]<<"=>"<<p->getDestino()[0]<<endl;
+      //  cout<<"\n Paquete"<<endl;
+     //   cout<<i << p->getidentificadorDePag()<<" "<<p->getOrigen()[0]<<"=>"<<p->getDestino()[0]<<endl;
         //this->addPaquete(pkg);
         this->paquetes->addFinal(pkg);
     }
@@ -98,13 +98,18 @@ void Router::imprimirPaginas(){
 
 void Router::imprimirPaquetes(){
    // empaquetador = new SistemaEmpaquetado();
-    cout<<"\nSoy el router "<<this->getID()<<endl;
-    cout<<"Paquetes que tengo :"<<endl;
+    //cout<<"\nSoy el router "<<this->getID()<<endl;
+    //cout<<"Paquetes que tengo :"<<endl;
+    cout << "\033[1;31mPaquetes del router"<<this->getID()<<" \033[0m\n"<<endl;
+    cout<<"Numero de paquete | Origen | Destino | IdPaginaMadre"<<endl;
     Nodo<Paquete*>* aux;
     aux = paquetes->comienzo();
     for (int i = 0 ; i < paquetes->size();i++){
-        cout<<aux->get_dato()->getNumeroDePaquete()<<" paquete de " <<aux->get_dato()->getPaginaMadre()->getOrigen()[0]<<
-        aux->get_dato()->getDestino()[0]<<aux->get_dato()->getEstado()<<endl;
+        //cout<<aux->get_dato()->getNumeroDePaquete()<<" paquete de " <<aux->get_dato()->getPaginaMadre()->getOrigen()[0]<<
+        //aux->get_dato()->getDestino()[0]<<aux->get_dato()->getEstado()<<endl;
+        cout<<aux->get_dato()->getNumeroDePaquete()<<"                     "<<aux->get_dato()->getOrigen()[0]<<":"<<aux->get_dato()->getOrigen()[1]
+        <<"       "<<aux->get_dato()->getDestino()[0]<<":"<<aux->get_dato()->getDestino()[1]<<"        "<<aux->get_dato()->getPaginaMadre()->getidentificadorDePag()<<endl;
+
         aux = aux ->get_next();
     }
    // this->empaquetador.imprimir();
@@ -141,14 +146,16 @@ int Router::comprobarDestino(int dir){
 }
 
 void Router::sacarPkg(Paquete * r){
+    /*
+    Nodo<Paquete*>* aux;
+    aux = paquetes->comienzo();
 
-        
-    for(int i = 0 ; i < paquetes->size();i++){
-        if(r == paquetes->buscarPorIndice(i)){
-            paquetes->borrar();
+    for (int i = 0 ; i < paquetes->size();i++){
+        if (aux->get_dato() == r){
+            paquetes->borrarNodo(i);
         }
-    }
-    
+        aux = aux->get_next();
+    }*/
 
 }
 
@@ -169,7 +176,7 @@ void Router::enviarPaquetes(){
                 cout<<"Envio directo a porque es vecino "<< /* paquetes->buscarPorIndice(i)->getDestino()[0]<<x<*/endl;
                 ida->buscarPorIndice(x)->cargarPkg(paquetes->buscarPorIndice(i));
                 paquetes->buscarPorIndice(i)->setEstado();
-                //sacarPkg(paquetes->buscarPorIndice(i));
+                sacarPkg(paquetes->buscarPorIndice(i));
                // cout<<"borre "<<l<<endl;
                 
 
@@ -185,6 +192,8 @@ void Router::enviarPaquetes(){
                 cout<<"no hay ruta para este paquete :( "<<endl;
             }
         }
+
+
     }
 
 }
@@ -219,16 +228,17 @@ void Router::recibirPaquetes(){
 void Router::vincularConKey(Paquete* p){
     if(p->getDestino()[0]!=this->id){
         cout<<"el paquete no es parami"<<endl;
-        p->setEstado1();
+       // p->setEstado1();
         paquetes->addFinal(p);
         
     }else{
         int i = p->getPaginaMadre()->getidentificadorDePag();
         D[i].addFinal(p);
         if(D[i].size()==10){
-        cout<<"completaste la pagina";
-        
-    }
+            cout<<"completaste la pagina con destino "<<p->getTerm();
+            Pagina * n = new Pagina(p->getPaginaMadre()->getidentificadorDePag(),p->getPaginaMadre()->getTamanioDePag(),p->getPaginaMadre()->getOrigen(),p->getPaginaMadre()->getDestino());
+            this->enviarPag(n);
+        }
 
     }
     
@@ -279,4 +289,15 @@ int Router::buscarEnTabla(int destinoDePkgABuscar){
     return r;
 
 
+}
+
+void Router::enviarPag(Pagina * p){
+   //cout<<p->getDestino()[1];
+   for (int i = 0; i <terminalesConectados->size();i++){
+   //  cout<<"***************"<<terminalesConectados->buscarPorIndice(i)->getIP()[1]<<" ";
+        if(p->getDestino()[1]== terminalesConectados->buscarPorIndice(i)->getIP()[1]){
+            terminalesConectados->buscarPorIndice(i)->recibirPagina(p);
+        }
+   }
+   cout<<endl;
 }

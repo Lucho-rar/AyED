@@ -19,6 +19,7 @@ void Terminal::enviarPagina(){
 
 }
 
-void Terminal::recibirPagina(){
+void Terminal::recibirPagina(Pagina *p){
+    cout<<"Soy el terminal"<<getIP()[1]<<" conectado al router "<<getIP()[0]<<" y recibi una pagina completa de nro "<<p->getidentificadorDePag()<<endl;
     
 }

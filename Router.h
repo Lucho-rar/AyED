@@ -57,7 +57,7 @@ public:
     Cola<Paquete*>* getcoladeenvio(){return colaDeEnvio;};
     //int getBW(){return this->bw;};
     void recibirPag(Pagina*);
-    void enviarPag();
+    void enviarPag(Pagina*);
     void enviarPaquete();
     void enlazarVecinos();
     void agregarPagina(Pagina* p);

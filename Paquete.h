@@ -39,6 +39,7 @@ public:
     void setEstado(){estado=true;};
     void setEstado1(){estado = false;};
     bool getEstado(){return estado;};
+    int getTerm(){return destino[0];};
     
 };
 

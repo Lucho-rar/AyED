@@ -93,8 +93,8 @@ void Administrador::establecerLazo(int o , int d, int a){
     //LazoDeConexion* vuelta = new LazoDeConexion(d, o ,a );
     //cout<<"\n ida "<<ida->getTerminal1()<<" a "<< ida->getTerminal2()<<endl;
     //cout<<"vuelta "<<vuelta->getTerminal1()<<" a "<<vuelta->getTerminal2()<<endl;
-    cout<<"Estoy estableciendo lazo" <<routersDisponibles->buscarPorIndice(o)->getID()<<"y "<<
-    routersDisponibles->buscarPorIndice(d)->getID()<<endl;
+    cout<<"\033[1;36mLazo directo establecido entre " <<routersDisponibles->buscarPorIndice(o)->getID()<<" y "<<
+    routersDisponibles->buscarPorIndice(d)->getID()<<"\033[0m\n"<<endl;
     
     routersDisponibles->buscarPorIndice(o)->agregarLazoIda(lazo);
     routersDisponibles->buscarPorIndice(d)->agregarLazoVuelta(lazo);
@@ -194,16 +194,20 @@ void Administrador::leerFile(){
 }
 
 void Administrador::crearPaginas(){
+   
     Nodo<Router*>* aux;
     aux = routersDisponibles->comienzo();
     int NumeroRandomOR = rand() % cantidadDeRouters;
     int NumeroRandomOT = rand() % terminalesPorRouter;
-    cout<<"origen "<<NumeroRandomOR<<" "<<NumeroRandomOT<<endl;
+   // cout<<"origen "<<NumeroRandomOR<<" "<<NumeroRandomOT<<endl;
     int ipOrigen[2]={NumeroRandomOR,NumeroRandomOT};
     int NumeroRandomDR = rand() % cantidadDeRouters;
     int NumeroRandomDT = rand() % terminalesPorRouter;
-    cout<<"destino "<<NumeroRandomDR<<" "<<NumeroRandomDT<<endl;
+  //  cout<<"destino "<<NumeroRandomDR<<" "<<NumeroRandomDT<<endl;
     int ipDestino[2]={NumeroRandomDR,NumeroRandomDT};
+   // ipDestino[0]=NumeroRandomDR;
+   // ipDestino[1]=0;
+  //  cout<<"destino "<<ipDestino[0]<<" "<<ipDestino[1]<<endl;
         //int origen = aux->get_dato()->getID();
     Pagina* p = new Pagina(simPag,10, ipOrigen, ipDestino);
     simPag++;
@@ -286,9 +290,7 @@ void Administrador::recibirPaquetes(){
     }   
 }
 
-void Administrador::simular(){
-    
-}
+
         /* voy a declarar dijsktra en base a lo de clase para abrir ideas y en base
         a ello redefinir metodos que tengo */
 
@@ -311,16 +313,16 @@ void Administrador::paseAlg(){
     
     pdist=dijkstra(T,s,t,P);
     if (pdist[t]!=INFI){
-        cout<<"\n\n distancia minima del nodo "<<s
-            <<" al nodo "<<t<<" es= "<<pdist[t];
+       // cout<<"\n\n distancia minima del nodo "<<s
+         //   <<" al nodo "<<t<<" es= "<<pdist[t];
    
-        cout<<"\n\n CAMINO= ";
+        //cout<<"\n\n CAMINO= ";
         camino(P,s,t,etiquetas);
        
     }                
-    else cout<<"\n NO HAY CAMINO";
+    else cout<<"";//"\n NO HAY CAMINO""";
     
-    cout<<endl<<endl<<endl;
+   // cout<<endl<<endl<<endl;
     //system("PAUSE");
     }
     routersDisponibles->buscarPorIndice(s)->setTabla(etiquetas);
@@ -352,7 +354,7 @@ void Administrador::AlgAlt(int ini){
             
             for(int j = 0 ; j < listaDeConexiones->size(); j ++){
                 if((listaDeConexiones->buscarPorIndice(j)->getTerminal1()==ini && listaDeConexiones->buscarPorIndice(j)->getTerminal2()==i)){
-                    cout<<ini<<" "<<i<<endl;
+                    //cout<<ini<<" "<<i<<endl;
                     aux = listaDeConexiones->buscarPorIndice(j)->getPeso();
                 }else if(listaDeConexiones->buscarPorIndice(j)->getTerminal1()==i && listaDeConexiones->buscarPorIndice(j)->getTerminal2()==ini){
                     aux = INFI;
@@ -373,9 +375,10 @@ void Administrador::AlgAlt(int ini){
     }*/
 
  
-    cout<<endl;
+   // cout<<endl;
 }
 void Administrador::imprimirtabla(){
+    cout << "\033[1;33mTABLA DE ENRUTAMIENTO CON PESOS\033[0m\n";
     for (int i = 0; i < cantidadDeRouters;i++){
         for (int j = 0 ; j < cantidadDeRouters;j++){
             cout<<T[i][j]<<" ";
@@ -419,14 +422,14 @@ int * Administrador::dijkstra(int C[][MAXNODOS],int s, int t, int Pre[]){
                                
                   actual=k; // actual se ubica en el nodo de menor distancia
                   S[actual]=MIEMBRO;
-                  printf("\n\n         D     S     Pre");
-                  for(i=0;i<MAXNODOS;i++){
-                           printf("\n[%2i] %5i %5i %5i     ",i,D[i], S[i],Pre[i]);
-                   } 
+                  //printf("\n\n         D     S     Pre");
+                  //for(i=0;i<MAXNODOS;i++){
+                  //         printf("\n[%2i] %5i %5i %5i     ",i,D[i], S[i],Pre[i]);
+                  // } 
       
                   //printf("\n\n   D[%i]=%3i ",actual,D[actual]);
                   
-                   system("PAUSE");
+                   //system("PAUSE");
  }//fin while
 
 return D;
@@ -437,26 +440,26 @@ return D;
 void Administrador::camino(int P[], int s, int t , Lista<Direccion*>* etiquetas)
 {  
    
-   if (t==s) cout/*<< s*/<<"  ";
+   if (t==s) cout/*<< s*/<<"";
    else{
         //camino(P,s,P[t]);
         if(P[t]==s){
         }else{
             Direccion* d = new Direccion(t,P[t]);
             etiquetas->addFinal(d);
-            cout<<P[t]<<"  ";
+           // cout<<P[t]<<"  ";
 
         }
         
    }
 
-   Nodo<Direccion*>* aux;
+  // Nodo<Direccion*>* aux;
   
-    aux=etiquetas->comienzo();
-    for (int i =0;i<etiquetas->size();i++){
-    cout << aux->get_dato()->getDestino_D()<<"'"<<aux->get_dato()->getCamino_D()<<endl;
-    aux = aux->get_next();
-   }
+    //aux=etiquetas->comienzo();
+    //for (int i =0;i<etiquetas->size();i++){
+    //cout << aux->get_dato()->getDestino_D()<<"'"<<aux->get_dato()->getCamino_D()<<endl;
+   // aux = aux->get_next();
+  // }
      
 }
 
@@ -467,4 +470,22 @@ void Administrador::mostrarTablas(){
         aux->get_dato()->imprimirTabla();
         aux = aux->get_next();
     }
+}
+
+void Administrador::simular(){
+    cout<<"---------------Simulacion numero "<<cantSimulaciones<<endl;
+    if(cantSimulaciones==0){
+        this->leerFile();
+        this->paseAlg();
+        cout<<endl<<endl;
+        cout << "\033[1;31mCREACION DE PAGINAS\033[0m\n"<<endl;
+        this->crearPaginas();
+        this->crearPaginas();
+        this->paquetes();
+        this->imprimirLazos();
+        this->enviarPaquetes();
+        this->recibirPaquetes();
+        this->mostrarTablas();
+        this->paquetes();
+    }  
 }
