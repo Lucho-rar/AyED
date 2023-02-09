@@ -512,9 +512,10 @@ void Administrador::simular(){
     cout<<"---------------Simulacion numero "<<cantSimulaciones<<endl;
 
     while(1){
+        
 
-        if(cantSimulaciones==0){
-
+        if(cantSimulaciones<10){
+        cantSimulaciones++;
         this->paseAlg();
         system("read -p 'Press Enter to continue...' var");
         cout<<endl<<endl;

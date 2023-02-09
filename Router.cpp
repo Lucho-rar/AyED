@@ -162,8 +162,10 @@ void Router::sacarPkg(Paquete * r){
 }
 
 
-void Router::enviarPaquetes(){
 
+
+void Router::enviarPaquetes(){
+    bool bw=0;
     bool aux;
     int x ;
     if (paquetes->esvacia()){
@@ -171,6 +173,7 @@ void Router::enviarPaquetes(){
     }else{
         
         for(int i = 0 ; i < paquetes->size() ; i ++){
+           
             int x =comprobarDestino(paquetes->buscarPorIndice(i)->getDestino()[0]);
             
             if (x!=9999){
@@ -186,7 +189,7 @@ void Router::enviarPaquetes(){
                // sacarPkg(paquetes->buscarPorIndice(i));
                // paquetes->borrar();
                // cout<<"borre "<<l<<endl;
-                
+            
 
             }else if(buscarEnTabla(paquetes->buscarPorIndice(i)->getDestino()[0])!=9999){
                 int y = buscarEnTabla(paquetes->buscarPorIndice(i)->getDestino()[0]);
@@ -206,6 +209,7 @@ void Router::enviarPaquetes(){
             }else{
                 cout<<"[R"<<this->id<<"] No hay ruta para este paquete. "<<endl;
             }
+            
         }
 
         Nodo<Paquete*>* aux;
@@ -213,6 +217,7 @@ void Router::enviarPaquetes(){
             aux = paquetes->comienzo();
         }
         int tope = paquetes->size(); 
+        ///int tope =2;
         for (int i = 0 ; i < tope;i++){
             if (aux->get_dato()->getEstado()==true) paquetes->borrarUltimo();
         }
@@ -231,7 +236,8 @@ void Router::recibirPaquetes(){
             if(vuelta->buscarPorIndice(i)->vacia()==true){
               //  cout<<"Vacia"<< this->id<<endl;
             }else{
-                int cont = vuelta->buscarPorIndice(i)->getcolaconectora()->size()-1;
+                int cont =vuelta->buscarPorIndice(i)->getBW();
+                //int cont = vuelta->buscarPorIndice(i)->getcolaconectora()->size()-1;
                 while(cont>=0/*vuelta->buscarPorIndice(i)->vacia()!=true*/){
                     Paquete* pkg0 = vuelta->buscarPorIndice(i)->leerPkg();
                     
@@ -241,7 +247,7 @@ void Router::recibirPaquetes(){
                         //cout<<"R[ "<<this->id<<"y lei"<<pkg0->getNumeroDePaquete()<<" "<<pkg0->getPaginaMadre()->getidentificadorDePag()<<endl;
                         cont--;
                     }         
-                    
+                    cont --;
                 }
             }
         }

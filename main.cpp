@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <stdlib.h>
-
+#include <signal.h>
 #include "Nodo.h"
 #include "Lista.h"
 #include "Router.h"
@@ -25,7 +25,7 @@ int main (int argc, char **argv){
 
 
 
-    
+    signal(SIGINT,SIG_DFL);
     
     
     

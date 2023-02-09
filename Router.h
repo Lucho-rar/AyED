@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <sstream>
+#include <math.h>
 #include <stdlib.h>
 #include "Lista.h"
 #include "Nodo.h"
@@ -44,6 +45,7 @@ private:
     Lista<Paquete*>* paquetes = new Lista<Paquete*>();
     Lista<Direccion*>* tabla = new Lista<Direccion*>();
     Lista<Paquete*> D[MAX];
+    
     //listas de destino.
 public:
     Router(int direccion){
@@ -87,6 +89,7 @@ public:
     void sacarPkg(Paquete *);
     void limpiarCache();
     int buscarlazo(int);
+    void desordenarPkg();
    // Lista<LazoDeConexion*>* getLazos(){return lazos;};
     
     
