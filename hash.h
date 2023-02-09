@@ -4,7 +4,7 @@
 #include "Lista.h"
 #include "Nodo.h"
 #include "Paquete.h"
-#define MAX 5
+//#define MAX 5
 using namespace std;
 
 class Hash{

@@ -14,7 +14,7 @@
 #include "LazoDeConexion.h"
 #include "SistemaEmpaquetado.h"
 #include "Direccion.h"
-#define MAX 5
+#define MAX 20
 using namespace std;
 
 

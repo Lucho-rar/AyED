@@ -68,6 +68,8 @@ public:
     void camino(int P[], int s, int t,Lista<Direccion*>*);
     void mostrarTablas();
     void cleaner();
+
+    void crearPagManual();
 };
 
 

@@ -218,6 +218,31 @@ void Administrador::crearPaginas(){
     
 }
 
+void Administrador::crearPagManual(){
+   
+    Nodo<Router*>* aux;
+    aux = routersDisponibles->comienzo();
+    int NumeroRandomOR = 1;
+    int NumeroRandomOT = 8;
+   // cout<<"origen "<<NumeroRandomOR<<" "<<NumeroRandomOT<<endl;
+    int ipOrigen[2]={NumeroRandomOR,NumeroRandomOT};
+    int NumeroRandomDR =7;
+    int NumeroRandomDT =7;
+  //  cout<<"destino "<<NumeroRandomDR<<" "<<NumeroRandomDT<<endl;
+    int ipDestino[2]={NumeroRandomDR,NumeroRandomDT};
+   // ipDestino[0]=NumeroRandomDR;
+   // ipDestino[1]=0;
+  //  cout<<"destino "<<ipDestino[0]<<" "<<ipDestino[1]<<endl;
+        //int origen = aux->get_dato()->getID();
+    Pagina* p = new Pagina(simPag,10, ipOrigen, ipDestino);
+    simPag++;
+    //routersDisponibles->buscarPorIndice(ipOrigen[0])->recibirPag(p);
+    cout << "\033[1;31mCREE LA PAGINA "<<p->getidentificadorDePag()<<"\033[0m\n";
+    //cout<<routersDisponibles->buscarPorIndice(NumeroRandomOR)->getID()<<endl;
+    routersDisponibles->buscarPorIndice(NumeroRandomOR)->recibirPag(p);
+    
+}
+
 void Administrador::imprimirPaginasPorRouter(){
     Nodo<Router*>* aux;
     aux = routersDisponibles->comienzo();
@@ -485,6 +510,7 @@ void Administrador::cleaner(){
 void Administrador::simular(){
     this->leerFile();
     cout<<"---------------Simulacion numero "<<cantSimulaciones<<endl;
+
     while(1){
 
         if(cantSimulaciones==0){
@@ -494,10 +520,10 @@ void Administrador::simular(){
         cout<<endl<<endl;
         cout << "\033[1;31mCREACION DE PAGINAS\033[0m\n"<<endl;
 
-        this->crearPaginas();
-        this->crearPaginas();
-        this->crearPaginas();
-        this->crearPaginas();
+        this->crearPagManual();
+     //   this->crearPaginas();
+      //  this->crearPaginas();
+     //   this->crearPaginas();
         this->paquetes();
         //this->imprimirLazos();
         cout<<endl<<endl;

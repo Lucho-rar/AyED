@@ -239,8 +239,9 @@ void Router::recibirPaquetes(){
                         this->vincularConKey(pkg0);
                         //this->hash->agregarH(pkg0);
                         //cout<<"R[ "<<this->id<<"y lei"<<pkg0->getNumeroDePaquete()<<" "<<pkg0->getPaginaMadre()->getidentificadorDePag()<<endl;
+                        cont--;
                     }         
-                    cont--;
+                    
                 }
             }
         }
