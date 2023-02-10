@@ -17,11 +17,10 @@
 using namespace std;
 int main (int argc, char **argv){
 
-   
-    
 
 
-    system("read -p 'Press Enter to continue...' var");
+
+    system("read -p 'Press Enter to continue...' var"); //***************************************
 
 
 
@@ -53,7 +52,7 @@ int main (int argc, char **argv){
     <<page->getOrigen()->getIP()<<" hacia el router "<< page->getDestino()->getIP()<<endl;
     //cout<<"\npagina "<<page->getidentificadorDePag()<<" tamanio "<<page->getTamanioDePag();
     */
-    Administrador* admin = new Administrador();
+    Administrador* admin = new Administrador();        
     admin->simular();
     /*
     admin->generarRouters();

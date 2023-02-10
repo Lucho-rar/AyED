@@ -31,6 +31,7 @@ public:
     void borrarNodo(int);
     bool contiene(T d);
     void borrarUltimo();
+    void desordenar();
    
 };
 
@@ -214,9 +215,10 @@ template <class T> void Lista<T> :: borrarNodo(int nodo){
         }
         anterior->set_next(actual->get_next());
         delete actual;
-        this->cantidaddenodos--;
         
+        this->cantidaddenodos--;
     }
+
 }
 
 template <class T> bool Lista<T> :: contiene(T d){
@@ -251,5 +253,7 @@ template <class T> void Lista<T> :: borrarUltimo(){
     cantidaddenodos--;
 
 }
+
+
 
 #endif

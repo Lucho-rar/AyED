@@ -34,7 +34,7 @@ class Router{
 private:
     int id;
    // int bw;
-
+   
 
     Lista<Terminal*>* terminalesConectados = new Lista<Terminal*>();
     Lista<Router*>* listaDeVecinos = new Lista<Router*>();
@@ -90,6 +90,7 @@ public:
     void limpiarCache();
     int buscarlazo(int);
     void desordenarPkg();
+    int ubicarse(Paquete *);
    // Lista<LazoDeConexion*>* getLazos(){return lazos;};
     
     

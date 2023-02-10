@@ -71,7 +71,7 @@ public:
     void mostrarTablas();
     void cleaner();
 
-    void crearPagManual();
+    void crearPagManual(int,int);
 };
 
 

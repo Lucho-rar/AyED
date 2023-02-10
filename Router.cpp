@@ -161,23 +161,48 @@ void Router::sacarPkg(Paquete * r){
 
 }
 
+int Router::ubicarse(Paquete * p){
+    for (int i = 0 ; i < paquetes->size() ; i++){
+        if (paquetes->buscarPorIndice(i)==p ){
+            return i;
+        }
+    }
+
+}
+
 
 
 
 void Router::enviarPaquetes(){
     bool bw=0;
     bool aux;
+    bool entro =false;
     int x ;
-    if (paquetes->esvacia()){
-         cout<<"[R"<<this->id<<"] No hay paquetes para este router. "<<endl;
-    }else{
-        
-        for(int i = 0 ; i < paquetes->size() ; i ++){
-           
-            int x =comprobarDestino(paquetes->buscarPorIndice(i)->getDestino()[0]);
-            
+    int foco = 4;
+    int flag;
+    if (!paquetes->esvacia()){
+        for(int i = 0 ; i <4; i ++){
+            if (paquetes->size()==0){
+                break;
+            }
+            cout<<paquetes->size()<<" SIZE"<<endl;
+          //  if (paquetes->size()==1 || paquetes->size()<4){
+           //     entro =true;
+                 x =comprobarDestino(paquetes->buscarPorIndice(0)->getDestino()[0]);
+          //  }else{
+          //      entro = false;
+           //      x =comprobarDestino(paquetes->buscarPorIndice(i)->getDestino()[0]);
+          //  }
+
             if (x!=9999){
+                
+              //  if (entro = true){
+                    flag = i;
+                    i=0;
+          //      }
+
                 int l = paquetes->buscarPorIndice(i)->getNumeroDePaquete();
+
                 //cout<<x<<"}}}}}}}}}}"<<endl;
                 
                 int indice = buscarlazo(l);
@@ -185,42 +210,79 @@ void Router::enviarPaquetes(){
                 cout<<"[R"<<this->id<<"] Envio directo a R"<<paquetes->buscarPorIndice(i)->getDestino()[0]<<" porque es vecino. "<< /* paquetes->buscarPorIndice(i)->getDestino()[0]<<x<*/endl;
                 ida->buscarPorIndice(x)->cargarPkg(paquetes->buscarPorIndice(i));
                 //this->buscarlazo(x)->cargarPkg(paquetes->buscarPorIndice(i));
-                paquetes->buscarPorIndice(i)->setEstado();
+                cout<<"voy a borrar "<<paquetes->buscarPorIndice(i)->getNumeroDePaquete()<<endl;
+             //   paquetes->buscarPorIndice(i)->setEstado();
+                paquetes->borrarNodo(i);
+                cout<<"borre"<<endl;
+ 
+           //     if (entro == true){
+                    i= flag;
+                    entro = false;
+            //    }
+                if (paquetes->size()<foco){
+                    foco = paquetes->size();
+                }
                // sacarPkg(paquetes->buscarPorIndice(i));
                // paquetes->borrar();
                // cout<<"borre "<<l<<endl;
-            
 
-            }else if(buscarEnTabla(paquetes->buscarPorIndice(i)->getDestino()[0])!=9999){
-                int y = buscarEnTabla(paquetes->buscarPorIndice(i)->getDestino()[0]);
-                //cout<<y<<"***********************"<<endl;
-                int l = paquetes->buscarPorIndice(i)->getNumeroDePaquete();
-                int indice = buscarlazo(y);
-                cout<<"[R"<<this->id<<"] No tengo camino directo a R"<<paquetes->buscarPorIndice(i)->getDestino()[0]<<" pero lo puedo enrutaren  "<<endl;
-                cout<<ida->buscarPorIndice(indice)->getTerminal1()<<"->"<<ida->buscarPorIndice(indice)->getTerminal2()<<endl;
-                
-                ida->buscarPorIndice(indice)->cargarPkg(paquetes->buscarPorIndice(i));
+
+
+            }else if(x==9999){
+             //   if (entro ==true){
+                   // entro = true;
+                    flag = i;
+                    i=0;
+           //     }
+                if(buscarEnTabla(paquetes->buscarPorIndice(i)->getDestino()[0])==9999){
+                    cout<<"[R"<<this->id<<"] No hay ruta para este paquete. "<<endl;
+                }else{
+                    int y = buscarEnTabla(paquetes->buscarPorIndice(i)->getDestino()[0]);
+                    int l = paquetes->buscarPorIndice(i)->getNumeroDePaquete();
+                    int indice = buscarlazo(y);
+
+                    cout<<"[R"<<this->id<<"] No tengo camino directo a R"<<paquetes->buscarPorIndice(i)->getDestino()[0]<<" pero lo puedo enrutaren  "<<endl;
+                    cout<<ida->buscarPorIndice(indice)->getTerminal1()<<"->"<<ida->buscarPorIndice(indice)->getTerminal2()<<endl;
+                    ida->buscarPorIndice(indice)->cargarPkg(paquetes->buscarPorIndice(i));
                 //this->buscarlazo(y)->cargarPkg(paquetes->buscarPorIndice(i));
-                paquetes->buscarPorIndice(i)->setEstado(); 
-                //paquetes->borrar();
+                    cout<<"enviado"<<endl;
+                    paquetes->borrarNodo(i);
+                    //paquetes->buscarPorIndice(i)->setEstado(); 
+                   
+         //           if (entro == true){
+                        i = flag;
+                        entro = false;
+          //          }
+                    if (paquetes->size()<foco){
+                        foco = paquetes->size();
+                    }
+
+
+                    cout<<"enviado3"<<endl;
+               // paquetes->borrarNodo(i);
                // sacarPkg(paquetes->buscarPorIndice(i));
                 //paquetes->borrar();
-               
-            }else{
-                cout<<"[R"<<this->id<<"] No hay ruta para este paquete. "<<endl;
+                }
+                
+                //cout<<y<<"***********************"<<endl;
+                
             }
             
         }
-
+/*
         Nodo<Paquete*>* aux;
         if(paquetes->comienzo()!=NULL){
             aux = paquetes->comienzo();
         }
-        int tope = paquetes->size(); 
-        ///int tope =2;
-        for (int i = 0 ; i < tope;i++){
-            if (aux->get_dato()->getEstado()==true) paquetes->borrarUltimo();
-        }
+        //int tope = paquetes->size(); 
+        //int tope =2;
+       // for (int i = 0 ; i < tope;i++){
+         //   if (aux->get_dato()->getEstado()==true) paquetes->borrarUltimo();
+        //}*/
+    }else{
+       cout<<"[R"<<this->id<<"] No hay paquetes para este router. "<<endl;
+
+        
     }
 
 }
