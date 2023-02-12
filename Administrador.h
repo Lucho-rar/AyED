@@ -27,12 +27,14 @@ private:
     Lista<Terminal*>* terminalesDisponibles = new Lista<Terminal*>();
     Lista<Router*>* routersDisponibles = new Lista<Router*>();
     Lista<LazoDeConexion*>* listaDeConexiones = new Lista<LazoDeConexion*>();
+    Lista<int>* p = new Lista<int>();
     Lista<Peso*>* pesos = new Lista<Peso*>();
-    int T[10][10];
+    int T[MAXNODOS][MAXNODOS];
     int terminalesPorRouter;
     int cantidadDeRouters;
     int simPag=0;
     int cantSimulaciones=0;
+    int glb;
    // int T[cantidadDeRouters][cantidadDeRouters];
     //Lista<Terminal>* terminalesConectados = new Lista<Terminal>();
     
@@ -69,8 +71,8 @@ public:
     int * dijkstra(int C[][MAXNODOS], int, int, int Pre[]);
     void camino(int P[], int s, int t,Lista<Direccion*>*);
     void mostrarTablas();
-    void cleaner();
-
+    //void cleaner();
+    void flek(int,int);
     void crearPagManual(int,int);
 };
 

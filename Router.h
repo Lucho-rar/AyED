@@ -16,6 +16,7 @@
 #include "SistemaEmpaquetado.h"
 #include "Direccion.h"
 #define MAX 20
+#define TAMPAG 10
 using namespace std;
 
 

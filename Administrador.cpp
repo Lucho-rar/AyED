@@ -205,11 +205,13 @@ void Administrador::crearPaginas(){
     int NumeroRandomDT = rand() % terminalesPorRouter;
   //  cout<<"destino "<<NumeroRandomDR<<" "<<NumeroRandomDT<<endl;
     int ipDestino[2]={NumeroRandomDR,NumeroRandomDT};
+    int randomPag;
+    randomPag = rand() % TAMPAG;
    // ipDestino[0]=NumeroRandomDR;
    // ipDestino[1]=0;
   //  cout<<"destino "<<ipDestino[0]<<" "<<ipDestino[1]<<endl;
         //int origen = aux->get_dato()->getID();
-    Pagina* p = new Pagina(simPag,10, ipOrigen, ipDestino);
+    Pagina* p = new Pagina(simPag,randomPag, ipOrigen, ipDestino);
     simPag++;
     //routersDisponibles->buscarPorIndice(ipOrigen[0])->recibirPag(p);
     cout << "\033[1;31mCREE LA PAGINA "<<p->getidentificadorDePag()<<"\033[0m\n";
@@ -230,11 +232,13 @@ void Administrador::crearPagManual(int a, int b){
     int NumeroRandomDT =b;
   //  cout<<"destino "<<NumeroRandomDR<<" "<<NumeroRandomDT<<endl;
     int ipDestino[2]={NumeroRandomDR,NumeroRandomDT};
+    int randomPag;
+    randomPag = rand() % TAMPAG;
    // ipDestino[0]=NumeroRandomDR;
    // ipDestino[1]=0;
   //  cout<<"destino "<<ipDestino[0]<<" "<<ipDestino[1]<<endl;
         //int origen = aux->get_dato()->getID();
-    Pagina* p = new Pagina(simPag,10, ipOrigen, ipDestino);
+    Pagina* p = new Pagina(simPag,randomPag, ipOrigen, ipDestino);
     simPag++;
     //routersDisponibles->buscarPorIndice(ipOrigen[0])->recibirPag(p);
     cout << "\033[1;31mCREE LA PAGINA "<<p->getidentificadorDePag()<<"\033[0m\n";
@@ -338,11 +342,17 @@ void Administrador::paseAlg(){
     
     pdist=dijkstra(T,s,t,P);
     if (pdist[t]!=INFI){
-       // cout<<"\n\n distancia minima del nodo "<<s
-       //     <<" al nodo "<<t<<" es= "<<pdist[t];
+        //cout<<"\n\n distancia minima del nodo "<<s
+          //  <<" al nodo "<<t<<" es= "<<pdist[t];
    
        // cout<<"\n\n CAMINO= ";
+        glb = t;
+        
         camino(P,s,t,etiquetas);
+
+       // cout<<"\n rr "<<glb<<endl;
+       // cout<<glb<<endl;
+      //  this->flek();
        
     }                
     else cout<</*"\n NO HAY CAMINO"*/"";        ///***************
@@ -379,7 +389,7 @@ void Administrador::AlgAlt(int ini){
             
             for(int j = 0 ; j < listaDeConexiones->size(); j ++){
                 if((listaDeConexiones->buscarPorIndice(j)->getTerminal1()==ini && listaDeConexiones->buscarPorIndice(j)->getTerminal2()==i)){
-                   // cout<<ini<<" "<<i<<endl;
+               //     cout<<ini<<" "<<i<<endl;
                     aux = listaDeConexiones->buscarPorIndice(j)->getPeso();
                 }else if(listaDeConexiones->buscarPorIndice(j)->getTerminal1()==i && listaDeConexiones->buscarPorIndice(j)->getTerminal2()==ini){
                     aux = INFI;
@@ -435,6 +445,7 @@ int * Administrador::dijkstra(int C[][MAXNODOS],int s, int t, int Pre[]){
                                  //printf("\n nuevadist=%3i D[%2i]=%3i ",nuevadist,i,D[i]);
                                  if(nuevadist<D[i]){
                                         D[i]=nuevadist;//actual es menor que la anterior
+                                        //cout<<actual<<"22222"<<endl;
                                         Pre[i]=actual; b=1;
                                  }//fin if
                                  //printf("\n menordist=%3i D[%2i]=%3i ",menordist,i,D[i]);
@@ -444,15 +455,16 @@ int * Administrador::dijkstra(int C[][MAXNODOS],int s, int t, int Pre[]){
                                  }//fin if
                           }//fin if
                   }//fin for
-                               
+
                   actual=k; // actual se ubica en el nodo de menor distancia
                   S[actual]=MIEMBRO;
-                  //printf("\n\n         D     S     Pre");
-                  //for(i=0;i<MAXNODOS;i++){           
-                  //  printf("\n[%2i] %5i %5i %5i     ",i,D[i], S[i],Pre[i]);
-                  // } 
+                //  printf("\n\n         D     S     Pre");
+                //  for(i=0;i<MAXNODOS;i++){           
+                //    printf("\n[%2i] %5i %5i %5i     ",i,D[i], S[i],Pre[i]);
+                //   } 
       
-                  //printf("\n\n   D[%i]=%3i ",actual,D[actual]);
+                //  printf("\n\n   D[%i]=%3i ",actual,D[actual]);
+                  
                   
                    //system("PAUSE");
  }//fin while
@@ -464,19 +476,43 @@ return D;
 
 void Administrador::camino(int P[], int s, int t , Lista<Direccion*>* etiquetas)
 {  
-   
-   if (t==s) cout<</* s<<*/" ";
+
+   if (t==s){
+        cout<< /*s*/" ";
+
+   } 
    else{
-        camino(P,s,P[t],etiquetas);
+        
+        //camino(P,s,P[t],etiquetas);
+        //camino(P,s,P[t],etiquetas);
         if(P[t]==s){
+            //this->flek(x);
+            //cout<<t<<endl;
+           // flek(t,glb);
+           Direccion* d = new Direccion(glb,t);
+           etiquetas->addFinal(d);
+          //  cout<<glb<<"xxxxxxxxxx"<<endl;
         }else{
-            Direccion* d = new Direccion(t,P[t]);
-            etiquetas->addFinal(d);
-            //cout<<P[t]<<"  ";
+            camino(P,s,P[t],etiquetas);
+            //camino(P,s,P[t],etiquetas);
+           // x=P[t];
+           // D[t]=P[t];
+            //p->addFinal(P[t]);
+           // cout<<"etiqueta"<<t<<P[t]<<endl;
+
+          //  cout<<P[t]<<"  ";
 
         }
-        
+
+    
+         
    }
+}
+
+void Administrador::flek(int x, int y){
+
+}
+   
 
   // Nodo<Direccion*>* aux;
   
@@ -486,7 +522,7 @@ void Administrador::camino(int P[], int s, int t , Lista<Direccion*>* etiquetas)
    // aux = aux->get_next();
   // }
      
-}
+
 
 void Administrador::mostrarTablas(){
     Nodo<Router*>* aux;
@@ -496,7 +532,7 @@ void Administrador::mostrarTablas(){
         aux = aux->get_next();
     }
 }
-
+/*
 void Administrador::cleaner(){
     Nodo<Router*>* aux;
     aux = routersDisponibles->comienzo();
@@ -504,7 +540,7 @@ void Administrador::cleaner(){
         aux->get_dato()->limpiarCache();
         aux = aux->get_next();
     }
-}
+}*/
 
 
 void Administrador::simular(){
@@ -514,7 +550,7 @@ void Administrador::simular(){
     while(1){
         
 
-        if(cantSimulaciones<20){
+        if(cantSimulaciones<50){
         cantSimulaciones++;
         this->paseAlg();
         system("read -p 'Press Enter to continue...' var");
@@ -522,9 +558,25 @@ void Administrador::simular(){
         cout << "\033[1;31mCREACION DE PAGINAS\033[0m\n"<<endl;
         if(x==0){
             this->crearPagManual(3,7);
-            this->crearPagManual(3,6);
-            this->crearPagManual(1,7);
-            x=1;
+            this->crearPagManual(3,7);
+            this->crearPagManual(3,7);
+            this->crearPagManual(3,7);
+            this->crearPagManual(0,7);
+
+            //this->crearPagManual(7,8);
+            /*
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            */
+            x =1;
         }
 
       //  this->crearPagManual();
@@ -537,12 +589,12 @@ void Administrador::simular(){
         this->imprimirLazos();
         cout << "\033[1;32mENVÍO DE PAQUETES\033[0m\n"<<endl;
         this->enviarPaquetes();
-        this->cleaner();
+       // this->cleaner();
         cout << "\033[1;42mRECIBO DE PAQUETES\033[0m\n"<<endl;
         this->recibirPaquetes();
-        this->mostrarTablas();
+       // this->mostrarTablas();
 
-        this->paquetes();
+      //  this->paquetes();
         system("read -p 'Press Enter to continue...' var");
     }  
 

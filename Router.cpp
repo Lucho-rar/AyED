@@ -185,7 +185,7 @@ void Router::enviarPaquetes(){
             if (paquetes->size()==0){
                 break;
             }
-            cout<<paquetes->size()<<" SIZE"<<endl;
+   //         cout<<paquetes->size()<<" SIZE"<<endl;
           //  if (paquetes->size()==1 || paquetes->size()<4){
            //     entro =true;
                  x =comprobarDestino(paquetes->buscarPorIndice(0)->getDestino()[0]);
@@ -213,7 +213,7 @@ void Router::enviarPaquetes(){
                 cout<<"voy a borrar "<<paquetes->buscarPorIndice(i)->getNumeroDePaquete()<<endl;
              //   paquetes->buscarPorIndice(i)->setEstado();
                 paquetes->borrarNodo(i);
-                cout<<"borre"<<endl;
+    //            cout<<"borre"<<endl;
  
            //     if (entro == true){
                     i= flag;
@@ -236,6 +236,8 @@ void Router::enviarPaquetes(){
            //     }
                 if(buscarEnTabla(paquetes->buscarPorIndice(i)->getDestino()[0])==9999){
                     cout<<"[R"<<this->id<<"] No hay ruta para este paquete. "<<endl;
+                    paquetes->borrarNodo(i);
+                    i = flag;
                 }else{
                     int y = buscarEnTabla(paquetes->buscarPorIndice(i)->getDestino()[0]);
                     int l = paquetes->buscarPorIndice(i)->getNumeroDePaquete();
@@ -245,7 +247,7 @@ void Router::enviarPaquetes(){
                     cout<<ida->buscarPorIndice(indice)->getTerminal1()<<"->"<<ida->buscarPorIndice(indice)->getTerminal2()<<endl;
                     ida->buscarPorIndice(indice)->cargarPkg(paquetes->buscarPorIndice(i));
                 //this->buscarlazo(y)->cargarPkg(paquetes->buscarPorIndice(i));
-                    cout<<"enviado"<<endl;
+       //             cout<<"enviado"<<endl;
                     paquetes->borrarNodo(i);
                     //paquetes->buscarPorIndice(i)->setEstado(); 
                    
@@ -258,7 +260,7 @@ void Router::enviarPaquetes(){
                     }
 
 
-                    cout<<"enviado3"<<endl;
+         //           cout<<"enviado3"<<endl;
                // paquetes->borrarNodo(i);
                // sacarPkg(paquetes->buscarPorIndice(i));
                 //paquetes->borrar();
@@ -315,13 +317,13 @@ void Router::recibirPaquetes(){
         }
     }
 }
-
+/*
 void Router::limpiarCache(){
     for (int i = 0; i<paquetes->size();i++){
         cout<<paquetes->buscarPorIndice(i)->getDestino()[0]<<endl;
     }
  
-}
+}*/
 
 
 void Router::vincularConKey(Paquete* x){
@@ -338,7 +340,7 @@ void Router::vincularConKey(Paquete* x){
         int i = p->getPaginaMadre()->getidentificadorDePag();
         cout<<"[R"<<this->id<<"] recibi el paquete "<<p->getNumeroDePaquete()<<"|"<<p->getPaginaMadre()->getidentificadorDePag()<<endl;
         D[i].addFinal(p);
-        if(D[i].size()==10){
+        if(D[i].size()==p->getPaginaMadre()->getTamanioDePag()){
             cout<<"R["<<this->id<<"] se ha completado la pagina con destino al terminal "<<p->getTerm()<<"."<<endl;
             Pagina * n = new Pagina(p->getPaginaMadre()->getidentificadorDePag(),p->getPaginaMadre()->getTamanioDePag(),p->getPaginaMadre()->getOrigen(),p->getPaginaMadre()->getDestino());
             this->enviarPag(n);
@@ -386,9 +388,11 @@ int Router::buscarEnTabla(int destinoDePkgABuscar){
     int r =9999;
     //cout<<tabla->size()<<endl;
     for (int i = 0 ; i< tabla->size() ; i++){
+      //  cout<<"tabka sizeee"<<endl;
         if(tabla->buscarPorIndice(i)->getDestino_D() == destinoDePkgABuscar){   //tengo en la ruta
            // cout<<"paquete de "<<tabla->buscarPorIndice(i)->getDestino_D()<<" tiene que tomar la ruta de "<<tabla->buscarPorIndice(i)->getCamino_D()<<endl;
             r= tabla->buscarPorIndice(i)->getCamino_D();
+        //    cout<<"rrrrrrrrrrrrrR"<<r<<endl;
            //r=i;
         }
     }
