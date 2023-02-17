@@ -13,7 +13,6 @@
 #include "Cola.h"
 #include "Pagina.h"
 #include "LazoDeConexion.h"
-#include "SistemaEmpaquetado.h"
 #include "Direccion.h"
 #define MAX 20
 #define TAMPAG 10

@@ -1,5 +1,4 @@
 #include "Router.h"
-#include "hash.h"
 /*          Metodos Router      */
 
 void Router::enviarPaquete(){
@@ -23,10 +22,6 @@ void Router::recibirPag(Pagina* p){
 
 }
 
-
-void Router::agregarPagina(Pagina* p){
-    this->listaDePaginas->addFinal(p);
-}
 
 
 void Router::segmentarPag(){
@@ -142,34 +137,10 @@ int Router::comprobarDestino(int dir){
            return i;
         }
     }
+
     return 9999;
 
 }
-
-
-void Router::sacarPkg(Paquete * r){
-    /*
-    Nodo<Paquete*>* aux;
-    aux = paquetes->comienzo();
-
-    for (int i = 0 ; i < paquetes->size();i++){
-        if (aux->get_dato() == r){
-            paquetes->borrarNodo(i);
-        }
-        aux = aux->get_next();
-    }*/
-
-}
-
-int Router::ubicarse(Paquete * p){
-    for (int i = 0 ; i < paquetes->size() ; i++){
-        if (paquetes->buscarPorIndice(i)==p ){
-            return i;
-        }
-    }
-
-}
-
 
 
 
@@ -194,7 +165,8 @@ void Router::enviarPaquetes(){
            //      x =comprobarDestino(paquetes->buscarPorIndice(i)->getDestino()[0]);
           //  }
 
-            if (x!=9999){
+
+          if (x!=9999){
                 
               //  if (entro = true){
                     flag = i;
@@ -329,6 +301,7 @@ void Router::limpiarCache(){
 void Router::vincularConKey(Paquete* x){
     Paquete* p = new Paquete();
     p=x;
+    
 
     if(p->getDestino()[0]!=this->id){
         cout<<"[R"<<this->id<<"] recibi el paquete "<<p->getNumeroDePaquete()<<"|"<<p->getPaginaMadre()->getidentificadorDePag()<<

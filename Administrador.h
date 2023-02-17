@@ -5,21 +5,17 @@
 #include <sstream>
 #include <fstream>
 #include <stdlib.h>
-
-
-#include "Router.h"
+#include <signal.h>
 #include "Lista.h"
 #include "Nodo.h"
 #include "Terminal.h"
 #include "LazoDeConexion.h"
-#include "SistemaEmpaquetado.h"
 #include "Direccion.h"
-#include "Peso.h"
 #include "Paquete.h"
 #define INFI  999
 #define MIEMBRO 1
 #define NO_MIEMBRO 0
-#define MAXNODOS 10
+#define MAXNODOS 12
 using namespace std;
 class SistemaDeEmpaquetado;
 class Administrador{
@@ -28,7 +24,7 @@ private:
     Lista<Router*>* routersDisponibles = new Lista<Router*>();
     Lista<LazoDeConexion*>* listaDeConexiones = new Lista<LazoDeConexion*>();
     Lista<int>* p = new Lista<int>();
-    Lista<Peso*>* pesos = new Lista<Peso*>();
+
     int T[MAXNODOS][MAXNODOS];
     int terminalesPorRouter;
     int cantidadDeRouters;
@@ -46,7 +42,7 @@ public:
     void imprimirListadosDeTerminales();
     void conectarTerminales(int);
     void establecerLazo(int, int ,int);
-    
+    void handlerC(int);
     void establecerConexiones();
     void imprimirConexiones();
     void leerFile();
@@ -54,18 +50,13 @@ public:
     void imprex();
     void imprimirLazos();
     void crearPaginas();
-    void segmentarPaginas();
-    void insertarPaquetesEnLosLazos();
-    void pruebaIndice();
-
-    void imprimirPaginasPorRouter();
-    void calcularTablaDeEnrutamiento();
-    void AlgDis(int);
     void AlgAlt(int);
     void enviarPaquetes();
     void paquetes();
     void recibirPaquetes();
-    void simular();
+    void simularEscenarioPrincipal();
+    void simularSegundoEscenario();
+    void simularTercerEscenario();
     void paseAlg();
     void imprimirtabla();
     int * dijkstra(int C[][MAXNODOS], int, int, int Pre[]);

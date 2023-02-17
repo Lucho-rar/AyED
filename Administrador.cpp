@@ -1,5 +1,5 @@
 #include "Administrador.h"
-#include "SistemaEmpaquetado.h"
+
 /*******                                    Metodos ADMINISTRADOR                           ********/
 
 
@@ -28,17 +28,7 @@ void Administrador::imprimirListadoDeRouters(){
 
 }
 
-void Administrador::pruebaIndice(){
 
-    Lista<int>* l = new Lista<int>();
-    l->add(3);
-    
-    l->add(5);
-    l->addFinal(9);
-    Nodo<int>* aux ;
-    aux = l->comienzo();
-    cout<<l->buscarPorIndice(2)<<endl;
-}
 
 void Administrador::imprimirListadosDeTerminales(){
     Nodo<Router*>* aux;
@@ -128,10 +118,6 @@ void Administrador::examinarRouterPorID(int o, int d){
 
 }
 
-void Administrador::matchDeLazos(){
-
-}
-
 
 void Administrador::imprex(){
     Nodo<Router*>* aux;
@@ -162,7 +148,7 @@ void Administrador::leerFile(){
     int cantidadRouters, terminalesPorRouter;
     //system("cls");
     ifstream f;
-    f.open("config.txt",ios::in);
+    f.open("config1.txt",ios::in);
     string linea;
     //getline(f,linea); /* obtiene routers */
     f>>cantidadRouters;
@@ -247,35 +233,6 @@ void Administrador::crearPagManual(int a, int b){
     
 }
 
-void Administrador::imprimirPaginasPorRouter(){
-    Nodo<Router*>* aux;
-    aux = routersDisponibles->comienzo();
-    for ( int i = 0 ; i < routersDisponibles->size(); i++){
-        aux->get_dato()->imprimirPaginas();
-        aux = aux -> get_next();
-    }
-}
-
-void Administrador::segmentarPaginas(){
-    Nodo<Router*>* aux;
-    aux = routersDisponibles->comienzo();
-
-    for (int i =0;i<routersDisponibles->size();i++){
-        aux->get_dato()->segmentarPag();
-        aux = aux ->get_next();
-    }
-
-    aux = routersDisponibles->comienzo();
-
-    for (int i = 0 ; i < routersDisponibles->size();i++){
-        aux->get_dato()->imprimirPaginas();
-        aux = aux->get_next();
-    }
-
-}
-
-void Administrador::insertarPaquetesEnLosLazos(){
-}
 
 void Administrador::paquetes(){
     Nodo<Router*>* aux;
@@ -285,7 +242,7 @@ void Administrador::paquetes(){
         aux = aux->get_next();
     }
 }
-
+/*
 void Administrador::calcularTablaDeEnrutamiento(){
     Nodo<Router*>* aux;
     aux = routersDisponibles->comienzo();
@@ -301,7 +258,7 @@ void Administrador::calcularTablaDeEnrutamiento(){
 
         aux = aux->get_next();
     }
-}
+}*/
 void Administrador::enviarPaquetes(){
     Nodo<Router*>* aux;
     aux = routersDisponibles -> comienzo();
@@ -532,6 +489,11 @@ void Administrador::mostrarTablas(){
         aux = aux->get_next();
     }
 }
+
+void Administrador::handlerC(int s){
+  //printf("-------- Recibi la senial  --> ###### %d ###### \n",s);
+    signal(SIGINT,SIG_DFL);
+}
 /*
 void Administrador::cleaner(){
     Nodo<Router*>* aux;
@@ -543,28 +505,24 @@ void Administrador::cleaner(){
 }*/
 
 
-void Administrador::simular(){
+void Administrador::simularEscenarioPrincipal(){
+    //signal(SIGINT, SIG_DFL);
     this->leerFile();
     cout<<"---------------Simulacion numero "<<cantSimulaciones<<endl;
     int x =0;
-    while(1){
+    int prb;
+    while(prb!=0){
         
 
-        if(cantSimulaciones<50){
+        
         cantSimulaciones++;
         this->paseAlg();
         system("read -p 'Press Enter to continue...' var");
         cout<<endl<<endl;
         cout << "\033[1;31mCREACION DE PAGINAS\033[0m\n"<<endl;
         if(x==0){
-            this->crearPagManual(3,7);
-            this->crearPagManual(3,7);
-            this->crearPagManual(3,7);
-            this->crearPagManual(3,7);
-            this->crearPagManual(0,7);
-
-            //this->crearPagManual(7,8);
-            /*
+           // this->crearPagManual(2,2);
+            
             this->crearPaginas();
             this->crearPaginas();
             this->crearPaginas();
@@ -575,7 +533,17 @@ void Administrador::simular(){
             this->crearPaginas();
             this->crearPaginas();
             this->crearPaginas();
-            */
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            
             x =1;
         }
 
@@ -586,18 +554,151 @@ void Administrador::simular(){
         this->paquetes();
         //this->imprimirLazos();
         cout<<endl<<endl;
-        this->imprimirLazos();
+       // this->imprimirLazos();
         cout << "\033[1;32mENVÍO DE PAQUETES\033[0m\n"<<endl;
         this->enviarPaquetes();
        // this->cleaner();
         cout << "\033[1;42mRECIBO DE PAQUETES\033[0m\n"<<endl;
         this->recibirPaquetes();
        // this->mostrarTablas();
-
+        cout<<"\nMenu de opciones: "<<endl;
+        cout<<"0: Detener simulacion."<<endl;
+        cout<<"1: Continuar simulacion. "<<endl;
+        cout<<"2: Crear paginas nuevas y continuar. "<<endl;
       //  this->paquetes();
-        system("read -p 'Press Enter to continue...' var");
+    
+        cin>>prb;
+
     }  
 
-    }
+}
+
+void Administrador::simularSegundoEscenario(){
+    //signal(SIGINT, SIG_DFL);
+    this->leerFile();
+    cout<<"---------------Simulacion numero "<<cantSimulaciones<<endl;
+    int x =0;
+    int prb;
+    while(prb!=0){
+        
+
+        
+        cantSimulaciones++;
+        this->paseAlg();
+        system("read -p 'Press Enter to continue...' var");
+        cout<<endl<<endl;
+        cout << "\033[1;31mCREACION DE PAGINAS\033[0m\n"<<endl;
+        if(x==0){
+           // this->crearPagManual(2,2);
+            
+            this->crearPagManual(1,7);
+            this->crearPagManual(1,7);
+            this->crearPagManual(1,7);
+            this->crearPagManual(1,7);
+            this->crearPagManual(11,7);
+            this->crearPagManual(11,7);
+            this->crearPagManual(11,7);
+            this->crearPagManual(11,7);
+            this->crearPagManual(11,7);
+            this->crearPagManual(11,7);
+
+            
+            x =1;
+        }
+
+      //  this->crearPagManual();
+     //   this->crearPaginas();
+      //  this->crearPaginas();
+     //   this->crearPaginas();
+        this->paquetes();
+        //this->imprimirLazos();
+        cout<<endl<<endl;
+       // this->imprimirLazos();
+        cout << "\033[1;32mENVÍO DE PAQUETES\033[0m\n"<<endl;
+        this->enviarPaquetes();
+       // this->cleaner();
+        cout << "\033[1;42mRECIBO DE PAQUETES\033[0m\n"<<endl;
+        this->recibirPaquetes();
+       // this->mostrarTablas();
+        cout<<"\nMenu de opciones: "<<endl;
+        cout<<"0: Detener simulacion."<<endl;
+        cout<<"1: Continuar simulacion. "<<endl;
+        cout<<"2: Crear paginas nuevas y continuar. "<<endl;
+      //  this->paquetes();
+    
+        cin>>prb;
+
+    }  
 
 }
+
+void Administrador::simularTercerEscenario(){
+    //signal(SIGINT, SIG_DFL);
+    this->leerFile();
+    cout<<"---------------Simulacion numero "<<cantSimulaciones<<endl;
+    int x =0;
+    int prb;
+    while(prb!=0){
+        
+
+        
+        cantSimulaciones++;
+        this->paseAlg();
+        system("read -p 'Press Enter to continue...' var");
+        cout<<endl<<endl;
+        cout << "\033[1;31mCREACION DE PAGINAS\033[0m\n"<<endl;
+        if(x==0){
+           // this->crearPagManual(2,2);
+            
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            
+            x =1;
+        }
+
+      //  this->crearPagManual();
+     //   this->crearPaginas();
+      //  this->crearPaginas();
+     //   this->crearPaginas();
+        this->paquetes();
+        //this->imprimirLazos();
+        cout<<endl<<endl;
+       // this->imprimirLazos();
+        cout << "\033[1;32mENVÍO DE PAQUETES\033[0m\n"<<endl;
+        this->enviarPaquetes();
+       // this->cleaner();
+        cout << "\033[1;42mRECIBO DE PAQUETES\033[0m\n"<<endl;
+        this->recibirPaquetes();
+       // this->mostrarTablas();
+        cout<<"\nMenu de opciones: "<<endl;
+        cout<<"0: Detener simulacion."<<endl;
+        cout<<"1: Continuar simulacion. "<<endl;
+        cout<<"2: Crear paginas nuevas y continuar. "<<endl;
+      //  this->paquetes();
+    
+        cin>>prb;
+
+    }  
+
+}
+
+
+

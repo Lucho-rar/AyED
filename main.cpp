@@ -12,8 +12,6 @@
 #include "Cola.h"
 #include "Paquete.h"
 #include "Administrador.h"
-#include "SistemaEmpaquetado.h"
-#include "hash.h"
 
 using namespace std;
 int main (int argc, char **argv){
@@ -59,7 +57,7 @@ int main (int argc, char **argv){
     //cout<<"\npagina "<<page->getidentificadorDePag()<<" tamanio "<<page->getTamanioDePag();
     */
     Administrador* admin = new Administrador();        
-    admin->simular();
+    admin->simularSegundoEscenario();
     /*
     admin->generarRouters();
     admin->generarTerminales();
