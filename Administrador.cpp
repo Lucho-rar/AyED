@@ -3,6 +3,7 @@
 /*******                                    Metodos ADMINISTRADOR                           ********/
 
 
+
 void Administrador::generarRouters(int c){
 
     this->cantidadDeRouters = c;
@@ -13,7 +14,7 @@ void Administrador::generarRouters(int c){
     }
 }
 
-
+/*
 void Administrador::imprimirListadoDeRouters(){
 
     cout<<"\nLos routers que tiene a cargo el administrador son: "<<endl;
@@ -27,9 +28,9 @@ void Administrador::imprimirListadoDeRouters(){
     }
 
 }
+*/
 
-
-
+/*
 void Administrador::imprimirListadosDeTerminales(){
     Nodo<Router*>* aux;
     aux = routersDisponibles->comienzo();
@@ -38,8 +39,8 @@ void Administrador::imprimirListadosDeTerminales(){
         aux = aux->get_next();
     }
 
-}
-
+}*/
+/*
 void Administrador::establecerConexiones(){
     Nodo<Router*>* auxRout;
     auxRout = routersDisponibles->comienzo();
@@ -48,19 +49,9 @@ void Administrador::establecerConexiones(){
             routersDisponibles->buscarPorIndice(i)->agregarTerminal(terminalesDisponibles->buscarPorIndice(j));
         }
     }
-}
+}*/
 
-void Administrador::imprimirConexiones(){
-    Nodo<Router*>* aux;
-    aux = routersDisponibles->comienzo();
-    cout<<"\nTerminales por routers: "<<endl;
-    for (int i =0; i<routersDisponibles->size() ; i++){
-        if(aux!=NULL){
-            aux->get_dato()->imprimirTerminales(); 
-        }
-        aux = aux -> get_next();
-    }
-}
+
 
 void Administrador::conectarTerminales(int txr){
     this->terminalesPorRouter = txr;
@@ -119,14 +110,7 @@ void Administrador::examinarRouterPorID(int o, int d){
 }
 
 
-void Administrador::imprex(){
-    Nodo<Router*>* aux;
-    aux = routersDisponibles->comienzo();
-    for (int i =0 ; i<routersDisponibles->size();i++){
-        aux->get_dato()->imprimirVecinos();
-        aux = aux ->get_next();    }
-}
-
+/*
 void Administrador::imprimirLazos(){
     Nodo<LazoDeConexion*>* aux;
     aux = listaDeConexiones->comienzo();
@@ -142,13 +126,13 @@ void Administrador::imprimirLazos(){
         s->get_dato()->imprimirLazosConectados();
         s = s -> get_next();
     }
-}
+}*/
 
 void Administrador::leerFile(){
     int cantidadRouters, terminalesPorRouter;
     //system("cls");
     ifstream f;
-    f.open("config1.txt",ios::in);
+    f.open("config2.txt",ios::in);
     string linea;
     //getline(f,linea); /* obtiene routers */
     f>>cantidadRouters;
@@ -466,21 +450,7 @@ void Administrador::camino(int P[], int s, int t , Lista<Direccion*>* etiquetas)
    }
 }
 
-void Administrador::flek(int x, int y){
-
-}
-   
-
-  // Nodo<Direccion*>* aux;
-  
-    //aux=etiquetas->comienzo();
-    //for (int i =0;i<etiquetas->size();i++){
-    //cout << aux->get_dato()->getDestino_D()<<"'"<<aux->get_dato()->getCamino_D()<<endl;
-   // aux = aux->get_next();
-  // }
-     
-
-
+/*
 void Administrador::mostrarTablas(){
     Nodo<Router*>* aux;
     aux = routersDisponibles->comienzo();
@@ -488,12 +458,9 @@ void Administrador::mostrarTablas(){
         aux->get_dato()->imprimirTabla();
         aux = aux->get_next();
     }
-}
+}*/
 
-void Administrador::handlerC(int s){
-  //printf("-------- Recibi la senial  --> ###### %d ###### \n",s);
-    signal(SIGINT,SIG_DFL);
-}
+
 /*
 void Administrador::cleaner(){
     Nodo<Router*>* aux;
@@ -591,17 +558,26 @@ void Administrador::simularSegundoEscenario(){
         if(x==0){
            // this->crearPagManual(2,2);
             
-            this->crearPagManual(1,7);
-            this->crearPagManual(1,7);
-            this->crearPagManual(1,7);
-            this->crearPagManual(1,7);
-            this->crearPagManual(11,7);
-            this->crearPagManual(11,7);
-            this->crearPagManual(11,7);
-            this->crearPagManual(11,7);
-            this->crearPagManual(11,7);
-            this->crearPagManual(11,7);
-
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
+            this->crearPaginas();
             
             x =1;
         }

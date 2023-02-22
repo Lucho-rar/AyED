@@ -6,6 +6,3 @@ Direccion::Direccion(int o, int d){
    
 }
 
-void Direccion::imprimir(){
-    cout<<"["<<this->destino<<"|"<<this->camino<<"]";
-}

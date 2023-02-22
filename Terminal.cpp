@@ -15,10 +15,6 @@ int* Terminal::getIP(){
     return ip;
 }
 
-void Terminal::enviarPagina(){
-
-}
-
 void Terminal::recibirPagina(Pagina *p){
     cout << "\033[1;46mSE COMPLETO EL ENVIO DE UNA PAGINA\033[0m\n"<<endl;
     cout<<"Soy el terminal "<<getIP()[1]<<" conectado al router "<<getIP()[0]<<" y recibi una pagina completa de numero "<<p->getidentificadorDePag()<<"."<<endl<<endl;

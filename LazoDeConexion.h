@@ -24,6 +24,8 @@ public:
         this->terminal1=p;
         this->terminal2=d;
         this->anchoDeBanda=a;
+
+        
         //peso = this->getPeso();
 
     }

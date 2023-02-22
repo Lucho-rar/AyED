@@ -15,7 +15,7 @@
 
 using namespace std;
 int main (int argc, char **argv){
-    /*
+    
 
     ifstream archivo("banner.txt");
     string linea;
@@ -23,7 +23,7 @@ int main (int argc, char **argv){
     while( getline(archivo,linea)){
         cout<<linea<<endl;
     }
-    */
+    
     system("read -p 'Press Enter to continue...' var"); //***************************************
 
 

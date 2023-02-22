@@ -15,7 +15,7 @@
 #define INFI  999
 #define MIEMBRO 1
 #define NO_MIEMBRO 0
-#define MAXNODOS 12
+#define MAXNODOS 10
 using namespace std;
 class SistemaDeEmpaquetado;
 class Administrador{

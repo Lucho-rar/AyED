@@ -1,10 +1,5 @@
 #include "Router.h"
 /*          Metodos Router      */
-
-void Router::enviarPaquete(){
-
-}
-
 void Router::recibirPag(Pagina* p){
 
     //cout<<p->getDestino()[0]<<"////"<<endl;
@@ -24,24 +19,6 @@ void Router::recibirPag(Pagina* p){
 
 
 
-void Router::segmentarPag(){
-    Nodo<Pagina*>* aux;
-    aux = listaDePaginas->comienzo();
-    int identificador;
-    for (int i = 0 ; i < listaDePaginas->size();i++){
-        int tamanioDePaquetes = (10 * aux->get_dato()->getTamanioDePag())/100;
-        int cantidadDePaquetes = aux->get_dato()->getTamanioDePag()/tamanioDePaquetes;    
-        for (int j = 0 ; j < cantidadDePaquetes;j++){
-            
-          //  Paquete* paq = new Paquete(j,aux->get_dato(), aux->get_dato()->getOrigen(),aux->get_dato()->getDestino(),tamanioDePaquetes );
-               
-          //  colaDeEnvio->addFinal(paq);    
-            
-        }
-        aux = aux->get_next();
-    }
-}
-
 void Router::agregarTerminal(Terminal* t){
    // cout<<"Reconocido desde el router"<<endl;
     t->conectarseAUnRouter(this);
@@ -53,7 +30,7 @@ void Router::agregarVecino(int id) {
     //cout<<"Tengo un vecino nuevo y es el router de id "<<id<<endl;
     listaDeVecinos->addFinal(r);
 }
-
+/*
 void Router::imprimirTerminales(){
     Nodo<Terminal*>* aux;
     aux= terminalesConectados->comienzo();
@@ -63,8 +40,8 @@ void Router::imprimirTerminales(){
         cout<< aux->get_dato()->getIP()<<endl;
         aux = aux->get_next();
     }
-}
-
+}*/
+/*
 void Router::imprimirVecinos(){
     Nodo<Router*>* aux;
     aux = listaDeVecinos->comienzo();
@@ -74,8 +51,8 @@ void Router::imprimirVecinos(){
         aux = aux->get_next();
     }
 
-}
-
+}*/
+/*
 void Router::imprimirPaginas(){
     Nodo<Pagina*>* aux;
     aux = listaDePaginas->comienzo();
@@ -89,7 +66,7 @@ void Router::imprimirPaginas(){
         cout<<"destino: "<<aux->get_dato()->getDestino()[1]<<endl;
     }
     
-}
+}*/
 
 void Router::imprimirPaquetes(){
    // empaquetador = new SistemaEmpaquetado();
@@ -110,7 +87,7 @@ void Router::imprimirPaquetes(){
     }
    // this->empaquetador.imprimir();
 }
-
+/*
 void Router::imprimirLazosConectados(){
     Nodo<LazoDeConexion*>* aux;
     aux = this->ida->comienzo();
@@ -127,7 +104,7 @@ void Router::imprimirLazosConectados(){
         aux=aux->get_next();
     }
 
-}
+}*/
 
 int Router::comprobarDestino(int dir){
     
@@ -346,7 +323,7 @@ void Router::setTabla(Lista<Direccion*>* nuevaTabla){
     this->tabla = nuevaTabla;
 
 }
-
+/*
 void Router::imprimirTabla(){
     Nodo<Direccion*>* aux;
     aux = tabla->comienzo();
@@ -355,7 +332,7 @@ void Router::imprimirTabla(){
         cout<<"["<<aux->get_dato()->getDestino_D()<<"] enrutar a ->"<<aux->get_dato()->getCamino_D()<<endl;
         aux = aux->get_next();
     }
-}
+}*/
 
 int Router::buscarEnTabla(int destinoDePkgABuscar){
     int r =9999;
@@ -392,4 +369,5 @@ int Router::buscarlazo(int y){
             return i;
         }
     }
+    return 9999;
 }
