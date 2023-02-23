@@ -1,57 +1,33 @@
 #include "Router.h"
 /*          Metodos Router      */
+
+
+
+/*                     Recibir pagina y parsear paquetes           */
 void Router::recibirPag(Pagina* p){
 
-    //cout<<p->getDestino()[0]<<"////"<<endl;
-    //this->listaDePaginas->addFinal(p);
+
     for (int i = 0 ; i < p->getTamanioDePag();i++){
         Paquete* pkg = new Paquete (i,p,p->getOrigen(),p->getDestino(), p->getTamanioDePag());
-      //  cout<<"\n Paquete"<<endl;
-     //   cout<<i << p->getidentificadorDePag()<<" "<<p->getOrigen()[0]<<"=>"<<p->getDestino()[0]<<endl;
-        //this->addPaquete(pkg);
         this->paquetes->addFinal(pkg);
     }
-
-    // empaque -> imprimir();
-    //this->empaquetador = empaque;
-
 }
 
 
-
+/*                           Conexion de terminal                       */
 void Router::agregarTerminal(Terminal* t){
    // cout<<"Reconocido desde el router"<<endl;
     t->conectarseAUnRouter(this);
     terminalesConectados->addFinal(t);
 }
 
+/*                          Agregado a la lista de vecinos              */
 void Router::agregarVecino(int id) {
     Router* r = new Router(id);
     //cout<<"Tengo un vecino nuevo y es el router de id "<<id<<endl;
     listaDeVecinos->addFinal(r);
 }
-/*
-void Router::imprimirTerminales(){
-    Nodo<Terminal*>* aux;
-    aux= terminalesConectados->comienzo();
-    cout<<"\nSOY EL ROUTER "<<id<<" y estos son los terminales que tengo conectados: "<<endl;
 
-    for (int i =0; i< terminalesConectados->size() ; i++){
-        cout<< aux->get_dato()->getIP()<<endl;
-        aux = aux->get_next();
-    }
-}*/
-/*
-void Router::imprimirVecinos(){
-    Nodo<Router*>* aux;
-    aux = listaDeVecinos->comienzo();
-    cout<<"\nSoy el router "<<id<<" y estos son mis vecinos: "<<endl;
-    for (int i =0;i <listaDeVecinos->size();i++){
-        cout<<aux->get_dato()->getID()<<endl;
-        aux = aux->get_next();
-    }
-
-}*/
 /*
 void Router::imprimirPaginas(){
     Nodo<Pagina*>* aux;
@@ -68,10 +44,10 @@ void Router::imprimirPaginas(){
     
 }*/
 
+
+/*                      Impresion de paquetes               */
 void Router::imprimirPaquetes(){
-   // empaquetador = new SistemaEmpaquetado();
-    //cout<<"\nSoy el router "<<this->getID()<<endl;
-    //cout<<"Paquetes que tengo :"<<endl;
+
     cout<<endl;
     cout << "\033[1;31mPaquetes del router "<<this->getID()<<" \033[0m\n"<<endl;
     cout<<"Numero de paquete | Origen | Destino | IdPaginaMadre"<<endl;
@@ -85,7 +61,7 @@ void Router::imprimirPaquetes(){
 
         aux = aux ->get_next();
     }
-   // this->empaquetador.imprimir();
+
 }
 /*
 void Router::imprimirLazosConectados(){
@@ -106,6 +82,7 @@ void Router::imprimirLazosConectados(){
 
 }*/
 
+/*              Comprobacion de si existe un lazo de ida a cierto destino       */
 int Router::comprobarDestino(int dir){
     
     for (int i = 0 ; i < ida ->size() ; i ++){
@@ -120,69 +97,43 @@ int Router::comprobarDestino(int dir){
 }
 
 
-
+/*                          Envio de paquetes                           */
 void Router::enviarPaquetes(){
     bool bw=0;
     bool aux;
     bool entro =false;
     int x ;
-    int foco = 4;
     int flag;
     if (!paquetes->esvacia()){
-        for(int i = 0 ; i <4; i ++){
+        for(int i = 0 ; i <4; i ++){            //paso de paquetes
             if (paquetes->size()==0){
                 break;
             }
-   //         cout<<paquetes->size()<<" SIZE"<<endl;
-          //  if (paquetes->size()==1 || paquetes->size()<4){
-           //     entro =true;
-                 x =comprobarDestino(paquetes->buscarPorIndice(0)->getDestino()[0]);
-          //  }else{
-          //      entro = false;
-           //      x =comprobarDestino(paquetes->buscarPorIndice(i)->getDestino()[0]);
-          //  }
+
+           x =comprobarDestino(paquetes->buscarPorIndice(0)->getDestino()[0]);  //buscar el lazo de ida si es que existe
 
 
-          if (x!=9999){
+
+          if (x!=9999){         //es directo
                 
-              //  if (entro = true){
-                    flag = i;
-                    i=0;
-          //      }
 
-                int l = paquetes->buscarPorIndice(i)->getNumeroDePaquete();
-
-                //cout<<x<<"}}}}}}}}}}"<<endl;
-                
+                flag = i;
+                i=0;
+                int l = paquetes->buscarPorIndice(i)->getNumeroDePaquete(); 
                 int indice = buscarlazo(l);
-                //cout<< ida->buscarPorIndice(x)->getTerminal2()<<"}}}}}}}}}"<<endl;
                 cout<<"[R"<<this->id<<"] Envio directo a R"<<paquetes->buscarPorIndice(i)->getDestino()[0]<<" porque es vecino. "<< /* paquetes->buscarPorIndice(i)->getDestino()[0]<<x<*/endl;
-                ida->buscarPorIndice(x)->cargarPkg(paquetes->buscarPorIndice(i));
-                //this->buscarlazo(x)->cargarPkg(paquetes->buscarPorIndice(i));
+                ida->buscarPorIndice(x)->cargarPkg(paquetes->buscarPorIndice(i));   //cargo el paquete a la cola
                 cout<<"voy a borrar "<<paquetes->buscarPorIndice(i)->getNumeroDePaquete()<<endl;
-             //   paquetes->buscarPorIndice(i)->setEstado();
-                paquetes->borrarNodo(i);
-    //            cout<<"borre"<<endl;
- 
-           //     if (entro == true){
-                    i= flag;
-                    entro = false;
-            //    }
-                if (paquetes->size()<foco){
-                    foco = paquetes->size();
-                }
-               // sacarPkg(paquetes->buscarPorIndice(i));
-               // paquetes->borrar();
-               // cout<<"borre "<<l<<endl;
+                paquetes->borrarNodo(i);        //elimino el paquete del router
+
+                i= flag;
+                entro = false;
 
 
+            }else if(x==9999){          //se enruta o no existe camino
 
-            }else if(x==9999){
-             //   if (entro ==true){
-                   // entro = true;
-                    flag = i;
-                    i=0;
-           //     }
+                flag = i;
+                i=0;
                 if(buscarEnTabla(paquetes->buscarPorIndice(i)->getDestino()[0])==9999){
                     cout<<"[R"<<this->id<<"] No hay ruta para este paquete. "<<endl;
                     paquetes->borrarNodo(i);
@@ -195,28 +146,12 @@ void Router::enviarPaquetes(){
                     cout<<"[R"<<this->id<<"] No tengo camino directo a R"<<paquetes->buscarPorIndice(i)->getDestino()[0]<<" pero lo puedo enrutaren  "<<endl;
                     cout<<ida->buscarPorIndice(indice)->getTerminal1()<<"->"<<ida->buscarPorIndice(indice)->getTerminal2()<<endl;
                     ida->buscarPorIndice(indice)->cargarPkg(paquetes->buscarPorIndice(i));
-                //this->buscarlazo(y)->cargarPkg(paquetes->buscarPorIndice(i));
-       //             cout<<"enviado"<<endl;
+
                     paquetes->borrarNodo(i);
-                    //paquetes->buscarPorIndice(i)->setEstado(); 
-                   
-         //           if (entro == true){
-                        i = flag;
-                        entro = false;
-          //          }
-                    if (paquetes->size()<foco){
-                        foco = paquetes->size();
-                    }
 
-
-         //           cout<<"enviado3"<<endl;
-               // paquetes->borrarNodo(i);
-               // sacarPkg(paquetes->buscarPorIndice(i));
-                //paquetes->borrar();
-                }
-                
-                //cout<<y<<"***********************"<<endl;
-                
+                    i = flag;
+                    entro = false;
+                }         
             }
             
         }
@@ -240,24 +175,22 @@ void Router::enviarPaquetes(){
 
 
 
-void Router::recibirPaquetes(){
 
-   // cout<<this->id<<endl;
+/*                               Recibo de paquetes                     */
+void Router::recibirPaquetes(){
     if (!vuelta->esvacia()){
        // cout<<this->id<<" puedo recibir"<<endl;
         for (int i =0 ; i < vuelta->size();i++){
             if(vuelta->buscarPorIndice(i)->vacia()==true){
               //  cout<<"Vacia"<< this->id<<endl;
             }else{
-                int cont =vuelta->buscarPorIndice(i)->getBW();
-                //int cont = vuelta->buscarPorIndice(i)->getcolaconectora()->size()-1;
+                int cont =vuelta->buscarPorIndice(i)->getBW();      //flag de BW
+            
                 while(cont>=0/*vuelta->buscarPorIndice(i)->vacia()!=true*/){
                     Paquete* pkg0 = vuelta->buscarPorIndice(i)->leerPkg();
                     
                     if (pkg0!=NULL){
-                        this->vincularConKey(pkg0);
-                        //this->hash->agregarH(pkg0);
-                        //cout<<"R[ "<<this->id<<"y lei"<<pkg0->getNumeroDePaquete()<<" "<<pkg0->getPaginaMadre()->getidentificadorDePag()<<endl;
+                        this->vincularConKey(pkg0);     //decision de que hacer con el paquete
                         cont--;
                     }         
                     cont --;
@@ -266,31 +199,25 @@ void Router::recibirPaquetes(){
         }
     }
 }
-/*
-void Router::limpiarCache(){
-    for (int i = 0; i<paquetes->size();i++){
-        cout<<paquetes->buscarPorIndice(i)->getDestino()[0]<<endl;
-    }
- 
-}*/
 
 
+/*                      Decision de destino de paquete */
 void Router::vincularConKey(Paquete* x){
     Paquete* p = new Paquete();
     p=x;
     
 
-    if(p->getDestino()[0]!=this->id){
+    if(p->getDestino()[0]!=this->id){       // si el router no es para el lo reencola en su router 
         cout<<"[R"<<this->id<<"] recibi el paquete "<<p->getNumeroDePaquete()<<"|"<<p->getPaginaMadre()->getidentificadorDePag()<<
         " pero el paquete paquete no es para mi, debo enrutarlo."<<endl;
         //p->setEstado1();
         paquetes->addFinal(p);
         
-    }else{
+    }else{      // si es para el usa una estructura HASH para almacenar los paqueteshasta completar la pagina
         int i = p->getPaginaMadre()->getidentificadorDePag();
         cout<<"[R"<<this->id<<"] recibi el paquete "<<p->getNumeroDePaquete()<<"|"<<p->getPaginaMadre()->getidentificadorDePag()<<endl;
         D[i].addFinal(p);
-        if(D[i].size()==p->getPaginaMadre()->getTamanioDePag()){
+        if(D[i].size()==p->getPaginaMadre()->getTamanioDePag()){        //si la pagina se completo se la envia al terminal 
             cout<<"R["<<this->id<<"] se ha completado la pagina con destino al terminal "<<p->getTerm()<<"."<<endl;
             Pagina * n = new Pagina(p->getPaginaMadre()->getidentificadorDePag(),p->getPaginaMadre()->getTamanioDePag(),p->getPaginaMadre()->getOrigen(),p->getPaginaMadre()->getDestino());
             this->enviarPag(n);
@@ -301,6 +228,8 @@ void Router::vincularConKey(Paquete* x){
 
 }
 
+
+/*                              Bool de vecino              */
 
 bool Router::esVecino(int id){
     bool respuesta = false;
@@ -318,7 +247,7 @@ bool Router::esVecino(int id){
 
 }
 
-
+/*                          Setter de la tabla de enrutamiento          */
 void Router::setTabla(Lista<Direccion*>* nuevaTabla){
     this->tabla = nuevaTabla;
 
@@ -334,16 +263,16 @@ void Router::imprimirTabla(){
     }
 }*/
 
+/*                      Comrpueba el destino en la tabla de enrutamiento        */
 int Router::buscarEnTabla(int destinoDePkgABuscar){
     int r =9999;
-    //cout<<tabla->size()<<endl;
+
     for (int i = 0 ; i< tabla->size() ; i++){
-      //  cout<<"tabka sizeee"<<endl;
+     
         if(tabla->buscarPorIndice(i)->getDestino_D() == destinoDePkgABuscar){   //tengo en la ruta
-           // cout<<"paquete de "<<tabla->buscarPorIndice(i)->getDestino_D()<<" tiene que tomar la ruta de "<<tabla->buscarPorIndice(i)->getCamino_D()<<endl;
+          
             r= tabla->buscarPorIndice(i)->getCamino_D();
-        //    cout<<"rrrrrrrrrrrrrR"<<r<<endl;
-           //r=i;
+
         }
     }
     return r;
@@ -351,10 +280,11 @@ int Router::buscarEnTabla(int destinoDePkgABuscar){
 
 }
 
+/*                              Enviar pagina a terminal correcto           */
 void Router::enviarPag(Pagina * p){
-   //cout<<p->getDestino()[1];
+  
    for (int i = 0; i <terminalesConectados->size();i++){
-   //  cout<<"***************"<<terminalesConectados->buscarPorIndice(i)->getIP()[1]<<" ";
+
         if(p->getDestino()[1]== terminalesConectados->buscarPorIndice(i)->getIP()[1]){
             terminalesConectados->buscarPorIndice(i)->recibirPagina(p);
         }
@@ -362,6 +292,7 @@ void Router::enviarPag(Pagina * p){
   
 }
 
+/*                                     Busqueda de lazo de ida                    */
 int Router::buscarlazo(int y){
 
     for (int i = 0 ; i <ida->size();i++){

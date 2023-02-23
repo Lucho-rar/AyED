@@ -8,7 +8,7 @@
 #include "Nodo.h"
 using namespace std;
 
-
+/*                         CLASE COLA UTILZIADA EN CLASES               */
 template <class T> class Cola :public Lista<T> {
 public:
     Cola(void) { Lista<T>(); };

@@ -15,9 +15,10 @@
 #define INFI  999
 #define MIEMBRO 1
 #define NO_MIEMBRO 0
-#define MAXNODOS 10
+#define MAXNODOS 12
 using namespace std;
-class SistemaDeEmpaquetado;
+
+/*                                    Clase administrador                       */
 class Administrador{
 private:
     Lista<Terminal*>* terminalesDisponibles = new Lista<Terminal*>();

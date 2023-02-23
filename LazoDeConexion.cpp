@@ -1,24 +1,26 @@
 #include "LazoDeConexion.h"
 
 
+/*                          Metodos lazo de conexion            */
+
+/*                      bool de vacio       */
+
 bool LazoDeConexion::vacia(){
     if(colaConectora->esvacia()) return true;
     return false;
 }
 
 
-
+/*                      Carga de paquetes desde un router al lazo       */
 void LazoDeConexion::cargarPkg(Paquete* p ){
-    if(rand()%10>5){
+    if(rand()%10>5){                                //aleatoriedad
         colaConectora->addFinal(p);
     }else{
         colaConectora->add(p);
     }
-    //colaConectora->addFinal(p);
-    //cout<<this->getTerminal2()<<"^^^^^^^^^^^^^"<<endl;
-
 }
 
+/*                           Lectura de paquetes de la cola     */
 Paquete* LazoDeConexion::leerPkg(){
     if (colaConectora->esvacia()){
         cout<<"No tengo paquetes en cola"<<endl;
@@ -29,9 +31,4 @@ Paquete* LazoDeConexion::leerPkg(){
         this->colaConectora->borrar();
         return pkg;
         }
-
-        // Paquete* pkg =  this->colaConectora->comienzo()->get_dato();
-       // cout<<"lei "<<pkg->getNumeroDePaquete();
-    //this->colaConectora->desencolar();
-
 }

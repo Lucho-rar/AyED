@@ -3,14 +3,14 @@
 #include <iostream>
 
 using namespace std;
-        /* Es la clase lazo pero con enteros para mezclar los lazos de ida y vuelta*/
+ /*              CLASE  Direccion            */
 class Direccion {
 private:
     int destino, camino, peso;
 public:
-    Direccion(){};
-    Direccion(int, int);
-    int getDestino_D(){return destino;};
+    Direccion(){};              //constructor
+    Direccion(int, int);    
+    int getDestino_D(){return destino;};            //getters y setters
     int getCamino_D(){return camino;};
     int peso_D(){return peso;};
     void setpeso(int p){this->peso = p;};

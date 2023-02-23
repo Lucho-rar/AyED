@@ -10,6 +10,8 @@
 
 using namespace std;
 
+
+/*                                      Clase paquete                   */
 class Pagina;
 class Terminal;
 class Paquete{
@@ -22,7 +24,7 @@ private:
     bool estado = false;
 public:
     Paquete(){};
-    Paquete(int n , Pagina* pag,int o[2], int d[2], int tam){
+    Paquete(int n , Pagina* pag,int o[2], int d[2], int tam){       //constructor 
         this->numeroDePaquete = n;
         this->paginaMadre = pag;
         this->origen[0]= o[0];
@@ -31,7 +33,7 @@ public:
         this->destino[1] = d[1];
         this->tamanioDePaquete = tam;
     }
-    int getNumeroDePaquete(){return numeroDePaquete;};
+    int getNumeroDePaquete(){return numeroDePaquete;};      //getters y setters
     int getTamanioDePaquete(){return tamanioDePaquete;};
     Pagina* getPaginaMadre(){return paginaMadre;};
     int * getOrigen(){return origen;};

@@ -3,14 +3,15 @@
 /*******                                    Metodos ADMINISTRADOR                           ********/
 
 
-
+/*                                  Generador de routers                        */
+/*               Crea la cantidad de routers que viene por parametrizacion del txt      */
 void Administrador::generarRouters(int c){
 
-    this->cantidadDeRouters = c;
-    for (int i = 0; i < c ; i++){
+    this->cantidadDeRouters = c;        // cantidad de routers a crear
+    for (int i = 0; i < c ; i++){       // crea c routers 
         Router*r = new Router(i);
         //Router* r = new Router(rand()%10, 2);
-        this->routersDisponibles->addFinal(r);
+        this->routersDisponibles->addFinal(r);//los agrega a la lista que visualiza el admin
     }
 }
 
@@ -52,14 +53,15 @@ void Administrador::establecerConexiones(){
 }*/
 
 
-
+/*                                   Conector de terminales a routers           */
+/*                          La cantidad de routers viene dado por el txt tambien        */
 void Administrador::conectarTerminales(int txr){
-    this->terminalesPorRouter = txr;
+    this->terminalesPorRouter = txr;            
     Nodo<Router*>* aux;
     aux = routersDisponibles->comienzo();
-    for (int i =0;i<routersDisponibles->size();i++){
-        for (int j =0;j<txr;j++){
-            int v[2]={i,j};
+    for (int i =0;i<routersDisponibles->size();i++){            // por cada router 
+        for (int j =0;j<txr;j++){                   
+            int v[2]={i,j};                             // crea txr terminales y los agrega al router
             Terminal* t = new Terminal(v);
             aux->get_dato()->agregarTerminal(t);
         }
@@ -69,9 +71,12 @@ void Administrador::conectarTerminales(int txr){
     }
 }
 
+
+/*                          Crea los lazos de conexion de un determinado BW entre dos nodos     */
+/*                         Inserta el lazo de ida y vuelta en su respectivo nodo                    */
+
 void Administrador::establecerLazo(int o , int d, int a){
     LazoDeConexion* lazo = new LazoDeConexion(o, d ,a );
-    //LazoDeConexion* vuelta = new LazoDeConexion(d, o ,a );
     //cout<<"\n ida "<<ida->getTerminal1()<<" a "<< ida->getTerminal2()<<endl;
     //cout<<"vuelta "<<vuelta->getTerminal1()<<" a "<<vuelta->getTerminal2()<<endl;
     cout<<"\033[1;36mLazo directo establecido entre " <<routersDisponibles->buscarPorIndice(o)->getID()<<" y "<<
@@ -80,12 +85,12 @@ void Administrador::establecerLazo(int o , int d, int a){
     routersDisponibles->buscarPorIndice(o)->agregarLazoIda(lazo);
     routersDisponibles->buscarPorIndice(d)->agregarLazoVuelta(lazo);
     listaDeConexiones->addFinal(lazo);
-    //listaDeConexiones->addFinal(vuelta);
-   // routersDisponibles->buscarPorIndice(o+size()-1);
+    
 
     examinarRouterPorID(o,d);
 }
 
+/*                  Agregar a la lista de vecinos de cada router por origen y destino        */
 void Administrador::examinarRouterPorID(int o, int d){
     Nodo<Router*>* aux;
     aux = routersDisponibles->comienzo();
@@ -101,11 +106,7 @@ void Administrador::examinarRouterPorID(int o, int d){
     }
 
     aux = routersDisponibles->comienzo();
-    /*
-    for (int j = 0; j<routersDisponibles->size();j++){
-        aux->get_dato()->imprimirVecinos();
-        aux= aux->get_next();
-    }*/
+
 
 }
 
@@ -128,34 +129,26 @@ void Administrador::imprimirLazos(){
     }
 }*/
 
+
+
+/*                                      Parametrizacion de la configuracion             */
 void Administrador::leerFile(){
     int cantidadRouters, terminalesPorRouter;
     //system("cls");
     ifstream f;
-    f.open("config2.txt",ios::in);
+    f.open("config1.txt",ios::in);
     string linea;
-    //getline(f,linea); /* obtiene routers */
+    //getline(f,linea); // obtiene routers 
     f>>cantidadRouters;
-    f>>terminalesPorRouter; /*obtiene terminal x router*/
-    //cout <<cantidadRouters<<terminalesPorRouter<<endl;
-    generarRouters(cantidadRouters);
-    conectarTerminales(terminalesPorRouter);    
+    f>>terminalesPorRouter; //obtiene terminal x router
+    generarRouters(cantidadRouters);                //llama al generador de routers
+    conectarTerminales(terminalesPorRouter);        //conecta txr por cada router
     int origen, destino, ancho;
     f>>origen;
     while (!f.eof()) {
         f>>destino;
         f>>ancho;
-        //cout<<num<<" "<<nombre<<" "<<tipo<<" "<<rep<<" "<<endl;
-        //Reloj* r = ;
-        //Reloj r(num,nombre,tipo,rep);
-        //Reloj r(num,nombre,tipo,rep);
-        //cout<<origen <<" "<<destino<<" "<<ancho<<endl;
-        //LazoDeConexion* ida = new LazoDeConexion(origen, destino ,ancho );
-        //LazoDeConexion* vuelta = new LazoDeConexion(destino,origen,ancho);
-       // cout<<routersDisponibles->buscarPorIndice(origen)->get_dato()->getID()<<"ssss"<<endl;
         establecerLazo(origen, destino, ancho);
-       // Peso* p = new Peso(origen,destino,0);
-       // pesos->addFinal(p);
         f>>origen;
 
     }
@@ -163,20 +156,21 @@ void Administrador::leerFile(){
 
 }
 
+/*                          Creador de paginas randoms              */
 void Administrador::crearPaginas(){
    
     Nodo<Router*>* aux;
     aux = routersDisponibles->comienzo();
-    int NumeroRandomOR = rand() % cantidadDeRouters;
-    int NumeroRandomOT = rand() % terminalesPorRouter;
+    int NumeroRandomOR = rand() % cantidadDeRouters;        //origen de router random
+    int NumeroRandomOT = rand() % terminalesPorRouter;          // origen de terminal random
    // cout<<"origen "<<NumeroRandomOR<<" "<<NumeroRandomOT<<endl;
-    int ipOrigen[2]={NumeroRandomOR,NumeroRandomOT};
-    int NumeroRandomDR = rand() % cantidadDeRouters;
-    int NumeroRandomDT = rand() % terminalesPorRouter;
+    int ipOrigen[2]={NumeroRandomOR,NumeroRandomOT};            //ip de origen generada
+    int NumeroRandomDR = rand() % cantidadDeRouters;            //destino router random
+    int NumeroRandomDT = rand() % terminalesPorRouter;          //destino terminal random
   //  cout<<"destino "<<NumeroRandomDR<<" "<<NumeroRandomDT<<endl;
-    int ipDestino[2]={NumeroRandomDR,NumeroRandomDT};
+    int ipDestino[2]={NumeroRandomDR,NumeroRandomDT};               //ip de destino random
     int randomPag;
-    randomPag = rand() % TAMPAG;
+    randomPag = rand() % TAMPAG;                    //tamanio de pag random
    // ipDestino[0]=NumeroRandomDR;
    // ipDestino[1]=0;
   //  cout<<"destino "<<ipDestino[0]<<" "<<ipDestino[1]<<endl;
@@ -186,38 +180,32 @@ void Administrador::crearPaginas(){
     //routersDisponibles->buscarPorIndice(ipOrigen[0])->recibirPag(p);
     cout << "\033[1;31mCREE LA PAGINA "<<p->getidentificadorDePag()<<"\033[0m\n";
     //cout<<routersDisponibles->buscarPorIndice(NumeroRandomOR)->getID()<<endl;
-    routersDisponibles->buscarPorIndice(NumeroRandomOR)->recibirPag(p);
+    routersDisponibles->buscarPorIndice(NumeroRandomOR)->recibirPag(p);     // coloco las paginas en los routers que corresponde
     
 }
 
+
+/*                   Creador de paginas manual              */
 void Administrador::crearPagManual(int a, int b){
    
     Nodo<Router*>* aux;
     aux = routersDisponibles->comienzo();
     int NumeroRandomOR = a;
     int NumeroRandomOT = a;
-   // cout<<"origen "<<NumeroRandomOR<<" "<<NumeroRandomOT<<endl;
     int ipOrigen[2]={NumeroRandomOR,NumeroRandomOT};
     int NumeroRandomDR =b;
     int NumeroRandomDT =b;
-  //  cout<<"destino "<<NumeroRandomDR<<" "<<NumeroRandomDT<<endl;
     int ipDestino[2]={NumeroRandomDR,NumeroRandomDT};
     int randomPag;
     randomPag = rand() % TAMPAG;
-   // ipDestino[0]=NumeroRandomDR;
-   // ipDestino[1]=0;
-  //  cout<<"destino "<<ipDestino[0]<<" "<<ipDestino[1]<<endl;
-        //int origen = aux->get_dato()->getID();
     Pagina* p = new Pagina(simPag,randomPag, ipOrigen, ipDestino);
     simPag++;
-    //routersDisponibles->buscarPorIndice(ipOrigen[0])->recibirPag(p);
     cout << "\033[1;31mCREE LA PAGINA "<<p->getidentificadorDePag()<<"\033[0m\n";
-    //cout<<routersDisponibles->buscarPorIndice(NumeroRandomOR)->getID()<<endl;
     routersDisponibles->buscarPorIndice(NumeroRandomOR)->recibirPag(p);
     
 }
 
-
+/*                  Impresora de paquetes           */
 void Administrador::paquetes(){
     Nodo<Router*>* aux;
     aux = routersDisponibles->comienzo();
@@ -226,23 +214,9 @@ void Administrador::paquetes(){
         aux = aux->get_next();
     }
 }
-/*
-void Administrador::calcularTablaDeEnrutamiento(){
-    Nodo<Router*>* aux;
-    aux = routersDisponibles->comienzo();
-    for (int i = 0 ; i < routersDisponibles->size();i++){
-        Nodo<LazoDeConexion*>* aux1;
-        aux1=aux->get_dato()->getIda()->comienzo();
-        cout<<"Soy el router "<<aux->get_dato()->getID()<<
-        " y puedo enviar datos a "<<endl;
-        for (int j =0; j < aux->get_dato()->getIda()->size();j++){
-            cout<<aux1->get_dato()->getTerminal2()<<endl;
-            aux1= aux1->get_next();
-        }
 
-        aux = aux->get_next();
-    }
-}*/
+
+/*              Llamado a enviar paquetes para cada router       */
 void Administrador::enviarPaquetes(){
     Nodo<Router*>* aux;
     aux = routersDisponibles -> comienzo();
@@ -251,6 +225,8 @@ void Administrador::enviarPaquetes(){
         aux = aux -> get_next();
     }   
 }
+
+/*             Llamado a recibir paquetes para cada router          */
 void Administrador::recibirPaquetes(){
     Nodo<Router*>* aux;
     aux = routersDisponibles -> comienzo();
@@ -261,10 +237,7 @@ void Administrador::recibirPaquetes(){
 }
 
 
-        /* voy a declarar dijsktra en base a lo de clase para abrir ideas y en base
-        a ello redefinir metodos que tengo */
-
-
+/*              Pase de algoritmo de dijsktra       (pasos previos)*/
 void Administrador::paseAlg(){
     int *pdist, i, j, P[MAXNODOS],s,t;
     
@@ -275,25 +248,23 @@ void Administrador::paseAlg(){
     this->imprimirtabla();
    
     
-   // s=0;  // vertice de inicio
-   // t=1;  // vertice final
+   // s vertice de inicio
+   // t vertice final
     for(s = 0; s<MAXNODOS;s++){
-         Lista<Direccion*>* etiquetas = new Lista<Direccion*>();
+         Lista<Direccion*>* etiquetas = new Lista<Direccion*>(); // lista de etiquetas para cada router
         for ( t = 0; t<MAXNODOS;t++){
     
-    pdist=dijkstra(T,s,t,P);
-    if (pdist[t]!=INFI){
+        pdist=dijkstra(T,s,t,P);            //llamado al algoritmo
+        if (pdist[t]!=INFI){
         //cout<<"\n\n distancia minima del nodo "<<s
           //  <<" al nodo "<<t<<" es= "<<pdist[t];
    
        // cout<<"\n\n CAMINO= ";
-        glb = t;
+        glb = t;                //flag de destino 
         
-        camino(P,s,t,etiquetas);
+        camino(P,s,t,etiquetas);            //camino para encontrar el nodo al quedebe dirigir cierto paquete
 
-       // cout<<"\n rr "<<glb<<endl;
-       // cout<<glb<<endl;
-      //  this->flek();
+
        
     }                
     else cout<</*"\n NO HAY CAMINO"*/"";        ///***************
@@ -301,33 +272,32 @@ void Administrador::paseAlg(){
    // cout<<endl<<endl<<endl;
     //system("PAUSE");
     }
-    routersDisponibles->buscarPorIndice(s)->setTabla(etiquetas);
- //   delete etiquetas;
+    routersDisponibles->buscarPorIndice(s)->setTabla(etiquetas);        //setea la tabla del router
+
     }
 
 }
 
+/*                 Previo a dijkstra. Crea la tabla de pesos */
 
 void Administrador::AlgAlt(int ini){
-    Lista<int> Q;
+
     int C[cantidadDeRouters];
     
-    
+
     int aux = 4;
     for (int i = 0 ; i <listaDeConexiones->size();i++){
-        ///cout<<listaDeConexiones->buscarPorIndice(i)->getTerminal1()<<"|"<<listaDeConexiones->buscarPorIndice(i)->getTerminal2()<<"|";
-        ///cout<<listaDeConexiones->buscarPorIndice(i)->getcolaconectora()->size()<<endl;
-        listaDeConexiones->buscarPorIndice(i)->calcularPeso();
+        listaDeConexiones->buscarPorIndice(i)->calcularPeso();      //calcula los pesos para cada lazo
     }
     
     for (int i = 0; i < routersDisponibles->size();i++){
         
         Router* routerAnalisis= routersDisponibles->buscarPorIndice(i);
         if(i == ini){
-            C[ini]=0;
-        }else if(routersDisponibles->buscarPorIndice(ini)->esVecino(i)){
+            C[ini]=0;               // El peso al mismo router es cero
+        }else if(routersDisponibles->buscarPorIndice(ini)->esVecino(i)){            //analisis de peso para vecinos
            // cout<<"lo contiene"<<endl;
-            
+
             for(int j = 0 ; j < listaDeConexiones->size(); j ++){
                 if((listaDeConexiones->buscarPorIndice(j)->getTerminal1()==ini && listaDeConexiones->buscarPorIndice(j)->getTerminal2()==i)){
                //     cout<<ini<<" "<<i<<endl;
@@ -338,10 +308,10 @@ void Administrador::AlgAlt(int ini){
             }
             C[i]=aux;
         }else{
-            C[i]=INFI;
+            C[i]=INFI;          // no es vecino
         }
     }
-    for (int i = 0 ; i < cantidadDeRouters;i++){
+    for (int i = 0 ; i < cantidadDeRouters;i++){            //creo la tabla con cada vector
         this->T[ini][i]=C[i];
     }
     /*
@@ -353,6 +323,8 @@ void Administrador::AlgAlt(int ini){
  
    // cout<<endl;
 }
+
+/*                              Impresora de tabla              */
 void Administrador::imprimirtabla(){
     cout << "\033[1;33mTABLA DE ENRUTAMIENTO CON PESOS\033[0m\n";
     for (int i = 0; i < cantidadDeRouters;i++){
@@ -363,6 +335,17 @@ void Administrador::imprimirtabla(){
     }
 }
 
+
+/*                      Algoritmo de dijkstra               */
+// C[i][j] Costo del arco de i a j
+// D[i] costo del camino m�nimo conocido hasta el 
+//              momento de s a i
+//              inicialmente D[s]=0 y D[i]=INFI
+// S[i] conjunto de nodos cuya distancia minima a s es conocida
+//         y permanente, inicialmente S[] solo contiene a s
+//         S[i]=1 si i pertenece, 0 si i no pertenece
+// Pre[i] contiene el vertice que precede a i en el camino 
+//            minimo encontrado hasta el momento
 int * Administrador::dijkstra(int C[][MAXNODOS],int s, int t, int Pre[]){
  static int D[MAXNODOS];
  int S[MAXNODOS];
@@ -414,39 +397,20 @@ return D;
 
 }
 
-
+/*                  Puede imprimir el camino pero su funcion principal es obtener el primer nodo al que debe dirigirse */
 void Administrador::camino(int P[], int s, int t , Lista<Direccion*>* etiquetas)
 {  
-
    if (t==s){
         cout<< /*s*/" ";
 
    } 
    else{
-        
-        //camino(P,s,P[t],etiquetas);
-        //camino(P,s,P[t],etiquetas);
         if(P[t]==s){
-            //this->flek(x);
-            //cout<<t<<endl;
-           // flek(t,glb);
            Direccion* d = new Direccion(glb,t);
            etiquetas->addFinal(d);
-          //  cout<<glb<<"xxxxxxxxxx"<<endl;
         }else{
             camino(P,s,P[t],etiquetas);
-            //camino(P,s,P[t],etiquetas);
-           // x=P[t];
-           // D[t]=P[t];
-            //p->addFinal(P[t]);
-           // cout<<"etiqueta"<<t<<P[t]<<endl;
-
-          //  cout<<P[t]<<"  ";
-
         }
-
-    
-         
    }
 }
 
@@ -460,30 +424,17 @@ void Administrador::mostrarTablas(){
     }
 }*/
 
-
-/*
-void Administrador::cleaner(){
-    Nodo<Router*>* aux;
-    aux = routersDisponibles->comienzo();
-    for (int i = 0 ; i < routersDisponibles->size();i++){
-        aux->get_dato()->limpiarCache();
-        aux = aux->get_next();
-    }
-}*/
-
-
+/*                                      Simuladores             */
 void Administrador::simularEscenarioPrincipal(){
     //signal(SIGINT, SIG_DFL);
-    this->leerFile();
-    cout<<"---------------Simulacion numero "<<cantSimulaciones<<endl;
+    this->leerFile();                   //lectura de parametrizacion
+    
     int x =0;
     int prb;
     while(prb!=0){
-        
 
-        
         cantSimulaciones++;
-        this->paseAlg();
+        this->paseAlg();                        //algoritmo de dijsktra
         system("read -p 'Press Enter to continue...' var");
         cout<<endl<<endl;
         cout << "\033[1;31mCREACION DE PAGINAS\033[0m\n"<<endl;
@@ -492,7 +443,7 @@ void Administrador::simularEscenarioPrincipal(){
             
             this->crearPaginas();
             this->crearPaginas();
-            this->crearPaginas();
+            this->crearPaginas();               // creacion de paginas
             this->crearPaginas();
             this->crearPaginas();
             this->crearPaginas();
@@ -514,26 +465,20 @@ void Administrador::simularEscenarioPrincipal(){
             x =1;
         }
 
-      //  this->crearPagManual();
-     //   this->crearPaginas();
-      //  this->crearPaginas();
-     //   this->crearPaginas();
-        this->paquetes();
+
+        this->paquetes();                       //muestra de paquetes 
         //this->imprimirLazos();
         cout<<endl<<endl;
        // this->imprimirLazos();
-        cout << "\033[1;32mENVÍO DE PAQUETES\033[0m\n"<<endl;
+        cout << "\033[1;32mENVÍO DE PAQUETES\033[0m\n"<<endl;               //envio
         this->enviarPaquetes();
-       // this->cleaner();
-        cout << "\033[1;42mRECIBO DE PAQUETES\033[0m\n"<<endl;
+        cout << "\033[1;42mRECIBO DE PAQUETES\033[0m\n"<<endl;              //recibo
         this->recibirPaquetes();
        // this->mostrarTablas();
         cout<<"\nMenu de opciones: "<<endl;
         cout<<"0: Detener simulacion."<<endl;
         cout<<"1: Continuar simulacion. "<<endl;
         cout<<"2: Crear paginas nuevas y continuar. "<<endl;
-      //  this->paquetes();
-    
         cin>>prb;
 
     }  
@@ -543,7 +488,6 @@ void Administrador::simularEscenarioPrincipal(){
 void Administrador::simularSegundoEscenario(){
     //signal(SIGINT, SIG_DFL);
     this->leerFile();
-    cout<<"---------------Simulacion numero "<<cantSimulaciones<<endl;
     int x =0;
     int prb;
     while(prb!=0){
@@ -558,26 +502,7 @@ void Administrador::simularSegundoEscenario(){
         if(x==0){
            // this->crearPagManual(2,2);
             
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
-            this->crearPaginas();
+            
             
             x =1;
         }

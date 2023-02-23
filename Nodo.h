@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 using namespace std;
-
+/*                           CLASE NODO UTILIZADA EN CLASES             */
 template <class T> class Nodo {
 private:
     T dato;

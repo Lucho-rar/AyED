@@ -10,6 +10,8 @@
 #include "Lista.h"
 
 using namespace std;
+
+/*                          Clase terminal          */
 class Router;
 class Pagina;
 class Terminal{
@@ -21,7 +23,7 @@ private:
 
 public:
     Terminal(){};
-    Terminal(int[2]);
+    Terminal(int[2]);           //constructor, getters
     int * getIP();
     void conectarseAUnRouter(Router* );
     void enviarPagina();

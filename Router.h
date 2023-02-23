@@ -26,7 +26,7 @@ class Terminal;
 class Paquete;
 class Pagina;
 class LazoDeConexion;
-class SistemaEmpaquetado;
+
 
 
 
@@ -46,24 +46,19 @@ private:
     Lista<Direccion*>* tabla = new Lista<Direccion*>();
     Lista<Paquete*> D[MAX];
     
-    //listas de destino.
+    
 public:
     Router(int direccion){
         
         this->id = direccion;
-       // empaquetador = new SistemaEmpaquetado();
+     
 
     }
    
     int getID(){return this->id;};
     Cola<Paquete*>* getcoladeenvio(){return colaDeEnvio;};
-    //int getBW(){return this->bw;};
     void recibirPag(Pagina*);
     void enviarPag(Pagina*);
-    void enviarPaquete();
-    void enlazarVecinos();
-    void agregarPagina(Pagina* p);
-    void segmentarPag();
     void agregarTerminal(Terminal*);    
     void agregarVecino(int);
     void imprimirTerminales();
@@ -75,8 +70,6 @@ public:
     Lista<LazoDeConexion*>* getIda(){return this->ida;};
     Lista<LazoDeConexion*>* getVuelta(){return this->vuelta;}
     void imprimirLazosConectados();
-    void crearTabla();
-    void cargarPaquete(int, Paquete*);
     void enviarPaquetes();
     void recibirPaquetes();
     int buscarEnTabla(int);
@@ -86,15 +79,7 @@ public:
     void setTabla(Lista<Direccion*>*);
     void imprimirTabla();
     int comprobarDestino(int);
-    void sacarPkg(Paquete *);
-    void limpiarCache();
     int buscarlazo(int);
-    void desordenarPkg();
-    int ubicarse(Paquete *);
-   // Lista<LazoDeConexion*>* getLazos(){return lazos;};
-    
-    
-
 };
 
 

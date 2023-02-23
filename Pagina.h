@@ -8,6 +8,8 @@
 #include "Paquete.h"
 
 using namespace std;
+
+/*                          CLASE PAGINA            */
 class Terminal;
 class Pagina{
 private:
@@ -17,7 +19,7 @@ private:
     int destino[2];
 public:
     Pagina(){};
-    Pagina(int identif, int tamanio, int o[] , int d[]){
+    Pagina(int identif, int tamanio, int o[] , int d[]){        //constructor
         this->identificadorDePag = identif;
         this->tamanioDePag = tamanio;
         this->origen[0] = o[0];
@@ -25,7 +27,7 @@ public:
         this->destino[0] = d[0];
         this->destino[1] = d[0];
     }
-    int getidentificadorDePag(){return identificadorDePag;};
+    int getidentificadorDePag(){return identificadorDePag;};        //getters y setters
     int getTamanioDePag(){return tamanioDePag;};
     int * getOrigen(){return origen;};
     int * getDestino(){return destino;};

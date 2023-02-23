@@ -9,6 +9,12 @@
 
 //#include "Paquete.h"
 using namespace std;
+
+/*                                   CLASE LAZO DE CONEXION                              */
+
+
+
+
 class Paquete;
 class LazoDeConexion{
 private:
@@ -19,20 +25,16 @@ private:
     Lista<Paquete*>* colaConectora = new Cola<Paquete*>();
 
 public:
-    LazoDeConexion(){};
+    LazoDeConexion(){}; //constructores
     LazoDeConexion(int p, int d, int a){
         this->terminal1=p;
         this->terminal2=d;
         this->anchoDeBanda=a;
-
-        
-        //peso = this->getPeso();
-
     }
-    int getTerminal1(){return terminal1;}; 
+    int getTerminal1(){return terminal1;};      //geterss y setters
     int getTerminal2(){return terminal2;};
     int getPeso(){return peso;};
-    void calcularPeso(){peso = this->colaConectora->size()/anchoDeBanda;};
+    void calcularPeso(){peso = this->colaConectora->size()/anchoDeBanda;};  //calculo de peso del lazo
     int getBW() { return anchoDeBanda;};
     bool vacia();
     Lista<Paquete*>* getcolaconectora(){return colaConectora;};

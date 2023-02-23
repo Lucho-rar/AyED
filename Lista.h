@@ -4,7 +4,7 @@
 #include <iostream>
 #include "Nodo.h"
 
-
+/*                           CLASE LISTA UTILIZADA EN CLASES                */
 template <class T> class Lista {
 private: Nodo<T>* czo; Nodo<T>* final; int cantidaddenodos;
      
