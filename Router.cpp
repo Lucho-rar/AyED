@@ -100,7 +100,7 @@ int Router::comprobarDestino(int dir){
 /*                          Envio de paquetes                           */
 void Router::enviarPaquetes(){
     bool bw=0;
-    bool aux;
+    bool aux=1;
     bool entro =false;
     int x ;
     int flag;
@@ -111,14 +111,15 @@ void Router::enviarPaquetes(){
             }
 
            x =comprobarDestino(paquetes->buscarPorIndice(0)->getDestino()[0]);  //buscar el lazo de ida si es que existe
-
-
+           
+          
 
           if (x!=9999){         //es directo
                 
-
+                
                 flag = i;
                 i=0;
+                
                 int l = paquetes->buscarPorIndice(i)->getNumeroDePaquete(); 
                 int indice = buscarlazo(l);
                 cout<<"[R"<<this->id<<"] Envio directo a R"<<paquetes->buscarPorIndice(i)->getDestino()[0]<<" porque es vecino. "<< /* paquetes->buscarPorIndice(i)->getDestino()[0]<<x<*/endl;
@@ -176,6 +177,8 @@ void Router::enviarPaquetes(){
 
 
 
+
+
 /*                               Recibo de paquetes                     */
 void Router::recibirPaquetes(){
     if (!vuelta->esvacia()){
@@ -184,14 +187,15 @@ void Router::recibirPaquetes(){
             if(vuelta->buscarPorIndice(i)->vacia()==true){
               //  cout<<"Vacia"<< this->id<<endl;
             }else{
+                
                 int cont =vuelta->buscarPorIndice(i)->getBW();      //flag de BW
-            
-                while(cont>=0/*vuelta->buscarPorIndice(i)->vacia()!=true*/){
+                //cout<<"cont"<<cont<<endl;
+                while(cont>0/*vuelta->buscarPorIndice(i)->vacia()!=true*/){
                     Paquete* pkg0 = vuelta->buscarPorIndice(i)->leerPkg();
                     
                     if (pkg0!=NULL){
                         this->vincularConKey(pkg0);     //decision de que hacer con el paquete
-                        cont--;
+                        //cont--;
                     }         
                     cont --;
                 }

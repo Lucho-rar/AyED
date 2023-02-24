@@ -198,7 +198,7 @@ void Administrador::crearPagManual(int a, int b){
     int ipDestino[2]={NumeroRandomDR,NumeroRandomDT};
     int randomPag;
     randomPag = rand() % TAMPAG;
-    Pagina* p = new Pagina(simPag,randomPag, ipOrigen, ipDestino);
+    Pagina* p = new Pagina(simPag,5, ipOrigen, ipDestino);
     simPag++;
     cout << "\033[1;31mCREE LA PAGINA "<<p->getidentificadorDePag()<<"\033[0m\n";
     routersDisponibles->buscarPorIndice(NumeroRandomOR)->recibirPag(p);
@@ -427,6 +427,7 @@ void Administrador::mostrarTablas(){
 /*                                      Simuladores             */
 void Administrador::simularEscenarioPrincipal(){
     //signal(SIGINT, SIG_DFL);
+
     this->leerFile();                   //lectura de parametrizacion
     
     int x =0;
@@ -461,6 +462,7 @@ void Administrador::simularEscenarioPrincipal(){
             this->crearPaginas();
             this->crearPaginas();
             this->crearPaginas();
+            
             
             x =1;
         }
@@ -501,6 +503,9 @@ void Administrador::simularSegundoEscenario(){
         cout << "\033[1;31mCREACION DE PAGINAS\033[0m\n"<<endl;
         if(x==0){
            // this->crearPagManual(2,2);
+           this->crearPagManual(0,7);
+           this->crearPagManual(1,7);
+           this->crearPagManual(1,7);
             
             
             

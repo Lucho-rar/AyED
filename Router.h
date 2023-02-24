@@ -45,6 +45,7 @@ private:
     Lista<Paquete*>* paquetes = new Lista<Paquete*>();
     Lista<Direccion*>* tabla = new Lista<Direccion*>();
     Lista<Paquete*> D[MAX];
+
     
     
 public:
@@ -80,6 +81,7 @@ public:
     void imprimirTabla();
     int comprobarDestino(int);
     int buscarlazo(int);
+    void enviarPaquetes1();
 };
 
 
